@@ -155,6 +155,21 @@ public class CogEntity extends AbstractCannonShip{
     public ActionResultType interact(PlayerEntity player, Hand hand) {
         ItemStack itemInHand = player.getItemInHand(hand);
         if (player.isSecondaryUseActive()) {
+            if (this.getSunken()) {
+                if (!this.level.isClientSide) {
+                    ItemStack brokenHull = this.createShipItemStack(true);
+                    if (!brokenHull.isEmpty()) {
+                        ItemStack toGive = brokenHull.copy();
+                        if (!player.addItem(toGive)) {
+                            this.spawnAtLocation(brokenHull);
+                        }
+                    }
+                    setDropBrokenItemOnDestroy(false);
+                    this.destroyShip(DamageSource.GENERIC);
+                }
+                return ActionResultType.sidedSuccess(this.level.isClientSide);
+            }
+
             if (this.getPassengers().isEmpty()) {
                 if (!this.level.isClientSide) {
                     setDropBrokenItemOnDestroy(false);
