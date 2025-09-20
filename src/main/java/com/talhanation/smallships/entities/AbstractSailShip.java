@@ -61,6 +61,8 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
     private static final DataParameter<Boolean> LEFT_PADDLE = EntityDataManager.defineId(AbstractSailShip.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> RIGHT_PADDLE = EntityDataManager.defineId(AbstractSailShip.class, DataSerializers.BOOLEAN);
 
+    public static final String BROKEN_TAG = "SmallShipsBroken";
+
     public AbstractSailShip(EntityType<? extends AbstractWaterVehicle> type, World world) {
         super(type, world);
         this.maxUpStep = 0.2F;
@@ -685,6 +687,14 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
             case DARK_OAK:
                 return Items.DARK_OAK_BOAT;
         }
+    }
+
+    protected ItemStack createShipItemStack(boolean broken) {
+        ItemStack stack = new ItemStack(this.getItemBoat());
+        if (broken) {
+            stack.getOrCreateTag().putBoolean(BROKEN_TAG, true);
+        }
+        return stack;
     }
 
     public enum Type {

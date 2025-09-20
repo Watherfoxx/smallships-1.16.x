@@ -7,6 +7,8 @@
   "item.smallships.oak_cog": "Meşe Yelkenli Tekne",
   "item.smallships.dark_oak_cog": "Koyu Meşe Yelkenli Tekne",
   "item.smallships.sail_item": "Yelken",
+  "item.smallships.broken_cog_hull": "Kırık yelkenli gövdesi",
+  "item.smallships.broken_brigg_hull": "Kırık brigg gövdesi",
 
   "entity.smallships.galley": "Kadırga",
   "item.smallships.acacia_galley": "Akasya Kadırga",

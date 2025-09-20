@@ -21,6 +21,8 @@
   "item.smallships.sail_item": "Sail",
   "item.smallships.cannon_item": "Ship Cannon",
   "item.smallships.cannonball_item": "Round Shot",
+  "item.smallships.broken_cog_hull": "Broken Cog Hull",
+  "item.smallships.broken_brigg_hull": "Broken Brigg Hull",
 
   "entity.smallships.galley": "Galley",
   "item.smallships.acacia_galley": "Acacia Galley",

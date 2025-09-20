@@ -7,6 +7,8 @@
   "item.smallships.oak_cog": "Eichenholzkogge",
   "item.smallships.dark_oak_cog": "Schwarzeichenholzkogge",
   "item.smallships.sail_item": "Segel",
+  "item.smallships.broken_cog_hull": "Zerbrochener Koggenrumpf",
+  "item.smallships.broken_brigg_hull": "Zerbrochener Brigg-Rumpf",
 
   "entity.smallships.galley": "Galeere",
   "item.smallships.acacia_galley": "Akazienholzgaleere",
