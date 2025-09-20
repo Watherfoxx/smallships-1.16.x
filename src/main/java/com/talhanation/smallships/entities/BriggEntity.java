@@ -176,6 +176,7 @@ public class BriggEntity extends AbstractCannonShip{
                 return ActionResultType.sidedSuccess(this.level.isClientSide);
             }
 
+
             if (this.getPassengers().isEmpty()) {
                 if (!this.level.isClientSide) {
                     setDropBrokenItemOnDestroy(false);
