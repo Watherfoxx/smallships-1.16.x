@@ -2,6 +2,7 @@ package com.talhanation.smallships.items;
 
 import com.talhanation.smallships.client.render.RenderItemCog;
 import com.talhanation.smallships.entities.CogEntity;
+import com.talhanation.smallships.entities.AbstractSailShip;
 import com.talhanation.smallships.entities.AbstractWaterVehicle;
 import com.talhanation.smallships.init.ModEntityTypes;
 import net.minecraft.entity.Entity;
@@ -44,6 +45,9 @@ public class CogItem extends Item {
     @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
+        if (itemstack.hasTag() && itemstack.getTag().getBoolean(AbstractSailShip.BROKEN_TAG)) {
+            return ActionResult.fail(itemstack);
+        }
         RayTraceResult raytraceresult = getPlayerPOVHitResult(worldIn, playerIn, RayTraceContext.FluidMode.ANY);
         if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
             return ActionResult.pass(itemstack);

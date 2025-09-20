@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -120,6 +121,25 @@ public class CogEntity extends AbstractCannonShip{
         }
     }
 
+    @Override
+    public Item getItemBoat() {
+        switch (this.getWoodType()) {
+            case SPRUCE:
+                return ModItems.SPRUCE_COG_ITEM.get();
+            case BIRCH:
+                return ModItems.BIRCH_COG_ITEM.get();
+            case JUNGLE:
+                return ModItems.JUNGLE_COG_ITEM.get();
+            case ACACIA:
+                return ModItems.ACACIA_COG_ITEM.get();
+            case DARK_OAK:
+                return ModItems.DARK_OAK_COG_ITEM.get();
+            case OAK:
+            default:
+                return ModItems.OAK_COG_ITEM.get();
+        }
+    }
+
     public int getMaxCannons(){//max cannons
         return 4;
     }
@@ -130,6 +150,14 @@ public class CogEntity extends AbstractCannonShip{
     public ActionResultType interact(PlayerEntity player, Hand hand) {
         ItemStack itemInHand = player.getItemInHand(hand);
         if (player.isSecondaryUseActive()) {
+            if (this.getPassengers().isEmpty()) {
+                if (!this.level.isClientSide) {
+                    setDropBrokenItemOnDestroy(false);
+                    this.spawnAtLocation(this.createShipItemStack(false));
+                    this.destroyShip(DamageSource.GENERIC);
+                }
+                return ActionResultType.sidedSuccess(this.level.isClientSide);
+            }
 
             if (this.isVehicle() && !(getControllingPassenger() instanceof PlayerEntity)) {
                 this.ejectPassengers();
