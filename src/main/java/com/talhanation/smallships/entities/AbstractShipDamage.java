@@ -196,6 +196,7 @@ public abstract class AbstractShipDamage extends AbstractBannerUser {
         return this.dropBrokenItemOnDestroy;
     }
 
+
     @Override
     protected ItemStack createShipItemStack(boolean broken) {
         if (broken) {
