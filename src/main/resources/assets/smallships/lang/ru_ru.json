@@ -7,6 +7,8 @@
   "item.smallships.oak_cog": "Когг из дуба",
   "item.smallships.dark_oak_cog": "Когг из тёмного дуба",
   "item.smallships.sail_item": "Парус",
+  "item.smallships.broken_cog_hull": "Сломанный корпус когга",
+  "item.smallships.broken_brigg_hull": "Сломанный корпус брига",
 
   "entity.smallships.galley": "Галера",
   "item.smallships.acacia_galley": "Галера из акации",

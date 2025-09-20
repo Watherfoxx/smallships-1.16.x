@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.TridentEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -194,6 +195,18 @@ public abstract class AbstractShipDamage extends AbstractBannerUser {
     protected boolean shouldDropBrokenItemOnDestroy() {
         return this.dropBrokenItemOnDestroy;
     }
+
+
+    @Override
+    protected ItemStack createShipItemStack(boolean broken) {
+        if (broken) {
+            Item brokenHullItem = this.getBrokenHullItem();
+            return brokenHullItem == null ? ItemStack.EMPTY : new ItemStack(brokenHullItem);
+        }
+        return super.createShipItemStack(false);
+    }
+
+    protected abstract Item getBrokenHullItem();
 
     public void destroyShip(DamageSource source) {
         if (!this.level.isClientSide && shouldDropBrokenItemOnDestroy()) {

@@ -17,6 +17,8 @@ public class ModItems {
     public static final RegistryObject<Item> SAIL_ITEM = ITEMS.register("sail_item", () -> new Item((new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION))));
     public static final RegistryObject<Item> CANNON_ITEM = ITEMS.register("cannon_item", () -> new Item((new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION))));
     public static final RegistryObject<Item> CANNONBALL = ITEMS.register("cannonball_item", () -> new Item((new Item.Properties().stacksTo(16).tab(ItemGroup.TAB_TRANSPORTATION))));
+    public static final RegistryObject<Item> BROKEN_COG_HULL = ITEMS.register("broken_cog_hull", () -> new Item((new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> BROKEN_BRIGG_HULL = ITEMS.register("broken_brigg_hull", () -> new Item((new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
 
     public static final RegistryObject<Item> OAK_COG_ITEM = ITEMS.register("oak_cog", () -> new CogItem(CogEntity.Type.OAK, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
     public static final RegistryObject<Item> SPRUCE_COG_ITEM = ITEMS.register("spruce_cog", () -> new CogItem(CogEntity.Type.SPRUCE, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));

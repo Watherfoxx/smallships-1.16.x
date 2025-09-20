@@ -140,6 +140,11 @@ public class CogEntity extends AbstractCannonShip{
         }
     }
 
+    @Override
+    protected Item getBrokenHullItem() {
+        return ModItems.BROKEN_COG_HULL.get();
+    }
+
     public int getMaxCannons(){//max cannons
         return 4;
     }

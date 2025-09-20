@@ -7,6 +7,8 @@
   "item.smallships.oak_cog": "Coca de Carvalho",
   "item.smallships.dark_oak_cog": "Coca de Carvalho Escuro",
   "item.smallships.sail_item": "Vela",
+  "item.smallships.broken_cog_hull": "Casco de coca quebrado",
+  "item.smallships.broken_brigg_hull": "Casco de brigue quebrado",
 
   "entity.smallships.galley": "Galé",
   "item.smallships.acacia_galley": "Galé de Acácia",

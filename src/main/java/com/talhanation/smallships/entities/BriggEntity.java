@@ -150,6 +150,11 @@ public class BriggEntity extends AbstractCannonShip{
         }
     }
 
+    @Override
+    protected Item getBrokenHullItem() {
+        return ModItems.BROKEN_BRIGG_HULL.get();
+    }
+
     ////////////////////////////////////INTERACTIONS///////////////////////////////
 
     @Override
