@@ -1,5 +1,6 @@
 package com.talhanation.smallships.entities;
 
+import com.talhanation.smallships.DamageSourceCannonball;
 import com.talhanation.smallships.DamageSourceShip;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -9,6 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.TridentEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -27,6 +29,7 @@ public abstract class AbstractShipDamage extends AbstractBannerUser {
     private static final DataParameter<Float> DAMAGE = EntityDataManager.defineId(AbstractShipDamage.class, DataSerializers.FLOAT);
     private static final DataParameter<Boolean> SUNKEN = EntityDataManager.defineId(AbstractShipDamage.class, DataSerializers.BOOLEAN);
     private int sunkenTimer = 0;
+    private boolean dropBrokenItemOnDestroy;
 
     public AbstractShipDamage(EntityType<? extends AbstractShipDamage> type, World world) {
         super(type, world);
@@ -80,6 +83,7 @@ public abstract class AbstractShipDamage extends AbstractBannerUser {
         super.addAdditionalSaveData(nbt);
         nbt.putFloat("Damage", getShipDamage());
         nbt.putBoolean("Sunken", getSunken());
+        nbt.putBoolean("DropBrokenItem", dropBrokenItemOnDestroy);
     }
 
     @Override
@@ -87,6 +91,7 @@ public abstract class AbstractShipDamage extends AbstractBannerUser {
         super.readAdditionalSaveData(nbt);
         setShipDamage(nbt.getFloat("Damage"));
         setSunken(nbt.getBoolean("Sunken"));
+        dropBrokenItemOnDestroy = nbt.getBoolean("DropBrokenItem");
     }
 
     ////////////////////////////////////GET////////////////////////////////////
@@ -124,8 +129,12 @@ public abstract class AbstractShipDamage extends AbstractBannerUser {
     }
 
     public void setShipDamage(float damage) {
-        if(getShipDamage() <= 100)
-        entityData.set(DAMAGE, damage);
+        if (getShipDamage() <= 100) {
+            entityData.set(DAMAGE, damage);
+        }
+        if (damage < 100F) {
+            setDropBrokenItemOnDestroy(false);
+        }
     }
 
     ////////////////////////////////////ON FUNCTIONS////////////////////////////////////
@@ -135,6 +144,8 @@ public abstract class AbstractShipDamage extends AbstractBannerUser {
         if (isInvulnerable() || level.isClientSide || !isAlive()) {
             return false;
         }
+
+        float previousDamage = this.getShipDamage();
 
         if (source.getDirectEntity() instanceof PlayerEntity){
             PlayerEntity player = (PlayerEntity) source.getDirectEntity();
@@ -168,12 +179,39 @@ public abstract class AbstractShipDamage extends AbstractBannerUser {
             this.setSunken(true);
         if (amount >= 2)
             damageShip(amount);
+        float newDamage = this.getShipDamage();
+        if (previousDamage < 100F && newDamage >= 100F) {
+            setDropBrokenItemOnDestroy(source == DamageSourceCannonball.DAMAGE_CANNONBALL);
+        }
         return false;
     }
 
     public abstract ResourceLocation getLootTable();
 
+    protected void setDropBrokenItemOnDestroy(boolean drop) {
+        this.dropBrokenItemOnDestroy = drop;
+    }
+
+    protected boolean shouldDropBrokenItemOnDestroy() {
+        return this.dropBrokenItemOnDestroy;
+    }
+
+    @Override
+    protected ItemStack createShipItemStack(boolean broken) {
+        if (broken) {
+            Item brokenHullItem = this.getBrokenHullItem();
+            return brokenHullItem == null ? ItemStack.EMPTY : new ItemStack(brokenHullItem);
+        }
+        return super.createShipItemStack(false);
+    }
+
+    protected abstract Item getBrokenHullItem();
+
     public void destroyShip(DamageSource source) {
+        if (!this.level.isClientSide && shouldDropBrokenItemOnDestroy()) {
+            this.spawnAtLocation(this.createShipItemStack(true));
+            setDropBrokenItemOnDestroy(false);
+        }
         super.destroyShip(source);
         kill();
     }

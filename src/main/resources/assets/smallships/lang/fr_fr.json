@@ -7,6 +7,8 @@
   "item.smallships.oak_cog": "Voilier en chêne",
   "item.smallships.dark_oak_cog": "Voilier en chêne noir",
   "item.smallships.sail_item": "Voile",
+  "item.smallships.broken_cog_hull": "Coque de voilier cassée",
+  "item.smallships.broken_brigg_hull": "Coque de brigg cassée",
 
   "entity.smallships.galley": "Galère",
   "item.smallships.acacia_galley": "Galère en acacia",

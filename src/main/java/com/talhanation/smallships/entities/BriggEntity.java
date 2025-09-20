@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -130,12 +131,59 @@ public class BriggEntity extends AbstractCannonShip{
         return 6;
     }
 
+    @Override
+    public Item getItemBoat() {
+        switch (this.getWoodType()) {
+            case SPRUCE:
+                return ModItems.SPRUCE_BRIGG_ITEM.get();
+            case BIRCH:
+                return ModItems.BIRCH_BRIGG_ITEM.get();
+            case JUNGLE:
+                return ModItems.JUNGLE_BRIGG_ITEM.get();
+            case ACACIA:
+                return ModItems.ACACIA_BRIGG_ITEM.get();
+            case DARK_OAK:
+                return ModItems.DARK_OAK_BRIGG_ITEM.get();
+            case OAK:
+            default:
+                return ModItems.OAK_BRIGG_ITEM.get();
+        }
+    }
+
+    @Override
+    protected Item getBrokenHullItem() {
+        return ModItems.BROKEN_BRIGG_HULL.get();
+    }
+
     ////////////////////////////////////INTERACTIONS///////////////////////////////
 
     @Override
     public ActionResultType interact(PlayerEntity player, Hand hand) {
         ItemStack itemInHand = player.getItemInHand(hand);
         if (player.isSecondaryUseActive()) {
+            if (this.getSunken()) {
+                if (!this.level.isClientSide) {
+                    ItemStack brokenHull = this.createShipItemStack(true);
+                    if (!brokenHull.isEmpty()) {
+                        ItemStack toGive = brokenHull.copy();
+                        if (!player.addItem(toGive)) {
+                            this.spawnAtLocation(brokenHull);
+                        }
+                    }
+                    setDropBrokenItemOnDestroy(false);
+                    this.destroyShip(DamageSource.GENERIC);
+                }
+                return ActionResultType.sidedSuccess(this.level.isClientSide);
+            }
+
+            if (this.getPassengers().isEmpty()) {
+                if (!this.level.isClientSide) {
+                    setDropBrokenItemOnDestroy(false);
+                    this.spawnAtLocation(this.createShipItemStack(false));
+                    this.destroyShip(DamageSource.GENERIC);
+                }
+                return ActionResultType.sidedSuccess(this.level.isClientSide);
+            }
 
             if (this.isVehicle() && !(getControllingPassenger() instanceof PlayerEntity)) {
                 this.ejectPassengers();

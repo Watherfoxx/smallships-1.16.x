@@ -125,7 +125,7 @@ public abstract class AbstractCannonShip extends AbstractShipDamage{
     }
 
     public boolean canShoot(){
-        return hasGunPowder() && hasCannonBall();
+        return hasCannonBall();
     }
 
     public boolean hasGunPowder(){
@@ -277,13 +277,8 @@ public abstract class AbstractCannonShip extends AbstractShipDamage{
     public void handleItemsOnShoot() {
         Inventory inventory = this.getInventory();
 
-        int cannonball = 0;
-        int gunpowder = 0;
-
-        Item gunpowderItem = Items.GUNPOWDER;
         Item cannonballItem = ModItems.CANNONBALL.get();
 
-        this.shrinkItemInInv(inventory, gunpowderItem, 1);
         this.shrinkItemInInv(inventory, cannonballItem, 1);
     }
 
