@@ -1,33 +1,32 @@
 package com.talhanation.smallships.entities;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.talhanation.smallships.client.render.RenderBanner;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BannerRenderer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BannerItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkHooks;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.tileentity.BannerTileEntityRenderer;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.network.IPacket;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public abstract class AbstractBannerUser extends AbstractInventoryEntity {
-    private static final EntityDataAccessor<Boolean> HAS_BANNER = SynchedEntityData.defineId(AbstractBannerUser.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<ItemStack> BANNER = SynchedEntityData.defineId(AbstractBannerUser.class, EntityDataSerializers.ITEM_STACK);
+    private static final DataParameter<Boolean> HAS_BANNER = EntityDataManager.defineId(AbstractBannerUser.class, DataSerializers.BOOLEAN);
+    public static final DataParameter<ItemStack> BANNER = EntityDataManager.defineId(AbstractBannerUser.class, DataSerializers.ITEM_STACK);
 
     private float bannerWaveAngle;
     private float prevBannerWaveAngle;
 
-    public AbstractBannerUser(EntityType<? extends AbstractBannerUser> type, Level world) {
+    public AbstractBannerUser(EntityType<? extends AbstractBannerUser> type, World world) {
         super(type, world);
     }
 
@@ -45,47 +44,27 @@ public abstract class AbstractBannerUser extends AbstractInventoryEntity {
     public void tick() {
         super.tick();
         //for banner wave
-        if(getHasBanner()) {
-            this.prevBannerWaveAngle = this.bannerWaveAngle;
-            this.bannerWaveAngle = (float) Math.sin(getBannerWaveSpeed() * (float) tickCount) * getBannerWaveFactor();
-        }
-    }
+        this.prevBannerWaveAngle = this.bannerWaveAngle;
+        this.bannerWaveAngle = (float) Math.sin(getBannerWaveSpeed() * (float) tickCount) * getBannerWaveFactor();
 
-    @Override
-    public void updateInventory() {
-        ItemStack bannerInSlot = null;
-
-        for(int i = 0; i< this.getInventory().getContainerSize(); i++){
-            ItemStack stackInSlot = getInventory().getItem(i);
-            if(stackInSlot.getItem() instanceof BannerItem){
-                bannerInSlot = stackInSlot;
-            }
-        }
-
-        if (bannerInSlot != null){
-            setHasBanner(true);
-            if (!getBanner().serializeNBT().equals(bannerInSlot.serializeNBT())) playBannerSound();
-            entityData.set(BANNER, bannerInSlot.copy());
-        } else
-            setHasBanner(false);
     }
 
     ////////////////////////////////////REGISTER////////////////////////////////////
 
     @Override
-    public void addAdditionalSaveData(CompoundTag nbt) {
+    public void addAdditionalSaveData(CompoundNBT nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.put("banner", getBanner().serializeNBT());
         nbt.putBoolean("hasbanner", getHasBanner());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag nbt) {
+    public void readAdditionalSaveData(CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
         if (nbt.contains("hasbanner")) this.setHasBanner(nbt.getBoolean("hasbanner"));
-        final Tag banner = nbt.get("banner");
-        if (banner instanceof CompoundTag) {
-            entityData.set(BANNER, ItemStack.of((CompoundTag) banner));
+        final INBT banner = nbt.get("banner");
+        if (banner instanceof CompoundNBT) {
+            entityData.set(BANNER, ItemStack.of((CompoundNBT) banner));
         }
 
     }
@@ -109,20 +88,21 @@ public abstract class AbstractBannerUser extends AbstractInventoryEntity {
     }
 
     public float getBannerWaveAngle(float partialTicks) {
-        return Mth.lerp(partialTicks, this.prevBannerWaveAngle, this.bannerWaveAngle);
+        return MathHelper.lerp(partialTicks, this.prevBannerWaveAngle, this.bannerWaveAngle);
     }
 
     ////////////////////////////////////SET////////////////////////////////////
 
-    public void setBanner(Player player, ItemStack banner) {
-        this.getInventory().addItem(banner);
+    public void setBanner(PlayerEntity player, ItemStack banner) {
+        playBannerSound();
+        setHasBanner(true);
+        entityData.set(BANNER, banner.copy());
         if (!player.isCreative()) {
             banner.shrink(1);
         }
     }
 
     public void setHasBanner(boolean bool){
-        if (getHasBanner() != bool && bool) playBannerSound();
         entityData.set(HAS_BANNER, bool);
     }
 
@@ -135,35 +115,38 @@ public abstract class AbstractBannerUser extends AbstractInventoryEntity {
 
     ////////////////////////////////////ON FUNCTIONS////////////////////////////////////
 
-    public boolean onInteractionWithBanner(ItemStack banner, Player player) {
+    public boolean onInteractionWithBanner(ItemStack banner, PlayerEntity player) {
+            if (getHasBanner())
+                dropBanner();
+
         setBanner(player,banner);
         return true;
     }
 
-    public void onInteractionWithShears(Player playerEntity) {
-        if (getHasBanner()) {
-            dropBanner();
-            setHasBanner(false);
-        }
+    public void onInteractionWithShears(PlayerEntity playerEntity) {
+            if (getHasBanner()) {
+                dropBanner();
+                setHasBanner(false);
+            }
     }
 
     ////////////////////////////////////OTHER FUNCTIONS////////////////////////////////////
 
-    public void renderBanner(PoseStack matrixStack, MultiBufferSource buffer ,int packedLight, float partialTicks) {
+    public void renderBanner(MatrixStack matrixStack, IRenderTypeBuffer buffer ,int packedLight, float partialTicks) {
         if (getHasBanner()) {
-            RenderBanner.renderBanner(this, partialTicks, matrixStack, buffer, getBanner(), packedLight, BannerRenderer.createBodyLayer().bakeRoot());
+            RenderBanner.renderBanner(this, partialTicks, matrixStack, buffer, getBanner(), packedLight, BannerTileEntityRenderer.makeFlag());
         }
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     public void dropBanner() {
         if (getHasBanner()) {
             getBanner().setCount(1);
-            this.spawnAtLocation(getBanner(),  3F);
+            this.spawnAtLocation(getBanner(),  3F );
         }
     }
 }

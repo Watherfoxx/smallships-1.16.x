@@ -3,20 +3,20 @@ package com.talhanation.smallships.inventory;
 import com.talhanation.smallships.Main;
 import com.talhanation.smallships.entities.AbstractInventoryEntity;
 import de.maxhenkel.corelib.inventory.ContainerBase;
-import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.ItemStack;
 
 public class BasicShipContainer extends ContainerBase {
 
-    private final Container shipInventory;
+    private final IInventory shipInventory;
     private final AbstractInventoryEntity ship;
     private final int startSlot;
 
-    public BasicShipContainer(int id, AbstractInventoryEntity ship, Inventory playerInventory, int startSlot) {
-        super(Main.BASIC_SHIP_CONTAINER_TYPE.get(), id, playerInventory, ship.getInventory());
+    public BasicShipContainer(int id, AbstractInventoryEntity ship, PlayerInventory playerInventory, int startSlot) {
+        super(Main.BASIC_SHIP_CONTAINER_TYPE, id, playerInventory, ship.getInventory());
         this.ship = ship;
         this.shipInventory = ship.getInventory();
         this.startSlot = startSlot;
@@ -43,17 +43,17 @@ public class BasicShipContainer extends ContainerBase {
     }
 
     @Override
-    public boolean stillValid(Player playerIn) {
+    public boolean stillValid(PlayerEntity playerIn) {
         return this.shipInventory.stillValid(playerIn) && this.ship.distanceTo(playerIn) < 8.0F;
     }
 
     @Override
-    public void removed(Player playerIn) {
+    public void removed(PlayerEntity playerIn) {
         super.removed(playerIn);
     }
 
     @Override
-    public ItemStack quickMoveStack(Player playerIn, int index) {
+    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasItem()) {
@@ -86,6 +86,5 @@ public class BasicShipContainer extends ContainerBase {
     public void broadcastChanges() {
         super.broadcastChanges();
         ship.updateCargo();
-        ship.updateInventory();
     }
 }
