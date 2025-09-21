@@ -9,6 +9,7 @@ import com.talhanation.smallships.entities.AbstractBannerUser;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
+
 public class ModelBrigg extends EntityModel<AbstractBannerUser> {
 	private final ModelRenderer ModelBrigg;
 	private final ModelRenderer bottom_brigg;
