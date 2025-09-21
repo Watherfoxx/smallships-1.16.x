@@ -20,19 +20,19 @@ public class ModItems {
     public static final RegistryObject<Item> BROKEN_COG_HULL = ITEMS.register("broken_cog_hull", () -> new Item((new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
     public static final RegistryObject<Item> BROKEN_BRIGG_HULL = ITEMS.register("broken_brigg_hull", () -> new Item((new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
 
-    public static final RegistryObject<Item> OAK_COG_ITEM = ITEMS.register("oak_cog", () -> new CogItem(CogEntity.Type.OAK, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> SPRUCE_COG_ITEM = ITEMS.register("spruce_cog", () -> new CogItem(CogEntity.Type.SPRUCE, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> BIRCH_COG_ITEM = ITEMS.register("birch_cog", () -> new CogItem(CogEntity.Type.BIRCH, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> JUNGLE_COG_ITEM = ITEMS.register("jungle_cog", () -> new CogItem(CogEntity.Type.JUNGLE, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> ACACIA_COG_ITEM = ITEMS.register("acacia_cog", () -> new CogItem(CogEntity.Type.ACACIA, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> DARK_OAK_COG_ITEM = ITEMS.register("dark_oak_cog", () -> new CogItem(CogEntity.Type.DARK_OAK, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> OAK_COG_ITEM = ITEMS.register("oak_cog", () -> new CogItem(CogEntity.Type.OAK, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> SPRUCE_COG_ITEM = ITEMS.register("spruce_cog", () -> new CogItem(CogEntity.Type.SPRUCE, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> BIRCH_COG_ITEM = ITEMS.register("birch_cog", () -> new CogItem(CogEntity.Type.BIRCH, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> JUNGLE_COG_ITEM = ITEMS.register("jungle_cog", () -> new CogItem(CogEntity.Type.JUNGLE, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> ACACIA_COG_ITEM = ITEMS.register("acacia_cog", () -> new CogItem(CogEntity.Type.ACACIA, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> DARK_OAK_COG_ITEM = ITEMS.register("dark_oak_cog", () -> new CogItem(CogEntity.Type.DARK_OAK, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
 
-    public static final RegistryObject<Item> OAK_BRIGG_ITEM = ITEMS.register("oak_brigg", () -> new BriggItem(BriggEntity.Type.OAK, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> SPRUCE_BRIGG_ITEM = ITEMS.register("spruce_brigg", () -> new BriggItem(BriggEntity.Type.SPRUCE, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> BIRCH_BRIGG_ITEM = ITEMS.register("birch_brigg", () -> new BriggItem(BriggEntity.Type.BIRCH, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> JUNGLE_BRIGG_ITEM = ITEMS.register("jungle_brigg", () -> new BriggItem(BriggEntity.Type.JUNGLE, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> ACACIA_BRIGG_ITEM = ITEMS.register("acacia_brigg", () -> new BriggItem(BriggEntity.Type.ACACIA, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> DARK_OAK_BRIGG_ITEM = ITEMS.register("dark_oak_brigg", () -> new BriggItem(BriggEntity.Type.DARK_OAK, (new Item.Properties()).stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> OAK_BRIGG_ITEM = ITEMS.register("oak_brigg", () -> new BriggItem(BriggEntity.Type.OAK, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> SPRUCE_BRIGG_ITEM = ITEMS.register("spruce_brigg", () -> new BriggItem(BriggEntity.Type.SPRUCE, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> BIRCH_BRIGG_ITEM = ITEMS.register("birch_brigg", () -> new BriggItem(BriggEntity.Type.BIRCH, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> JUNGLE_BRIGG_ITEM = ITEMS.register("jungle_brigg", () -> new BriggItem(BriggEntity.Type.JUNGLE, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> ACACIA_BRIGG_ITEM = ITEMS.register("acacia_brigg", () -> new BriggItem(BriggEntity.Type.ACACIA, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> DARK_OAK_BRIGG_ITEM = ITEMS.register("dark_oak_brigg", () -> new BriggItem(BriggEntity.Type.DARK_OAK, new Item.Properties().stacksTo(1).durability(100).tab(ItemGroup.TAB_TRANSPORTATION)));
 
     /*
     public static final RegistryObject<Item> OAK_ROWBOAT_ITEM =         createRowBoat("oak", AbstractRowBoatEntity.Type.OAK, true);

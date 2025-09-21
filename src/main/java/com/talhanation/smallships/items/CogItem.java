@@ -74,6 +74,7 @@ public class CogItem extends Item {
                     return ActionResult.fail(itemstack);
                 } else {
                     if (!worldIn.isClientSide) {
+                        boatentity.applyItemData(itemstack);
                         worldIn.addFreshEntity(boatentity);
                         if (boatentity.getStatus().equals(AbstractWaterVehicle.Status.IN_WATER)) {
                             worldIn.playSound(null, boatentity.getX(), boatentity.getY(), boatentity.getZ(), SoundEvents.PLAYER_SPLASH, SoundCategory.BLOCKS, 0.75F, 0.8F);
