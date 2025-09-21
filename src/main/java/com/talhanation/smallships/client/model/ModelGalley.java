@@ -1115,9 +1115,27 @@ public class ModelGalley extends EntityModel<AbstractBannerUser> {
 
    @Override
    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+      boolean segel0 = this.Segel_z0.visible;
+      boolean segel1 = this.Segel_z1.visible;
+      boolean segel2 = this.Segel_z2.visible;
+      boolean segel3 = this.Segel_z3.visible;
+      boolean segel4 = this.Segel_z4.visible;
+
+      this.Segel_z0.visible = false;
+      this.Segel_z1.visible = false;
+      this.Segel_z2.visible = false;
+      this.Segel_z3.visible = false;
+      this.Segel_z4.visible = false;
+
       ImmutableList.of(this.botom_1).forEach((modelRenderer) -> {
          modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       });
+
+      this.Segel_z0.visible = segel0;
+      this.Segel_z1.visible = segel1;
+      this.Segel_z2.visible = segel2;
+      this.Segel_z3.visible = segel3;
+      this.Segel_z4.visible = segel4;
    }
 
    @Override

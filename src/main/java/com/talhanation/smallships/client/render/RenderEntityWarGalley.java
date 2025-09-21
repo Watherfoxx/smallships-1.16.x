@@ -2,6 +2,7 @@ package com.talhanation.smallships.client.render;
 
 import com.talhanation.smallships.Main;
 import com.talhanation.smallships.client.model.ModelWarGalley;
+import com.talhanation.smallships.client.model.ModelWarGalleySail;
 import com.talhanation.smallships.entities.WarGalleyEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -21,7 +22,7 @@ public class RenderEntityWarGalley extends AbstractShipRenderer<WarGalleyEntity>
     };
 
     public RenderEntityWarGalley(EntityRendererManager manager) {
-        super(manager, new ModelWarGalley(), null);
+        super(manager, new ModelWarGalley(), ModelWarGalleySail::new);
         this.shadowRadius = 1.5F;
     }
 
@@ -38,6 +39,11 @@ public class RenderEntityWarGalley extends AbstractShipRenderer<WarGalleyEntity>
     @Override
     protected Vector3d getModelTranslation(WarGalleyEntity entity) {
         return new Vector3d(0.0D, -1.8D, -1.0D);
+    }
+
+    @Override
+    protected float getModelYawOffset(WarGalleyEntity entity) {
+        return -90F;
     }
 
     @Override

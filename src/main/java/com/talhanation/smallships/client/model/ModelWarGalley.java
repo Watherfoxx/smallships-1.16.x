@@ -1928,9 +1928,42 @@ public class ModelWarGalley extends EntityModel<AbstractBannerUser> {
 
    @Override
    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+      boolean segel1_0 = this.Segel_1_z0.visible;
+      boolean segel1_1 = this.Segel_1_z1.visible;
+      boolean segel1_2 = this.Segel_1_z2.visible;
+      boolean segel1_3 = this.Segel_1_z3.visible;
+      boolean segel1_4 = this.Segel_1_z4.visible;
+      boolean segel2_0 = this.Segel_2_z0.visible;
+      boolean segel2_1 = this.Segel_2_z1.visible;
+      boolean segel2_2 = this.Segel_2_z2.visible;
+      boolean segel2_3 = this.Segel_2_z3.visible;
+      boolean segel2_4 = this.Segel_2_z4.visible;
+
+      this.Segel_1_z0.visible = false;
+      this.Segel_1_z1.visible = false;
+      this.Segel_1_z2.visible = false;
+      this.Segel_1_z3.visible = false;
+      this.Segel_1_z4.visible = false;
+      this.Segel_2_z0.visible = false;
+      this.Segel_2_z1.visible = false;
+      this.Segel_2_z2.visible = false;
+      this.Segel_2_z3.visible = false;
+      this.Segel_2_z4.visible = false;
+
       ImmutableList.of(this.botom_1).forEach((modelRenderer) -> {
          modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       });
+
+      this.Segel_1_z0.visible = segel1_0;
+      this.Segel_1_z1.visible = segel1_1;
+      this.Segel_1_z2.visible = segel1_2;
+      this.Segel_1_z3.visible = segel1_3;
+      this.Segel_1_z4.visible = segel1_4;
+      this.Segel_2_z0.visible = segel2_0;
+      this.Segel_2_z1.visible = segel2_1;
+      this.Segel_2_z2.visible = segel2_2;
+      this.Segel_2_z3.visible = segel2_3;
+      this.Segel_2_z4.visible = segel2_4;
    }
 
    @Override

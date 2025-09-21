@@ -19,7 +19,7 @@ public class RowBoatEntity extends AbstractBasicShip {
 
     public RowBoatEntity(EntityType<? extends RowBoatEntity> type, World world) {
         super(type, world);
-        this.setSailState(1);
+        this.setSailState(0);
     }
 
     public RowBoatEntity(World world, double x, double y, double z) {

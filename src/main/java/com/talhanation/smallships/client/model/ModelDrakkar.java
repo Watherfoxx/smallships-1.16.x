@@ -714,9 +714,27 @@ public class ModelDrakkar extends EntityModel<AbstractBannerUser> {
 
    @Override
    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+      boolean sail0 = this.Sail_z0.visible;
+      boolean sail1 = this.Sail_z1.visible;
+      boolean sail2 = this.Sail_z2.visible;
+      boolean sail3 = this.Sail_z3.visible;
+      boolean sail4 = this.Sail_z4.visible;
+
+      this.Sail_z0.visible = false;
+      this.Sail_z1.visible = false;
+      this.Sail_z2.visible = false;
+      this.Sail_z3.visible = false;
+      this.Sail_z4.visible = false;
+
       ImmutableList.of(this.botom_1).forEach((modelRenderer) -> {
          modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       });
+
+      this.Sail_z0.visible = sail0;
+      this.Sail_z1.visible = sail1;
+      this.Sail_z2.visible = sail2;
+      this.Sail_z3.visible = sail3;
+      this.Sail_z4.visible = sail4;
    }
 
    @Override
