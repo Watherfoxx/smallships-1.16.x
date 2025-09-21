@@ -3,11 +3,16 @@ package com.talhanation.smallships.client.render;
 import com.talhanation.smallships.Main;
 import com.talhanation.smallships.client.model.ModelCog;
 import com.talhanation.smallships.client.model.ModelCogSail;
+import com.talhanation.smallships.client.model.ModelSail;
+import com.talhanation.smallships.entities.AbstractBannerUser;
 import com.talhanation.smallships.entities.AbstractBasicShip;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+
+import java.util.function.Supplier;
 
 public class RenderEntityBasicShip<T extends AbstractBasicShip> extends AbstractShipRenderer<T> {
 
@@ -20,9 +25,20 @@ public class RenderEntityBasicShip<T extends AbstractBasicShip> extends Abstract
             new ResourceLocation(Main.MOD_ID, "textures/entity/cog/dark_oak_cog.png")
     };
 
+    private final ResourceLocation[] textures;
+
     public RenderEntityBasicShip(EntityRendererManager manager) {
-        super(manager, new ModelCog(), ModelCogSail::new);
-        this.shadowRadius = 1.0F;
+        this(manager, new ModelCog(), ModelCogSail::new, COG_TEXTURES, 1.0F);
+    }
+
+    public RenderEntityBasicShip(EntityRendererManager manager, EntityModel<AbstractBannerUser> hullModel, Supplier<ModelSail> sailModelSupplier, float shadowRadius) {
+        this(manager, hullModel, sailModelSupplier, null, shadowRadius);
+    }
+
+    public RenderEntityBasicShip(EntityRendererManager manager, EntityModel<AbstractBannerUser> hullModel, Supplier<ModelSail> sailModelSupplier, ResourceLocation[] textures, float shadowRadius) {
+        super(manager, hullModel, sailModelSupplier);
+        this.textures = textures != null ? textures : COG_TEXTURES;
+        this.shadowRadius = shadowRadius;
     }
 
     @Override
@@ -48,11 +64,12 @@ public class RenderEntityBasicShip<T extends AbstractBasicShip> extends Abstract
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        return COG_TEXTURES[entity.getWoodType().ordinal()];
+        return textures[entity.getWoodType().ordinal()];
     }
 
     private float getSizeRatio(T entity) {
         float ratio = (float) (entity.getWidth() / 3.0D);
         return MathHelper.clamp(ratio, 0.6F, 1.2F);
     }
+
 }

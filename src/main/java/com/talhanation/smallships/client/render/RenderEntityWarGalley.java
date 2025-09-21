@@ -1,8 +1,7 @@
 package com.talhanation.smallships.client.render;
 
 import com.talhanation.smallships.Main;
-import com.talhanation.smallships.client.model.ModelBrigg;
-import com.talhanation.smallships.client.model.ModelBriggSail;
+import com.talhanation.smallships.client.model.ModelWarGalley;
 import com.talhanation.smallships.entities.WarGalleyEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -22,7 +21,7 @@ public class RenderEntityWarGalley extends AbstractShipRenderer<WarGalleyEntity>
     };
 
     public RenderEntityWarGalley(EntityRendererManager manager) {
-        super(manager, new ModelBrigg(), ModelBriggSail::new);
+        super(manager, new ModelWarGalley(), null);
         this.shadowRadius = 1.5F;
     }
 
