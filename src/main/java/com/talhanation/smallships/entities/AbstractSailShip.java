@@ -79,6 +79,8 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
         entityData.define(SAIL_STATE, 0);
         entityData.define(SAIL_COLOR, "white");
         entityData.define(TYPE, AbstractSailShip.Type.OAK.ordinal());
+        entityData.define(LEFT_PADDLE, false);
+        entityData.define(RIGHT_PADDLE, false);
     }
 
     public abstract float getMaxSpeed();
