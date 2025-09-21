@@ -2459,9 +2459,45 @@ public class ModelDhow extends EntityModel<AbstractBannerUser> {
 
    @Override
    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+      boolean sail0Left = this.Sail_z0_1.visible;
+      boolean sail0Right = this.Sail_z0_2.visible;
+      boolean sail1Left = this.segel_z1_1.visible;
+      boolean sail1Right = this.segel_z1_2.visible;
+      boolean sail2Left = this.segel_z2_1.visible;
+      boolean sail2Right = this.segel_z2_2.visible;
+      boolean sail3Left = this.segel_z3_1.visible;
+      boolean sail3Right = this.segel_z3_2.visible;
+      boolean sail4Left = this.segel_z4_1.visible;
+      boolean sail4Right = this.segel_z4_2.visible;
+      boolean rope = this.seil_0.visible;
+
+      this.Sail_z0_1.visible = false;
+      this.Sail_z0_2.visible = false;
+      this.segel_z1_1.visible = false;
+      this.segel_z1_2.visible = false;
+      this.segel_z2_1.visible = false;
+      this.segel_z2_2.visible = false;
+      this.segel_z3_1.visible = false;
+      this.segel_z3_2.visible = false;
+      this.segel_z4_1.visible = false;
+      this.segel_z4_2.visible = false;
+      this.seil_0.visible = false;
+
       ImmutableList.of(this.Dhow).forEach((modelRenderer) -> {
          modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       });
+
+      this.Sail_z0_1.visible = sail0Left;
+      this.Sail_z0_2.visible = sail0Right;
+      this.segel_z1_1.visible = sail1Left;
+      this.segel_z1_2.visible = sail1Right;
+      this.segel_z2_1.visible = sail2Left;
+      this.segel_z2_2.visible = sail2Right;
+      this.segel_z3_1.visible = sail3Left;
+      this.segel_z3_2.visible = sail3Right;
+      this.segel_z4_1.visible = sail4Left;
+      this.segel_z4_2.visible = sail4Right;
+      this.seil_0.visible = rope;
    }
 
    @Override
