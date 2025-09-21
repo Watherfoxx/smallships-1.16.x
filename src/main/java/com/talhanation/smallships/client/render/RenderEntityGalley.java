@@ -1,8 +1,8 @@
 package com.talhanation.smallships.client.render;
 
 import com.talhanation.smallships.Main;
-import com.talhanation.smallships.client.model.ModelBrigg;
-import com.talhanation.smallships.client.model.ModelBriggSail;
+import com.talhanation.smallships.client.model.ModelGalley;
+import com.talhanation.smallships.client.model.ModelGalleySail;
 import com.talhanation.smallships.entities.GalleyEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
@@ -20,7 +20,7 @@ public class RenderEntityGalley extends AbstractShipRenderer<GalleyEntity> {
     };
 
     public RenderEntityGalley(EntityRendererManager manager) {
-        super(manager, new ModelBrigg(), ModelBriggSail::new);
+        super(manager, new ModelGalley(false), ModelGalleySail::new);
         this.shadowRadius = 1.4F;
     }
 
@@ -37,6 +37,11 @@ public class RenderEntityGalley extends AbstractShipRenderer<GalleyEntity> {
     @Override
     protected Vector3d getModelTranslation(GalleyEntity entity) {
         return new Vector3d(0.0D, -1.7D, -0.95D);
+    }
+
+    @Override
+    protected float getModelYawOffset(GalleyEntity entity) {
+        return -180F;
     }
 
     @Override
