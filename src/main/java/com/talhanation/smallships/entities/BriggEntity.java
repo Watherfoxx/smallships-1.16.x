@@ -163,11 +163,14 @@ public class BriggEntity extends AbstractCannonShip{
         if (player.isSecondaryUseActive()) {
             if (this.getSunken()) {
                 if (!this.level.isClientSide) {
-                    ItemStack brokenHull = this.createShipItemStack(true);
-                    if (!brokenHull.isEmpty()) {
-                        ItemStack toGive = brokenHull.copy();
+                    ItemStack salvagedBoat = this.createShipItemStack(false);
+                    if (!salvagedBoat.isEmpty()) {
+                        if (salvagedBoat.isDamageableItem()) {
+                            salvagedBoat.setDamageValue(salvagedBoat.getMaxDamage());
+                        }
+                        ItemStack toGive = salvagedBoat.copy();
                         if (!player.addItem(toGive)) {
-                            this.spawnAtLocation(brokenHull);
+                            this.spawnAtLocation(salvagedBoat);
                         }
                     }
                     setDropBrokenItemOnDestroy(false);
