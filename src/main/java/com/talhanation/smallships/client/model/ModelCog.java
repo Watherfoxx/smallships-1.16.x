@@ -6,11 +6,11 @@ package com.talhanation.smallships.client.model;// Made with Blockbench 3.9.3
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.talhanation.smallships.entities.CogEntity;
+import com.talhanation.smallships.entities.AbstractBannerUser;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
-public class ModelCog extends EntityModel<CogEntity> {
+public class ModelCog extends EntityModel<AbstractBannerUser> {
 	private final ModelRenderer Cog;
 	private final ModelRenderer deck;
 	private final ModelRenderer cube_r1;
@@ -277,7 +277,7 @@ public class ModelCog extends EntityModel<CogEntity> {
 	}
 
 	@Override
-	public void setupAnim(CogEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        public void setupAnim(AbstractBannerUser entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
 		this.chest_1.visible = (entityIn).getCargo() >= 1;
 		this.chest_2.visible = (entityIn).getCargo() >= 2;

@@ -2,8 +2,11 @@ package com.talhanation.smallships.client.events;
 
 import com.talhanation.smallships.Main;
 import com.talhanation.smallships.client.render.RenderCannonBall;
+import com.talhanation.smallships.client.render.RenderEntityBasicShip;
 import com.talhanation.smallships.client.render.RenderEntityBrigg;
 import com.talhanation.smallships.client.render.RenderEntityCog;
+import com.talhanation.smallships.client.render.RenderEntityGalley;
+import com.talhanation.smallships.client.render.RenderEntityWarGalley;
 import com.talhanation.smallships.init.ModEntityTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,6 +21,11 @@ public class ClientRenderEvent {
     public static void clientsetup(FMLClientSetupEvent event){
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.COG.get(), RenderEntityCog::new );
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.BRIGG.get(), RenderEntityBrigg::new );
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.ROWBOAT.get(), manager -> new RenderEntityBasicShip<>(manager));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.DHOW.get(), manager -> new RenderEntityBasicShip<>(manager));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.DRAKKAR.get(), manager -> new RenderEntityBasicShip<>(manager));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.GALLEY.get(), RenderEntityGalley::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WAR_GALLEY.get(), RenderEntityWarGalley::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.CANNON_BALL.get(), RenderCannonBall::new );
     }
 }
