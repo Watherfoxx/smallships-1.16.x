@@ -40,6 +40,10 @@ public class RenderBanner {
                 matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F));
                 matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90F));
                 matrixStackIn.translate(-6.65D, 1.65D, 0.05D);
+            } else if (ModEntityTypes.WAR_GALLEY.get().equals(entityType)) {
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+                matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90F));
+                matrixStackIn.translate(-6.65D, 1.75D, 0.05D);
             }
 
             //scale
