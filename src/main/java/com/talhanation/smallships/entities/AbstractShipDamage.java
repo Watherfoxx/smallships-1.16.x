@@ -21,6 +21,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -203,7 +204,21 @@ public abstract class AbstractShipDamage extends AbstractBannerUser {
             Item brokenHullItem = this.getBrokenHullItem();
             return brokenHullItem == null ? ItemStack.EMPTY : new ItemStack(brokenHullItem);
         }
-        return super.createShipItemStack(false);
+        ItemStack stack = super.createShipItemStack(false);
+        if (!stack.isEmpty() && stack.isDamageableItem()) {
+            int damage = MathHelper.clamp(Math.round(this.getShipDamage()), 0, stack.getMaxDamage());
+            stack.setDamageValue(damage);
+        }
+        return stack;
+    }
+
+    @Override
+    public void applyItemData(ItemStack stack) {
+        super.applyItemData(stack);
+        if (stack.isDamageableItem()) {
+            float damage = MathHelper.clamp(stack.getDamageValue(), 0, 100);
+            this.setShipDamage(damage);
+        }
     }
 
     protected abstract Item getBrokenHullItem();

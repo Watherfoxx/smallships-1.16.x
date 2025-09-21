@@ -92,6 +92,33 @@ public abstract class AbstractCannonShip extends AbstractShipDamage{
         setLeftShootCoolDown(nbt.getInt("LeftShootCoolDown"));
     }
 
+    @Override
+    protected ItemStack createShipItemStack(boolean broken) {
+        ItemStack stack = super.createShipItemStack(broken);
+        if (!broken && !stack.isEmpty()) {
+            CompoundNBT tag = stack.getOrCreateTag();
+            tag.putInt("RightCannonCount", getRightCannonCount());
+            tag.putInt("LeftCannonCount", getLeftCannonCount());
+        }
+        return stack;
+    }
+
+    @Override
+    public void applyItemData(ItemStack stack) {
+        super.applyItemData(stack);
+        CompoundNBT tag = stack.getTag();
+        if (tag != null) {
+            int maxCannons = this.getMaxCannons();
+            int left = MathHelper.clamp(tag.getInt("LeftCannonCount"), 0, maxCannons);
+            int right = MathHelper.clamp(tag.getInt("RightCannonCount"), 0, maxCannons);
+            if (left + right > maxCannons) {
+                right = MathHelper.clamp(maxCannons - left, 0, maxCannons);
+            }
+            this.setLeftCannonCount(left);
+            this.setRightCannonCount(right);
+        }
+    }
+
     ////////////////////////////////////GET////////////////////////////////////
 
     public abstract int getMaxCannons();

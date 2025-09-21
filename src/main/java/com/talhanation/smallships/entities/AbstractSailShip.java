@@ -386,7 +386,7 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
             setRight(false);
         }
         int sailstate = getSailState();
-        float modifier = 1 - (getBiomesModifier() + getPassengerModifier() + getCannonModifier() + getCargoModifier());
+        float modifier = Math.max(0F, 1 - (getPassengerModifier() + getCargoModifier()));
 
 
         float blockedmodf = 1;
@@ -694,7 +694,15 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
         if (broken) {
             stack.getOrCreateTag().putBoolean(BROKEN_TAG, true);
         }
+        stack.getOrCreateTag().putString("SailColor", getSailColor());
         return stack;
+    }
+
+    public void applyItemData(ItemStack stack) {
+        CompoundNBT tag = stack.getTag();
+        if (tag != null && tag.contains("SailColor", 8)) {
+            this.setSailColor(tag.getString("SailColor"));
+        }
     }
 
     public enum Type {
