@@ -10,6 +10,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -126,6 +128,11 @@ public class WarGalleyEntity extends AbstractCannonShip {
     }
 
     @Override
+    public ResourceLocation getLootTable() {
+        return null;
+    }
+
+    @Override
     public Item getItemBoat() {
         switch (this.getWoodType()) {
             case SPRUCE:
@@ -239,11 +246,11 @@ public class WarGalleyEntity extends AbstractCannonShip {
         List<Entity> passengers = this.getPassengers();
         int index = passengers.indexOf(passenger);
         Vector3d offset = PASSENGER_OFFSETS[Math.min(index, PASSENGER_OFFSETS.length - 1)];
-        float ridingOffset = (float) ((this.isRemoved() ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
+        float ridingOffset = (float) ((this.removed ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
         Vector3d rotated = new Vector3d(offset.x, 0.0D, offset.z)
                 .yRot(-this.yRot * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
         passenger.setPos(this.getX() + rotated.x, this.getY() + ridingOffset, this.getZ() + rotated.z);
-        passenger.setYRot(passenger.getYRot() + this.deltaRotation);
+        passenger.setYRot(passenger.yRot + this.deltaRotation);
         passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
         applyYawToEntity(passenger);
     }

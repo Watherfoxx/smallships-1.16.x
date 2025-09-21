@@ -3,6 +3,7 @@ package com.talhanation.smallships.items;
 import com.talhanation.smallships.client.render.RenderItemCog;
 import com.talhanation.smallships.entities.AbstractSailShip;
 import com.talhanation.smallships.entities.CogEntity;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 public class CogItem extends ShipItem<CogEntity> {

@@ -3,14 +3,14 @@ package com.talhanation.smallships.client.model;// Made with Blockbench 4.2.5
 // Paste this class into your mod and generate all required imports
 
 
-import com.talhanation.smallships.entities.AbstractSailShip;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.talhanation.smallships.entities.CogEntity;
+import com.talhanation.smallships.entities.AbstractBannerUser;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
-public class ModelBrigg extends EntityModel<AbstractSailShip> {
+
+public class ModelBrigg extends EntityModel<AbstractBannerUser> {
 	private final ModelRenderer ModelBrigg;
 	private final ModelRenderer bottom_brigg;
 	private final ModelRenderer cube_r1;
@@ -357,7 +357,7 @@ public class ModelBrigg extends EntityModel<AbstractSailShip> {
 	}
 
 	@Override
-        public void setupAnim(AbstractSailShip entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        public void setupAnim(AbstractBannerUser entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
 		this.chest_1.visible = (entityIn).getCargo() >= 1;
 		this.chest_2.visible = (entityIn).getCargo() >= 2;

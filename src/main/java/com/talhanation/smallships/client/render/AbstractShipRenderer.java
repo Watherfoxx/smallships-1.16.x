@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.talhanation.smallships.client.model.ModelSail;
 import com.talhanation.smallships.config.SmallShipsConfig;
-import com.talhanation.smallships.entities.AbstractSailShip;
+import com.talhanation.smallships.entities.AbstractBannerUser;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -16,12 +16,12 @@ import net.minecraft.util.math.vector.Vector3f;
 
 import java.util.function.Supplier;
 
-public abstract class AbstractShipRenderer<T extends AbstractSailShip> extends EntityRenderer<T> {
+public abstract class AbstractShipRenderer<T extends AbstractBannerUser> extends EntityRenderer<T> {
 
-    private final EntityModel<AbstractSailShip> hullModel;
+    private final EntityModel<AbstractBannerUser> hullModel;
     private final Supplier<ModelSail> sailModelSupplier;
 
-    protected AbstractShipRenderer(EntityRendererManager renderManager, EntityModel<AbstractSailShip> hullModel, Supplier<ModelSail> sailModelSupplier) {
+    protected AbstractShipRenderer(EntityRendererManager renderManager, EntityModel<AbstractBannerUser> hullModel, Supplier<ModelSail> sailModelSupplier) {
         super(renderManager);
         this.hullModel = hullModel;
         this.sailModelSupplier = sailModelSupplier;

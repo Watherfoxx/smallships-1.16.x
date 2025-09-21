@@ -96,11 +96,11 @@ public abstract class AbstractBasicShip extends AbstractShipDamage {
         Vector3d[] offsets = getPassengerOffsets();
         Vector3d offset = offsets.length > 0 ? offsets[Math.min(index, offsets.length - 1)] : Vector3d.ZERO;
 
-        float ridingOffset = (float) ((this.isRemoved() ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
+        float ridingOffset = (float) ((this.removed ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
         Vector3d rotated = new Vector3d(offset.x, 0.0D, offset.z)
                 .yRot(-this.yRot * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
         passenger.setPos(this.getX() + rotated.x, this.getY() + ridingOffset, this.getZ() + rotated.z);
-        passenger.setYRot(passenger.getYRot() + this.deltaRotation);
+        passenger.setYRot(passenger.yRot + this.deltaRotation);
         passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
         applyYawToEntity(passenger);
     }

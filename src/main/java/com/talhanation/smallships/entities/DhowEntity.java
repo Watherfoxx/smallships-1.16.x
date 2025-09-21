@@ -6,6 +6,7 @@ import com.talhanation.smallships.init.ModItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
@@ -114,6 +115,11 @@ public class DhowEntity extends AbstractBasicShip {
     @Override
     public int getPassengerSize() {
         return PASSENGER_OFFSETS.length;
+    }
+
+    @Override
+    public ResourceLocation getLootTable() {
+        return null;
     }
 
     @Override
