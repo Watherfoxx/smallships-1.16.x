@@ -250,7 +250,7 @@ public class WarGalleyEntity extends AbstractCannonShip {
         Vector3d rotated = new Vector3d(offset.x, 0.0D, offset.z)
                 .yRot(-this.yRot * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
         passenger.setPos(this.getX() + rotated.x, this.getY() + ridingOffset, this.getZ() + rotated.z);
-        passenger.setYRot(passenger.yRot + this.deltaRotation);
+        passenger.yRot += this.deltaRotation;
         passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
         applyYawToEntity(passenger);
     }
