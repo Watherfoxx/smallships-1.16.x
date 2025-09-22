@@ -28,6 +28,32 @@ public class WarGalleyEntity extends AbstractCannonShip {
             new Vector3d(-0.6D, 0.0D, -1.3D),
             new Vector3d(0.6D, 0.0D, -1.3D)
     };
+    private static final Vector3d[] PASSENGER_LAYOUT_FIVE = new Vector3d[]{
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2],
+            PASSENGER_OFFSETS[3],
+            PASSENGER_OFFSETS[4]
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2],
+            PASSENGER_OFFSETS[3]
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_THREE = new Vector3d[]{
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2]
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_TWO = new Vector3d[]{
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1]
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
+            PASSENGER_OFFSETS[0]
+    };
+    private static final int MIN_PASSENGERS = 3;
 
     public WarGalleyEntity(EntityType<? extends WarGalleyEntity> type, World world) {
         super(type, world);
@@ -109,7 +135,7 @@ public class WarGalleyEntity extends AbstractCannonShip {
 
     @Override
     public float getPassengerModifier() {
-        return this.getPassengers().size() * 0.01F;
+        return this.getPassengerSize() * 0.01F;
     }
 
     @Override
@@ -119,7 +145,8 @@ public class WarGalleyEntity extends AbstractCannonShip {
 
     @Override
     public int getPassengerSize() {
-        return PASSENGER_OFFSETS.length;
+        int seatCount = PASSENGER_OFFSETS.length - (this.getTotalCannonCount() + 1) / 2;
+        return MathHelper.clamp(seatCount, MIN_PASSENGERS, PASSENGER_OFFSETS.length);
     }
 
     @Override
@@ -245,7 +272,12 @@ public class WarGalleyEntity extends AbstractCannonShip {
 
         List<Entity> passengers = this.getPassengers();
         int index = passengers.indexOf(passenger);
-        Vector3d offset = PASSENGER_OFFSETS[Math.min(index, PASSENGER_OFFSETS.length - 1)];
+        Vector3d[] layout = getSeatLayout();
+        if (layout.length == 0) {
+            return;
+        }
+        int seatIndex = MathHelper.clamp(index, 0, layout.length - 1);
+        Vector3d offset = layout[seatIndex];
         float ridingOffset = (float) ((this.removed ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
         Vector3d rotated = new Vector3d(offset.x, 0.0D, offset.z)
                 .yRot(-this.yRot * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
@@ -253,6 +285,24 @@ public class WarGalleyEntity extends AbstractCannonShip {
         passenger.yRot += this.deltaRotation;
         passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
         applyYawToEntity(passenger);
+    }
+
+    private Vector3d[] getSeatLayout() {
+        int seatCount = MathHelper.clamp(this.getPassengerSize(), 1, PASSENGER_OFFSETS.length);
+        switch (seatCount) {
+            case 1:
+                return PASSENGER_LAYOUT_ONE;
+            case 2:
+                return PASSENGER_LAYOUT_TWO;
+            case 3:
+                return PASSENGER_LAYOUT_THREE;
+            case 4:
+                return PASSENGER_LAYOUT_FOUR;
+            case 5:
+                return PASSENGER_LAYOUT_FIVE;
+            default:
+                return PASSENGER_OFFSETS;
+        }
     }
 
     @Override
