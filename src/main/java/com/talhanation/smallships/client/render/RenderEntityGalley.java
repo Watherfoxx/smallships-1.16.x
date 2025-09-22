@@ -1,9 +1,11 @@
 package com.talhanation.smallships.client.render;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.talhanation.smallships.Main;
 import com.talhanation.smallships.client.model.ModelGalley;
 import com.talhanation.smallships.client.model.ModelGalleySail;
 import com.talhanation.smallships.entities.GalleyEntity;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
@@ -42,6 +44,11 @@ public class RenderEntityGalley extends AbstractShipRenderer<GalleyEntity> {
     @Override
     protected float getModelYawOffset(GalleyEntity entity) {
         return -90F;
+    }
+
+    @Override
+    protected void renderAdditionalParts(GalleyEntity entity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight) {
+        entity.renderCannon(-0.75D, -0.55D, -90F, matrixStack, buffer, packedLight, partialTicks);
     }
 
     @Override
