@@ -11,6 +11,7 @@ import de.maxhenkel.corelib.inventory.ScreenBase;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
@@ -40,17 +41,19 @@ public class BasicShipInvScreen extends ScreenBase<BasicShipContainer> {
 
         if (ship.getMaxInvPage() > 1 && ship.getInvPage() > 1){
             addButton(new Button(zeroLeftPos - 205, zeroTopPos, 40, 20, new StringTextComponent("<-"), button -> {
-
-                Main.SIMPLE_CHANNEL.sendToServer(new MessageOpenGui(playerInventory.player, ship, 0));
-                ship.setInvPage(ship.getInvPage() - 1);
+                int targetPage = MathHelper.clamp(ship.getInvPage() - 1, 1, ship.getMaxInvPage());
+                ship.setInvPage(targetPage);
+                int startSlot = (targetPage - 1) * 54;
+                Main.SIMPLE_CHANNEL.sendToServer(new MessageOpenGui(playerInventory.player, ship, startSlot));
             }));
         }
 
         if(ship.getMaxInvPage() > 1 && ship.getInvPage() < ship.getMaxInvPage()){
             addButton(new Button(zeroLeftPos + 20, zeroTopPos, 40, 20, new StringTextComponent("->"), button -> {
-
-                    ship.setInvPage(ship.getInvPage() + 1);
-                    Main.SIMPLE_CHANNEL.sendToServer(new MessageOpenGui(playerInventory.player, ship, 54));
+                    int targetPage = MathHelper.clamp(ship.getInvPage() + 1, 1, ship.getMaxInvPage());
+                    ship.setInvPage(targetPage);
+                    int startSlot = (targetPage - 1) * 54;
+                    Main.SIMPLE_CHANNEL.sendToServer(new MessageOpenGui(playerInventory.player, ship, startSlot));
             }));
         }
     }

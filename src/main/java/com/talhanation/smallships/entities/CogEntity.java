@@ -1,6 +1,7 @@
 package com.talhanation.smallships.entities;
 
 import com.talhanation.smallships.InventoryEvents;
+import com.talhanation.smallships.config.SmallShipsConfig;
 import com.talhanation.smallships.init.ModEntityTypes;
 import com.talhanation.smallships.init.ModItems;
 import net.minecraft.entity.Entity;
@@ -55,7 +56,12 @@ public class CogEntity extends AbstractCannonShip{
 
     @Override
     public int getInventorySize() {
-        return 54;
+        return SmallShipsConfig.CogInventorySize.get();
+    }
+
+    @Override
+    public int getConfiguredInventoryPages() {
+        return SmallShipsConfig.CogInventoryPages.get();
     }
 
     @Override
@@ -146,7 +152,7 @@ public class CogEntity extends AbstractCannonShip{
     }
 
     public int getMaxCannons(){//max cannons
-        return 4;
+        return SmallShipsConfig.CogMaxCannons.get();
     }
 
     ////////////////////////////////////INTERACTIONS///////////////////////////////

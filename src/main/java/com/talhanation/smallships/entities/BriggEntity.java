@@ -1,6 +1,7 @@
 package com.talhanation.smallships.entities;
 
 import com.talhanation.smallships.InventoryEvents;
+import com.talhanation.smallships.config.SmallShipsConfig;
 import com.talhanation.smallships.init.ModEntityTypes;
 import com.talhanation.smallships.init.ModItems;
 import net.minecraft.entity.Entity;
@@ -55,7 +56,12 @@ public class BriggEntity extends AbstractCannonShip{
 
     @Override
     public int getInventorySize() {
-        return 54 + 54;
+        return SmallShipsConfig.BriggInventorySize.get();
+    }
+
+    @Override
+    public int getConfiguredInventoryPages() {
+        return SmallShipsConfig.BriggInventoryPages.get();
     }
 
     @Override
@@ -128,7 +134,7 @@ public class BriggEntity extends AbstractCannonShip{
 
     @Override
     public int getMaxCannons() {
-        return 6;
+        return SmallShipsConfig.BriggMaxCannons.get();
     }
 
     @Override
