@@ -466,6 +466,12 @@ public class ModelDhow extends EntityModel<AbstractBannerUser> {
    public ModelRenderer segel_1_264;
    public ModelRenderer steer;
 
+   private static final float HULL_X_ROT = 1.5707964F;
+   private static final float HULL_Y_ROT = -1.5707964F;
+
+   private final ModelRenderer[] leftSailStates;
+   private final ModelRenderer[] rightSailStates;
+
    public ModelDhow() {
       this.texWidth = 128;
       this.texHeight = 64;
@@ -2455,48 +2461,27 @@ public class ModelDhow extends EntityModel<AbstractBannerUser> {
       this.Cargo0.addChild(this.Cargo_0_1);
       this.segel_1_198.addChild(this.segel_1_199);
       this.segel_2_18.addChild(this.segel_2_19);
+
+      this.leftSailStates = new ModelRenderer[]{this.Sail_z0_1, this.segel_z1_1, this.segel_z2_1, this.segel_z3_1, this.segel_z4_1};
+      this.rightSailStates = new ModelRenderer[]{this.Sail_z0_2, this.segel_z1_2, this.segel_z2_2, this.segel_z3_2, this.segel_z4_2};
    }
 
    @Override
    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-      boolean sail0Left = this.Sail_z0_1.visible;
-      boolean sail0Right = this.Sail_z0_2.visible;
-      boolean sail1Left = this.segel_z1_1.visible;
-      boolean sail1Right = this.segel_z1_2.visible;
-      boolean sail2Left = this.segel_z2_1.visible;
-      boolean sail2Right = this.segel_z2_2.visible;
-      boolean sail3Left = this.segel_z3_1.visible;
-      boolean sail3Right = this.segel_z3_2.visible;
-      boolean sail4Left = this.segel_z4_1.visible;
-      boolean sail4Right = this.segel_z4_2.visible;
+      boolean[] leftVisibility = captureVisibility(this.leftSailStates);
+      boolean[] rightVisibility = captureVisibility(this.rightSailStates);
       boolean rope = this.seil_0.visible;
 
-      this.Sail_z0_1.visible = false;
-      this.Sail_z0_2.visible = false;
-      this.segel_z1_1.visible = false;
-      this.segel_z1_2.visible = false;
-      this.segel_z2_1.visible = false;
-      this.segel_z2_2.visible = false;
-      this.segel_z3_1.visible = false;
-      this.segel_z3_2.visible = false;
-      this.segel_z4_1.visible = false;
-      this.segel_z4_2.visible = false;
+      setVisibility(this.leftSailStates, false);
+      setVisibility(this.rightSailStates, false);
       this.seil_0.visible = false;
 
       ImmutableList.of(this.Dhow).forEach((modelRenderer) -> {
          modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       });
 
-      this.Sail_z0_1.visible = sail0Left;
-      this.Sail_z0_2.visible = sail0Right;
-      this.segel_z1_1.visible = sail1Left;
-      this.segel_z1_2.visible = sail1Right;
-      this.segel_z2_1.visible = sail2Left;
-      this.segel_z2_2.visible = sail2Right;
-      this.segel_z3_1.visible = sail3Left;
-      this.segel_z3_2.visible = sail3Right;
-      this.segel_z4_1.visible = sail4Left;
-      this.segel_z4_2.visible = sail4Right;
+      restoreVisibility(this.leftSailStates, leftVisibility);
+      restoreVisibility(this.rightSailStates, rightVisibility);
       this.seil_0.visible = rope;
    }
 
@@ -2508,87 +2493,52 @@ public class ModelDhow extends EntityModel<AbstractBannerUser> {
 
       DhowEntity dhow = (DhowEntity) entityIn;
 
-      int state = dhow.getSailState();
-      switch(state) {
-      case 0:
-         this.seil_0.visible = false;
-         this.segel_z4_1.visible = false;
-         this.segel_z4_2.visible = false;
-         this.segel_z3_1.visible = false;
-         this.segel_z3_2.visible = false;
-         this.segel_z2_1.visible = false;
-         this.segel_z2_2.visible = false;
-         this.segel_z1_1.visible = false;
-         this.segel_z1_2.visible = false;
-         this.Sail_z0_1.visible = true;
-         this.Sail_z0_2.visible = true;
-         break;
-      case 1:
-         this.seil_0.visible = false;
-         this.segel_z4_1.visible = false;
-         this.segel_z4_2.visible = false;
-         this.segel_z3_1.visible = false;
-         this.segel_z3_2.visible = false;
-         this.segel_z2_1.visible = false;
-         this.segel_z2_2.visible = false;
-         this.Sail_z0_1.visible = false;
-         this.Sail_z0_2.visible = false;
-         this.segel_z1_1.visible = true;
-         this.segel_z1_2.visible = true;
-         break;
-      case 2:
-         this.seil_0.visible = false;
-         this.segel_z4_1.visible = false;
-         this.segel_z4_2.visible = false;
-         this.segel_z3_1.visible = false;
-         this.segel_z3_2.visible = false;
-         this.segel_z1_1.visible = false;
-         this.segel_z1_2.visible = false;
-         this.Sail_z0_1.visible = false;
-         this.Sail_z0_2.visible = false;
-         this.segel_z2_1.visible = true;
-         this.segel_z2_2.visible = true;
-         break;
-      case 3:
-         this.seil_0.visible = false;
-         this.segel_z4_1.visible = false;
-         this.segel_z4_2.visible = false;
-         this.segel_z2_1.visible = false;
-         this.segel_z2_2.visible = false;
-         this.segel_z1_1.visible = false;
-         this.segel_z1_2.visible = false;
-         this.Sail_z0_1.visible = false;
-         this.Sail_z0_2.visible = false;
-         this.segel_z3_1.visible = true;
-         this.segel_z3_2.visible = true;
-         break;
-      case 4:
-         this.segel_z3_1.visible = false;
-         this.segel_z3_2.visible = false;
-         this.segel_z2_1.visible = false;
-         this.segel_z2_2.visible = false;
-         this.segel_z1_1.visible = false;
-         this.segel_z1_2.visible = false;
-         this.Sail_z0_1.visible = false;
-         this.Sail_z0_2.visible = false;
-         this.seil_0.visible = true;
-         this.segel_z4_1.visible = true;
-         this.segel_z4_2.visible = true;
-      }
+      this.Dhow.xRot = HULL_X_ROT;
+      this.Dhow.yRot = HULL_Y_ROT;
+      this.Dhow.zRot = 0.0F;
 
-      if (dhow.getSteerState(0)) {
-         this.steer.xRot = MathHelper.cos(3.1415927F);
-      } else if (dhow.getSteerState(1)) {
-         this.steer.xRot = -MathHelper.cos(3.1415927F);
-      } else {
-         this.steer.xRot = 0.0F;
-      }
+      int state = MathHelper.clamp(dhow.getSailState(), 0, this.leftSailStates.length - 1);
+      updateSailState(state, this.leftSailStates);
+      updateSailState(state, this.rightSailStates);
+      this.seil_0.visible = state == this.leftSailStates.length - 1;
+
+      float steerAngle = -dhow.getRotSpeed();
+      this.steer.xRot = 0.0F;
+      this.steer.yRot = steerAngle;
+      this.steer.zRot = 0.0F;
 
       int cargo = dhow.getCargo();
       this.Cargo0.visible = cargo >= 1;
       this.Cargo1.visible = cargo >= 2;
       this.Cargo2.visible = cargo >= 3;
       this.Cargo3.visible = cargo >= 4;
+   }
+
+   private static boolean[] captureVisibility(ModelRenderer[] sails) {
+      boolean[] visibility = new boolean[sails.length];
+      for (int i = 0; i < sails.length; ++i) {
+         visibility[i] = sails[i].visible;
+      }
+      return visibility;
+   }
+
+   private static void setVisibility(ModelRenderer[] sails, boolean visible) {
+      for (ModelRenderer sail : sails) {
+         sail.visible = visible;
+      }
+   }
+
+   private static void restoreVisibility(ModelRenderer[] sails, boolean[] visibility) {
+      for (int i = 0; i < sails.length; ++i) {
+         sails[i].visible = visibility[i];
+      }
+   }
+
+   private static void updateSailState(int state, ModelRenderer[] sails) {
+      int clamped = MathHelper.clamp(state, 0, sails.length - 1);
+      for (int i = 0; i < sails.length; ++i) {
+         sails[i].visible = i == clamped;
+      }
    }
 
    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
