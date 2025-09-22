@@ -16,7 +16,7 @@ public class SmallShipsConfig {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static ForgeConfigSpec CONFIG;
     public static ForgeConfigSpec.IntValue VERSION;
-    public static final int NEW_VERSION = 10;
+    public static final int NEW_VERSION = 11;
 
     public static ForgeConfigSpec.BooleanValue PlaySwimmSound;
     public static ForgeConfigSpec.BooleanValue WaterMobFlee;
@@ -47,6 +47,34 @@ public class SmallShipsConfig {
     public static ForgeConfigSpec.DoubleValue WarGalleyHealth;
     public static ForgeConfigSpec.DoubleValue DhowHealth;
 
+    public static ForgeConfigSpec.IntValue RowBoatInventorySize;
+    public static ForgeConfigSpec.IntValue RowBoatInventoryPages;
+    public static ForgeConfigSpec.IntValue RowBoatMaxCannons;
+
+    public static ForgeConfigSpec.IntValue DrakkarInventorySize;
+    public static ForgeConfigSpec.IntValue DrakkarInventoryPages;
+    public static ForgeConfigSpec.IntValue DrakkarMaxCannons;
+
+    public static ForgeConfigSpec.IntValue GalleyInventorySize;
+    public static ForgeConfigSpec.IntValue GalleyInventoryPages;
+    public static ForgeConfigSpec.IntValue GalleyMaxCannons;
+
+    public static ForgeConfigSpec.IntValue WarGalleyInventorySize;
+    public static ForgeConfigSpec.IntValue WarGalleyInventoryPages;
+    public static ForgeConfigSpec.IntValue WarGalleyMaxCannons;
+
+    public static ForgeConfigSpec.IntValue DhowInventorySize;
+    public static ForgeConfigSpec.IntValue DhowInventoryPages;
+    public static ForgeConfigSpec.IntValue DhowMaxCannons;
+
+    public static ForgeConfigSpec.IntValue CogInventorySize;
+    public static ForgeConfigSpec.IntValue CogInventoryPages;
+    public static ForgeConfigSpec.IntValue CogMaxCannons;
+
+    public static ForgeConfigSpec.IntValue BriggInventorySize;
+    public static ForgeConfigSpec.IntValue BriggInventoryPages;
+    public static ForgeConfigSpec.IntValue BriggMaxCannons;
+
     public static ForgeConfigSpec.BooleanValue ShowShipInfo;
     public static ForgeConfigSpec.DoubleValue  ShipInfoScale;
 
@@ -70,6 +98,24 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("GalleyTurnFactor", 0.5, 0.0, 1.0);
 
+        GalleyInventorySize = BUILDER.comment("\n" +"----Galley Inventory Size.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 36")
+                .worldRestart()
+                .defineInRange("GalleyInventorySize", 36, 0, 108);
+
+        GalleyInventoryPages = BUILDER.comment("\n" +"----Galley Inventory Pages.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1")
+                .worldRestart()
+                .defineInRange("GalleyInventoryPages", 1, 1, 2);
+
+        GalleyMaxCannons = BUILDER.comment("\n" +"----Galley Max Cannons.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 4")
+                .worldRestart()
+                .defineInRange("GalleyMaxCannons", 4, 0, 8);
+
         CogSpeedFactor = BUILDER.comment("\n" +"----Cog Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 1.25" )
@@ -82,6 +128,24 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("CogTurnFactor", 0.1, 0.0, 1.0);
 
+        CogInventorySize = BUILDER.comment("\n" +"----Cog Inventory Size.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 54")
+                .worldRestart()
+                .defineInRange("CogInventorySize", 54, 0, 108);
+
+        CogInventoryPages = BUILDER.comment("\n" +"----Cog Inventory Pages.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1")
+                .worldRestart()
+                .defineInRange("CogInventoryPages", 1, 1, 2);
+
+        CogMaxCannons = BUILDER.comment("\n" +"----Cog Max Cannons.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 4")
+                .worldRestart()
+                .defineInRange("CogMaxCannons", 4, 0, 6);
+
         WarGalleySpeedFactor = BUILDER.comment("\n" +"----War Galley Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 1.15")
@@ -93,6 +157,24 @@ public class SmallShipsConfig {
                 "\t" + "default: 0.4")
                 .worldRestart()
                 .defineInRange("WarGalleyTurnFactor", 0.4, 0.0, 1.0);
+
+        WarGalleyInventorySize = BUILDER.comment("\n" +"----War Galley Inventory Size.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 36")
+                .worldRestart()
+                .defineInRange("WarGalleyInventorySize", 36, 0, 108);
+
+        WarGalleyInventoryPages = BUILDER.comment("\n" +"----War Galley Inventory Pages.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1")
+                .worldRestart()
+                .defineInRange("WarGalleyInventoryPages", 1, 1, 2);
+
+        WarGalleyMaxCannons = BUILDER.comment("\n" +"----War Galley Max Cannons.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 6")
+                .worldRestart()
+                .defineInRange("WarGalleyMaxCannons", 6, 0, 10);
 
         DrakkarSpeedFactor = BUILDER.comment("\n" +"----Drakkar Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -113,6 +195,24 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("DrakkarIceBreakSpeed", 2.0, 0.0, 100);
 
+        DrakkarInventorySize = BUILDER.comment("\n" +"----Drakkar Inventory Size.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 18")
+                .worldRestart()
+                .defineInRange("DrakkarInventorySize", 18, 0, 108);
+
+        DrakkarInventoryPages = BUILDER.comment("\n" +"----Drakkar Inventory Pages.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1")
+                .worldRestart()
+                .defineInRange("DrakkarInventoryPages", 1, 1, 2);
+
+        DrakkarMaxCannons = BUILDER.comment("\n" +"----Drakkar Max Cannons.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0")
+                .worldRestart()
+                .defineInRange("DrakkarMaxCannons", 0, 0, 6);
+
         RowBoatSpeedFactor = BUILDER.comment("\n" +"----Row Boat Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 1.0")
@@ -124,6 +224,24 @@ public class SmallShipsConfig {
                 "\t" + "default: 0.8")
                 .worldRestart()
                 .defineInRange("RowBoatTurnFactor", 0.8, 0.0, 1.0);
+
+        RowBoatInventorySize = BUILDER.comment("\n" +"----Row Boat Inventory Size.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 9")
+                .worldRestart()
+                .defineInRange("RowBoatInventorySize", 9, 0, 108);
+
+        RowBoatInventoryPages = BUILDER.comment("\n" +"----Row Boat Inventory Pages.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1")
+                .worldRestart()
+                .defineInRange("RowBoatInventoryPages", 1, 1, 2);
+
+        RowBoatMaxCannons = BUILDER.comment("\n" +"----Row Boat Max Cannons.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0")
+                .worldRestart()
+                .defineInRange("RowBoatMaxCannons", 0, 0, 4);
 
         BriggSpeedFactor = BUILDER.comment("\n" +"----Brigg Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -137,6 +255,24 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("BriggTurnFactor", 0.2, 0.0, 1.0);
 
+        BriggInventorySize = BUILDER.comment("\n" +"----Brigg Inventory Size.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 108")
+                .worldRestart()
+                .defineInRange("BriggInventorySize", 108, 0, 108);
+
+        BriggInventoryPages = BUILDER.comment("\n" +"----Brigg Inventory Pages.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1")
+                .worldRestart()
+                .defineInRange("BriggInventoryPages", 1, 1, 2);
+
+        BriggMaxCannons = BUILDER.comment("\n" +"----Brigg Max Cannons.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 6")
+                .worldRestart()
+                .defineInRange("BriggMaxCannons", 6, 0, 10);
+
         DhowSpeedFactor = BUILDER.comment("\n" +"----Dhow Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 1.35" )
@@ -148,6 +284,24 @@ public class SmallShipsConfig {
                 "\t" + "default: 0.3")
                 .worldRestart()
                 .defineInRange("DhowTurnFactor", 0.3, 0.0, 1.0);
+
+        DhowInventorySize = BUILDER.comment("\n" +"----Dhow Inventory Size.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 27")
+                .worldRestart()
+                .defineInRange("DhowInventorySize", 27, 0, 108);
+
+        DhowInventoryPages = BUILDER.comment("\n" +"----Dhow Inventory Pages.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1")
+                .worldRestart()
+                .defineInRange("DhowInventoryPages", 1, 1, 2);
+
+        DhowMaxCannons = BUILDER.comment("\n" +"----Dhow Max Cannons.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 4")
+                .worldRestart()
+                .defineInRange("DhowMaxCannons", 4, 0, 6);
 
         PlaySwimmSound = BUILDER.comment("\n" + "----Should Ships Make Swimming sounds?----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +

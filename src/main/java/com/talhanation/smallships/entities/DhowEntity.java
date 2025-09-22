@@ -78,7 +78,12 @@ public class DhowEntity extends AbstractCannonShip {
 
     @Override
     public int getInventorySize() {
-        return 27;
+        return SmallShipsConfig.DhowInventorySize.get();
+    }
+
+    @Override
+    public int getConfiguredInventoryPages() {
+        return SmallShipsConfig.DhowInventoryPages.get();
     }
 
     @Override
@@ -139,7 +144,7 @@ public class DhowEntity extends AbstractCannonShip {
 
     @Override
     public int getMaxCannons() {
-        return 4;
+        return SmallShipsConfig.DhowMaxCannons.get();
     }
 
     @Override

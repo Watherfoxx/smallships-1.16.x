@@ -90,7 +90,12 @@ public class WarGalleyEntity extends AbstractCannonShip {
 
     @Override
     public int getInventorySize() {
-        return 36;
+        return SmallShipsConfig.WarGalleyInventorySize.get();
+    }
+
+    @Override
+    public int getConfiguredInventoryPages() {
+        return SmallShipsConfig.WarGalleyInventoryPages.get();
     }
 
     @Override
@@ -151,7 +156,7 @@ public class WarGalleyEntity extends AbstractCannonShip {
 
     @Override
     public int getMaxCannons() {
-        return 6;
+        return SmallShipsConfig.WarGalleyMaxCannons.get();
     }
 
     @Override

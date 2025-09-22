@@ -87,10 +87,14 @@ public abstract class AbstractInventoryEntity extends AbstractSailShip {
     }
 
     public int getMaxInvPage(){
-        if(this.getInventorySize() <= 54) return 1;
-        else if (this.getInventorySize() > 54) return 2;
-        else
-            return 3;
+        int configured = Math.max(1, getConfiguredInventoryPages());
+        int size = Math.max(0, this.getInventorySize());
+        int required = Math.max(1, (size + 53) / 54);
+        return Math.max(configured, required);
+    }
+
+    public int getConfiguredInventoryPages() {
+        return 1;
     }
 
     public int getInvPage(){
