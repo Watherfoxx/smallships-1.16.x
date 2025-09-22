@@ -1,9 +1,11 @@
 package com.talhanation.smallships.client.render;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.talhanation.smallships.Main;
 import com.talhanation.smallships.client.model.ModelDhow;
 import com.talhanation.smallships.client.model.ModelDhowSail;
 import com.talhanation.smallships.entities.DhowEntity;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -44,6 +46,11 @@ public class RenderEntityDhow extends AbstractShipRenderer<DhowEntity> {
     @Override
     protected float getModelYawOffset(DhowEntity entity) {
         return -90F;
+    }
+
+    @Override
+    protected void renderAdditionalParts(DhowEntity entity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight) {
+        entity.renderCannon(-0.65D, 0.03D, 0F, matrixStack, buffer, packedLight, partialTicks);
     }
 
     @Override
