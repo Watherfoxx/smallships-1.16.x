@@ -179,6 +179,17 @@ public class ModelWarGalley extends EntityModel<AbstractBannerUser> {
    public ModelRenderer Segel_1_5_7;
    public ModelRenderer Segel_1_13_7;
 
+   private static final float HULL_Y_ROT = ((float)Math.PI / 2F);
+   private static final float PADDLE_MIN_X_ROT = -1.0471975803375244F;
+   private static final float PADDLE_MAX_X_ROT = -0.2617993950843811F;
+   private static final float PADDLE_MIN_Y_ROT = -0.7853981852531433F;
+   private static final float PADDLE_MAX_Y_ROT = 0.7853981852531433F;
+
+   private final ModelRenderer[] leftPaddles;
+   private final ModelRenderer[] rightPaddles;
+   private final ModelRenderer[] firstMastSailStates;
+   private final ModelRenderer[] secondMastSailStates;
+
    public ModelWarGalley() {
       this.texWidth = 128;
       this.texHeight = 64;
@@ -1924,46 +1935,27 @@ public class ModelWarGalley extends EntityModel<AbstractBannerUser> {
       this.Mast_2_oben_1.addChild(this.Segel_1_z2);
       this.Segel_1_5.addChild(this.Segel_1_6);
       this.botom_1.addChild(this.botom_5_4);
+
+      this.rightPaddles = new ModelRenderer[]{this.ruder_r_1, this.ruder_r_2, this.ruder_r_3, this.ruder_r_4, this.ruder_r_5, this.ruder_r_6};
+      this.leftPaddles = new ModelRenderer[]{this.ruder_l_1, this.ruder_l_2, this.ruder_l_3, this.ruder_l_4, this.ruder_l_5, this.ruder_l_6};
+      this.firstMastSailStates = new ModelRenderer[]{this.Segel_1_z0, this.Segel_1_z1, this.Segel_1_z2, this.Segel_1_z3, this.Segel_1_z4};
+      this.secondMastSailStates = new ModelRenderer[]{this.Segel_2_z0, this.Segel_2_z1, this.Segel_2_z2, this.Segel_2_z3, this.Segel_2_z4};
    }
 
    @Override
    public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-      boolean segel1_0 = this.Segel_1_z0.visible;
-      boolean segel1_1 = this.Segel_1_z1.visible;
-      boolean segel1_2 = this.Segel_1_z2.visible;
-      boolean segel1_3 = this.Segel_1_z3.visible;
-      boolean segel1_4 = this.Segel_1_z4.visible;
-      boolean segel2_0 = this.Segel_2_z0.visible;
-      boolean segel2_1 = this.Segel_2_z1.visible;
-      boolean segel2_2 = this.Segel_2_z2.visible;
-      boolean segel2_3 = this.Segel_2_z3.visible;
-      boolean segel2_4 = this.Segel_2_z4.visible;
+      boolean[] firstVisibility = captureVisibility(this.firstMastSailStates);
+      boolean[] secondVisibility = captureVisibility(this.secondMastSailStates);
 
-      this.Segel_1_z0.visible = false;
-      this.Segel_1_z1.visible = false;
-      this.Segel_1_z2.visible = false;
-      this.Segel_1_z3.visible = false;
-      this.Segel_1_z4.visible = false;
-      this.Segel_2_z0.visible = false;
-      this.Segel_2_z1.visible = false;
-      this.Segel_2_z2.visible = false;
-      this.Segel_2_z3.visible = false;
-      this.Segel_2_z4.visible = false;
+      setVisibility(this.firstMastSailStates, false);
+      setVisibility(this.secondMastSailStates, false);
 
       ImmutableList.of(this.botom_1).forEach((modelRenderer) -> {
          modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       });
 
-      this.Segel_1_z0.visible = segel1_0;
-      this.Segel_1_z1.visible = segel1_1;
-      this.Segel_1_z2.visible = segel1_2;
-      this.Segel_1_z3.visible = segel1_3;
-      this.Segel_1_z4.visible = segel1_4;
-      this.Segel_2_z0.visible = segel2_0;
-      this.Segel_2_z1.visible = segel2_1;
-      this.Segel_2_z2.visible = segel2_2;
-      this.Segel_2_z3.visible = segel2_3;
-      this.Segel_2_z4.visible = segel2_4;
+      restoreVisibility(this.firstMastSailStates, firstVisibility);
+      restoreVisibility(this.secondMastSailStates, secondVisibility);
    }
 
    @Override
@@ -1974,74 +1966,19 @@ public class ModelWarGalley extends EntityModel<AbstractBannerUser> {
 
       WarGalleyEntity warGalley = (WarGalleyEntity) entityIn;
 
+      this.botom_1.xRot = 0.0F;
+      this.botom_1.yRot = HULL_Y_ROT;
+      this.botom_1.zRot = 0.0F;
+
       int state = warGalley.getSailState();
-      switch(state) {
-      case 0:
-         this.Segel_1_z0.visible = true;
-         this.Segel_1_z1.visible = false;
-         this.Segel_1_z2.visible = false;
-         this.Segel_1_z3.visible = false;
-         this.Segel_1_z4.visible = false;
-         this.Segel_2_z0.visible = true;
-         this.Segel_2_z1.visible = false;
-         this.Segel_2_z2.visible = false;
-         this.Segel_2_z3.visible = false;
-         this.Segel_2_z4.visible = false;
-         break;
-      case 1:
-         this.Segel_1_z0.visible = false;
-         this.Segel_1_z1.visible = true;
-         this.Segel_1_z2.visible = false;
-         this.Segel_1_z3.visible = false;
-         this.Segel_1_z4.visible = false;
-         this.Segel_2_z0.visible = false;
-         this.Segel_2_z1.visible = true;
-         this.Segel_2_z2.visible = false;
-         this.Segel_2_z3.visible = false;
-         this.Segel_2_z4.visible = false;
-         break;
-      case 2:
-         this.Segel_1_z0.visible = false;
-         this.Segel_1_z1.visible = false;
-         this.Segel_1_z2.visible = true;
-         this.Segel_1_z3.visible = false;
-         this.Segel_1_z4.visible = false;
-         this.Segel_2_z0.visible = false;
-         this.Segel_2_z1.visible = false;
-         this.Segel_2_z2.visible = true;
-         this.Segel_2_z3.visible = false;
-         this.Segel_2_z4.visible = false;
-         break;
-      case 3:
-         this.Segel_1_z0.visible = false;
-         this.Segel_1_z1.visible = false;
-         this.Segel_1_z2.visible = false;
-         this.Segel_1_z3.visible = true;
-         this.Segel_1_z4.visible = false;
-         this.Segel_2_z0.visible = false;
-         this.Segel_2_z1.visible = false;
-         this.Segel_2_z2.visible = false;
-         this.Segel_2_z3.visible = true;
-         this.Segel_2_z4.visible = false;
-         break;
-      case 4:
-         this.Segel_1_z0.visible = false;
-         this.Segel_1_z1.visible = false;
-         this.Segel_1_z2.visible = false;
-         this.Segel_1_z3.visible = false;
-         this.Segel_1_z4.visible = true;
-         this.Segel_2_z0.visible = false;
-         this.Segel_2_z1.visible = false;
-         this.Segel_2_z2.visible = false;
-         this.Segel_2_z3.visible = false;
-         this.Segel_2_z4.visible = true;
-      }
+      updateSailState(state, this.firstMastSailStates);
+      updateSailState(state, this.secondMastSailStates);
 
       int cargo = warGalley.getCargo();
       this.Cargo0.visible = cargo >= 1;
       this.Cargo1.visible = cargo >= 2;
-      this.paddels(warGalley, 0, limbSwing);
-      this.paddels(warGalley, 1, limbSwing);
+      animatePaddles(warGalley, 0, limbSwing, this.leftPaddles, false);
+      animatePaddles(warGalley, 1, limbSwing, this.rightPaddles, true);
    }
 
    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
@@ -2050,34 +1987,51 @@ public class ModelWarGalley extends EntityModel<AbstractBannerUser> {
       modelRenderer.zRot = z;
    }
 
-   protected void paddels(WarGalleyEntity galleyEntity, int side, float limbSwing) {
-      float f = galleyEntity.getRowingTime(side, limbSwing);
-      this.ruder_r_1.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-      this.ruder_r_1.yRot = 3.1415927F - (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-      this.ruder_r_2.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-      this.ruder_r_2.yRot = 3.1415927F - (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-      this.ruder_r_3.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-      this.ruder_r_3.yRot = 3.1415927F - (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-      this.ruder_r_4.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-      this.ruder_r_4.yRot = 3.1415927F - (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-      this.ruder_r_5.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-      this.ruder_r_5.yRot = 3.1415927F - (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-      this.ruder_r_6.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-      this.ruder_r_6.yRot = 3.1415927F - (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-      if (side == 0) {
-         this.ruder_l_1.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-         this.ruder_l_1.yRot = (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-         this.ruder_l_2.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-         this.ruder_l_2.yRot = (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-         this.ruder_l_3.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-         this.ruder_l_3.yRot = (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-         this.ruder_l_4.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-         this.ruder_l_4.yRot = (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-         this.ruder_l_5.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-         this.ruder_l_5.yRot = (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-         this.ruder_l_6.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-         this.ruder_l_6.yRot = (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-      }
+   private void animatePaddles(WarGalleyEntity galleyEntity, int side, float limbSwing, ModelRenderer[] paddles, boolean rightSide) {
+      float rowingTime = galleyEntity.getRowingTime(side, limbSwing);
+      float steer = -galleyEntity.getRotSpeed();
 
+      for (ModelRenderer paddle : paddles) {
+         setPaddleRotation(paddle, rowingTime, steer, rightSide);
+      }
+   }
+
+   private static void setPaddleRotation(ModelRenderer paddle, float rowingTime, float steer, boolean rightSide) {
+      float xRot = (float)MathHelper.clamp(PADDLE_MIN_X_ROT, PADDLE_MAX_X_ROT, (double)((MathHelper.sin(-rowingTime) + 1.0F) / 2.0F));
+      float yawOffset = (float)MathHelper.clamp(PADDLE_MIN_Y_ROT, PADDLE_MAX_Y_ROT, (double)((MathHelper.sin(-rowingTime + 1.0F) + 1.0F) / 2.0F));
+      if (rightSide) {
+         paddle.xRot = xRot;
+         paddle.yRot = (float)Math.PI - yawOffset + steer;
+      } else {
+         paddle.xRot = xRot;
+         paddle.yRot = yawOffset - steer;
+      }
+   }
+
+   private static boolean[] captureVisibility(ModelRenderer[] sails) {
+      boolean[] visibility = new boolean[sails.length];
+      for (int i = 0; i < sails.length; ++i) {
+         visibility[i] = sails[i].visible;
+      }
+      return visibility;
+   }
+
+   private static void setVisibility(ModelRenderer[] sails, boolean visible) {
+      for (ModelRenderer sail : sails) {
+         sail.visible = visible;
+      }
+   }
+
+   private static void restoreVisibility(ModelRenderer[] sails, boolean[] visibility) {
+      for (int i = 0; i < sails.length; ++i) {
+         sails[i].visible = visibility[i];
+      }
+   }
+
+   private static void updateSailState(int state, ModelRenderer[] sails) {
+      int clamped = MathHelper.clamp(state, 0, sails.length - 1);
+      for (int i = 0; i < sails.length; ++i) {
+         sails[i].visible = i == clamped;
+      }
    }
 }

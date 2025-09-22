@@ -21,6 +21,21 @@ public class ModelRowBoat extends EntityModel<AbstractBannerUser> {
    public ModelRenderer ruder_r;
    public ModelRenderer ruder0_2;
 
+   private static final float RUDER0_1_BASE_X_ROT = 0.71279246F;
+   private static final float RUDER0_1_BASE_Y_ROT = 0.2645919F;
+   private static final float RUDER0_1_BASE_Z_ROT = 1.6029103F;
+   private static final float RUDER0_2_BASE_X_ROT = 0.05235988F;
+   private static final float RUDER0_2_BASE_Y_ROT = 0.12217305F;
+   private static final float RUDER0_2_BASE_Z_ROT = -0.4537856F;
+
+   private static final float PADDLE_MIN_X_ROT = -1.0471975803375244F;
+   private static final float PADDLE_MAX_X_ROT = -0.2617993950843811F;
+   private static final float PADDLE_MIN_Y_ROT = -0.7853981852531433F;
+   private static final float PADDLE_MAX_Y_ROT = 0.7853981852531433F;
+
+   private final ModelRenderer[] leftPaddles;
+   private final ModelRenderer[] rightPaddles;
+
    public ModelRowBoat() {
       this.texWidth = 128;
       this.texHeight = 64;
@@ -93,6 +108,9 @@ public class ModelRowBoat extends EntityModel<AbstractBannerUser> {
       this.RowBoat.addChild(this.Cargo_0);
       this.RowBoat.addChild(this.ruder0_1);
       this.RowBoat.addChild(this.ruder_l);
+
+      this.rightPaddles = new ModelRenderer[]{this.ruder_r};
+      this.leftPaddles = new ModelRenderer[]{this.ruder_l};
    }
 
    @Override
@@ -110,6 +128,19 @@ public class ModelRowBoat extends EntityModel<AbstractBannerUser> {
 
       RowBoatEntity rowBoat = (RowBoatEntity) entityIn;
 
+      float steer = -rowBoat.getRotSpeed();
+
+      this.RowBoat.xRot = 0.0F;
+      this.RowBoat.yRot = 1.5707964F;
+      this.RowBoat.zRot = 0.0F;
+
+      this.ruder0_1.xRot = RUDER0_1_BASE_X_ROT;
+      this.ruder0_1.yRot = RUDER0_1_BASE_Y_ROT + steer;
+      this.ruder0_1.zRot = RUDER0_1_BASE_Z_ROT;
+      this.ruder0_2.xRot = RUDER0_2_BASE_X_ROT;
+      this.ruder0_2.yRot = RUDER0_2_BASE_Y_ROT;
+      this.ruder0_2.zRot = RUDER0_2_BASE_Z_ROT;
+
       if (!rowBoat.isPassenger()) {
          this.ruder0_1.visible = true;
          this.ruder0_2.visible = true;
@@ -125,8 +156,8 @@ public class ModelRowBoat extends EntityModel<AbstractBannerUser> {
       int cargo = rowBoat.getCargo();
       this.Cargo_1.visible = cargo >= 1;
       this.Cargo_0.visible = cargo >= 2;
-      this.paddels(rowBoat, 0, limbSwing);
-      this.paddels(rowBoat, 1, limbSwing);
+      animatePaddles(rowBoat, 0, limbSwing, this.leftPaddles, false);
+      animatePaddles(rowBoat, 1, limbSwing, this.rightPaddles, true);
    }
 
    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
@@ -135,14 +166,24 @@ public class ModelRowBoat extends EntityModel<AbstractBannerUser> {
       modelRenderer.zRot = z;
    }
 
-   protected void paddels(RowBoatEntity galleyEntity, int side, float limbSwing) {
-      float f = galleyEntity.getRowingTime(side, limbSwing);
-      this.ruder_r.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-      this.ruder_r.yRot = 3.1415927F - (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-      if (side == 0) {
-         this.ruder_l.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-         this.ruder_l.yRot = (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-      }
+   private void animatePaddles(RowBoatEntity galleyEntity, int side, float limbSwing, ModelRenderer[] paddles, boolean rightSide) {
+      float rowingTime = galleyEntity.getRowingTime(side, limbSwing);
+      float steer = -galleyEntity.getRotSpeed();
 
+      for (ModelRenderer paddle : paddles) {
+         setPaddleRotation(paddle, rowingTime, steer, rightSide);
+      }
+   }
+
+   private static void setPaddleRotation(ModelRenderer paddle, float rowingTime, float steer, boolean rightSide) {
+      float xRot = (float)MathHelper.clamp(PADDLE_MIN_X_ROT, PADDLE_MAX_X_ROT, (double)((MathHelper.sin(-rowingTime) + 1.0F) / 2.0F));
+      float yawOffset = (float)MathHelper.clamp(PADDLE_MIN_Y_ROT, PADDLE_MAX_Y_ROT, (double)((MathHelper.sin(-rowingTime + 1.0F) + 1.0F) / 2.0F));
+      if (rightSide) {
+         paddle.xRot = xRot;
+         paddle.yRot = (float)Math.PI - yawOffset + steer;
+      } else {
+         paddle.xRot = xRot;
+         paddle.yRot = yawOffset - steer;
+      }
    }
 }
