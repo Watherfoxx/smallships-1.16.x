@@ -103,7 +103,7 @@ public abstract class AbstractWaterVehicle extends Entity {
     public void recalculateBoundingBox() {
         double width = getWidth();
         double height = getHeight();
-        boundingBox = new AxisAlignedBB(getX() - width / 2D, getY(), getZ() - width / 2D, getX() + width / 2D, getY() + height, getZ() + width / 2D);
+        boundingBox = new AxisAlignedBB(getX() - width / 1.5D, getY(), getZ() - width / 1.5D, getX() + width / 1.5D, getY() + height * 1.3, getZ() + width / 1.5D);
     }
 
     public abstract double getWidth();

@@ -26,17 +26,17 @@ public class RenderEntityRowBoat extends AbstractShipRenderer<RowBoatEntity> {
 
     @Override
     protected double getRenderYOffset(RowBoatEntity entity) {
-        return 0D;
+        return 0.0D;
     }
 
     @Override
     protected float getModelScale(RowBoatEntity entity) {
-        return 1.3F * getSizeRatio(entity);
+        return 1F;
     }
 
     @Override
     protected Vector3d getModelTranslation(RowBoatEntity entity) {
-        return new Vector3d(0.0D, -1.8D, -1.0D);
+        return new Vector3d(0.0D, -1.8D,0.0D);
     }
 
     @Override
@@ -47,10 +47,5 @@ public class RenderEntityRowBoat extends AbstractShipRenderer<RowBoatEntity> {
     @Override
     public ResourceLocation getTextureLocation(RowBoatEntity entity) {
         return ROWBOAT_TEXTURES[entity.getWoodType().ordinal()];
-    }
-
-    private float getSizeRatio(RowBoatEntity entity) {
-        float ratio = (float) (entity.getWidth() / 3.0D);
-        return MathHelper.clamp(ratio, 0.6F, 1.2F);
     }
 }
