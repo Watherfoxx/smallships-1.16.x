@@ -21,62 +21,59 @@ public class SmallShipsConfig {
     public static ForgeConfigSpec.BooleanValue PlaySwimmSound;
     public static ForgeConfigSpec.BooleanValue WaterMobFlee;
 
-    public static ForgeConfigSpec.DoubleValue GalleySpeedFactor;
-    public static ForgeConfigSpec.DoubleValue GalleyTurnFactor;
-    public static ForgeConfigSpec.DoubleValue WarGalleySpeedFactor;
-    public static ForgeConfigSpec.DoubleValue WarGalleyTurnFactor;
-    public static ForgeConfigSpec.DoubleValue CogSpeedFactor;
-    public static ForgeConfigSpec.DoubleValue CogTurnFactor;
-    public static ForgeConfigSpec.DoubleValue DrakkarSpeedFactor;
-    public static ForgeConfigSpec.DoubleValue DrakkarTurnFactor;
-    public static ForgeConfigSpec.DoubleValue DrakkarIceBreakSpeed;
-    public static ForgeConfigSpec.DoubleValue RowBoatSpeedFactor;
-    public static ForgeConfigSpec.DoubleValue RowBoatTurnFactor;
-    public static ForgeConfigSpec.DoubleValue BriggSpeedFactor;
-    public static ForgeConfigSpec.DoubleValue BriggTurnFactor;
-    public static ForgeConfigSpec.DoubleValue DhowSpeedFactor;
-    public static ForgeConfigSpec.DoubleValue DhowTurnFactor;
     public static ForgeConfigSpec.DoubleValue ShipZoom;
     public static ForgeConfigSpec.BooleanValue EnterThirdPerson;
     public static ForgeConfigSpec.BooleanValue MakeWaveAnimation;
-    public static ForgeConfigSpec.DoubleValue BriggHealth;
-    public static ForgeConfigSpec.DoubleValue CogHealth;
-    public static ForgeConfigSpec.DoubleValue DrakkarHealth;
-    public static ForgeConfigSpec.DoubleValue GalleyHealth;
-    public static ForgeConfigSpec.DoubleValue RowBoatHealth;
-    public static ForgeConfigSpec.DoubleValue WarGalleyHealth;
-    public static ForgeConfigSpec.DoubleValue DhowHealth;
 
+    public static ForgeConfigSpec.DoubleValue RowBoatHealth;
+    public static ForgeConfigSpec.DoubleValue RowBoatSpeedFactor;
+    public static ForgeConfigSpec.DoubleValue RowBoatTurnFactor;
     public static ForgeConfigSpec.IntValue RowBoatInventorySize;
     public static ForgeConfigSpec.IntValue RowBoatInventoryPages;
     public static ForgeConfigSpec.IntValue RowBoatMaxCannons;
 
+    public static ForgeConfigSpec.DoubleValue DrakkarHealth;
+    public static ForgeConfigSpec.DoubleValue DrakkarSpeedFactor;
+    public static ForgeConfigSpec.DoubleValue DrakkarTurnFactor;
+    public static ForgeConfigSpec.DoubleValue DrakkarIceBreakSpeed;
     public static ForgeConfigSpec.IntValue DrakkarInventorySize;
     public static ForgeConfigSpec.IntValue DrakkarInventoryPages;
     public static ForgeConfigSpec.IntValue DrakkarMaxCannons;
 
+    public static ForgeConfigSpec.DoubleValue GalleyHealth;
+    public static ForgeConfigSpec.DoubleValue GalleySpeedFactor;
+    public static ForgeConfigSpec.DoubleValue GalleyTurnFactor;
     public static ForgeConfigSpec.IntValue GalleyInventorySize;
     public static ForgeConfigSpec.IntValue GalleyInventoryPages;
     public static ForgeConfigSpec.IntValue GalleyMaxCannons;
 
+    public static ForgeConfigSpec.DoubleValue WarGalleyHealth;
+    public static ForgeConfigSpec.DoubleValue WarGalleySpeedFactor;
+    public static ForgeConfigSpec.DoubleValue WarGalleyTurnFactor;
     public static ForgeConfigSpec.IntValue WarGalleyInventorySize;
     public static ForgeConfigSpec.IntValue WarGalleyInventoryPages;
     public static ForgeConfigSpec.IntValue WarGalleyMaxCannons;
 
+    public static ForgeConfigSpec.DoubleValue DhowHealth;
+    public static ForgeConfigSpec.DoubleValue DhowSpeedFactor;
+    public static ForgeConfigSpec.DoubleValue DhowTurnFactor;
     public static ForgeConfigSpec.IntValue DhowInventorySize;
     public static ForgeConfigSpec.IntValue DhowInventoryPages;
     public static ForgeConfigSpec.IntValue DhowMaxCannons;
 
+    public static ForgeConfigSpec.DoubleValue CogHealth;
+    public static ForgeConfigSpec.DoubleValue CogSpeedFactor;
+    public static ForgeConfigSpec.DoubleValue CogTurnFactor;
     public static ForgeConfigSpec.IntValue CogInventorySize;
     public static ForgeConfigSpec.IntValue CogInventoryPages;
     public static ForgeConfigSpec.IntValue CogMaxCannons;
 
+    public static ForgeConfigSpec.DoubleValue BriggHealth;
+    public static ForgeConfigSpec.DoubleValue BriggSpeedFactor;
+    public static ForgeConfigSpec.DoubleValue BriggTurnFactor;
     public static ForgeConfigSpec.IntValue BriggInventorySize;
     public static ForgeConfigSpec.IntValue BriggInventoryPages;
     public static ForgeConfigSpec.IntValue BriggMaxCannons;
-
-    public static ForgeConfigSpec.BooleanValue ShowShipInfo;
-    public static ForgeConfigSpec.DoubleValue  ShipInfoScale;
 
     public static ForgeConfigSpec.ConfigValue<List<String>> PassengerBlackList;
 
@@ -85,6 +82,13 @@ public class SmallShipsConfig {
                 .defineInRange("Version", 0, 0, Integer.MAX_VALUE);
 
         BUILDER.comment("Small Ships Config:").push("Ships");
+
+        GalleyHealth = BUILDER.comment("\n" +"----Galley Health.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "(vanilla boat value = 60)" + "\n" +
+                        "\t" + "default: 600")
+                .worldRestart()
+                .defineInRange("GalleyHealth", 600.0, 0.0, 10000.0);
 
         GalleySpeedFactor = BUILDER.comment("\n" +"----Galley Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -116,6 +120,13 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("GalleyMaxCannons", 4, 0, 8);
 
+        CogHealth = BUILDER.comment("\n" +"----Cog Health.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "(vanilla boat value = 60)" + "\n" +
+                        "\t" + "default: 300.0")
+                .worldRestart()
+                .defineInRange("CogHealth", 300.0, 0.0, 10000.0);
+
         CogSpeedFactor = BUILDER.comment("\n" +"----Cog Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 1.25" )
@@ -146,6 +157,13 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("CogMaxCannons", 4, 0, 6);
 
+        WarGalleyHealth = BUILDER.comment("\n" +"----War Galley Health.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "(vanilla boat value = 60)" + "\n" +
+                        "\t" + "default: 600")
+                .worldRestart()
+                .defineInRange("WarGalleyHealth", 600.0, 0.0, 10000.0);
+
         WarGalleySpeedFactor = BUILDER.comment("\n" +"----War Galley Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 1.15")
@@ -175,6 +193,13 @@ public class SmallShipsConfig {
                 "\t" + "default: 6")
                 .worldRestart()
                 .defineInRange("WarGalleyMaxCannons", 6, 0, 10);
+
+        DrakkarHealth = BUILDER.comment("\n" +"----Drakkar Health.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "(vanilla boat value = 60)" + "\n" +
+                        "\t" + "default: 360")
+                .worldRestart()
+                .defineInRange("DrakkarHealth", 360.0, 0.0, 10000.0);
 
         DrakkarSpeedFactor = BUILDER.comment("\n" +"----Drakkar Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -213,6 +238,13 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("DrakkarMaxCannons", 0, 0, 6);
 
+        RowBoatHealth = BUILDER.comment("\n" +"----Row Boat Health.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "(vanilla boat value = 60)" + "\n" +
+                        "\t" + "default: 100")
+                .worldRestart()
+                .defineInRange("RowBoatHealth", 100.0, 0.0, 10000.0);
+
         RowBoatSpeedFactor = BUILDER.comment("\n" +"----Row Boat Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 1.0")
@@ -243,6 +275,13 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("RowBoatMaxCannons", 0, 0, 4);
 
+        BriggHealth = BUILDER.comment("\n" +"----Brigg Health.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "(vanilla boat value = 60)" + "\n" +
+                        "\t" + "default: 600")
+                .worldRestart()
+                .defineInRange("BriggHealth", 600.0, 0.0, 10000.0);
+
         BriggSpeedFactor = BUILDER.comment("\n" +"----Brigg Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 1.28" )
@@ -272,6 +311,13 @@ public class SmallShipsConfig {
                 "\t" + "default: 6")
                 .worldRestart()
                 .defineInRange("BriggMaxCannons", 6, 0, 10);
+
+        DhowHealth = BUILDER.comment("\n" +"----Dhow Health.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "(vanilla boat value = 60)" + "\n" +
+                        "\t" + "default: 400")
+                .worldRestart()
+                .defineInRange("DhowHealth", 400.0, 0.0, 10000.0);
 
         DhowSpeedFactor = BUILDER.comment("\n" +"----Dhow Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -330,55 +376,6 @@ public class SmallShipsConfig {
                 "\t" + "default: true")
                 .worldRestart()
                 .define("MakeWaveAnimation", true);
-
-        BriggHealth = BUILDER.comment("\n" +"----Brigg Health.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "(vanilla boat value = 60)" + "\n" +
-                "\t" + "default: 600")
-                .worldRestart()
-                .defineInRange("BriggHealth", 600.0, 0.0, 10000.0);
-
-        CogHealth = BUILDER.comment("\n" +"----Cog Health.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "(vanilla boat value = 60)" + "\n" +
-                "\t" + "default: 300.0")
-                .worldRestart()
-                .defineInRange("CogHealth", 300.0, 0.0, 10000.0);
-
-        DrakkarHealth = BUILDER.comment("\n" +"----Drakkar Health.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "(vanilla boat value = 60)" + "\n" +
-                "\t" + "default: 360")
-                .worldRestart()
-                .defineInRange("DrakkarHealth", 360.0, 0.0, 10000.0);
-
-        GalleyHealth = BUILDER.comment("\n" +"----Galley Health.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "(vanilla boat value = 60)" + "\n" +
-                "\t" + "default: 600")
-                .worldRestart()
-                .defineInRange("GalleyHealth", 600.0, 0.0, 10000.0);
-
-        RowBoatHealth = BUILDER.comment("\n" +"----Row Boat Health.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "(vanilla boat value = 60)" + "\n" +
-                "\t" + "default: 100")
-                .worldRestart()
-                .defineInRange("RowBoatHealth", 100.0, 0.0, 10000.0);
-
-        WarGalleyHealth = BUILDER.comment("\n" +"----War Galley Health.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "(vanilla boat value = 60)" + "\n" +
-                "\t" + "default: 600")
-                .worldRestart()
-                .defineInRange("WarGalleyHealth", 600.0, 0.0, 10000.0);
-
-        DhowHealth = BUILDER.comment("\n" +"----Dhow Health.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "(vanilla boat value = 60)" + "\n" +
-                "\t" + "default: 400")
-                .worldRestart()
-                .defineInRange("DhowHealth", 400.0, 0.0, 10000.0);
 
         PassengerBlackList = BUILDER.comment("\n" + "----Passenger Blacklist----" + "\n" +
                         "\t" + "(takes effect after restart)" + "\n" +
