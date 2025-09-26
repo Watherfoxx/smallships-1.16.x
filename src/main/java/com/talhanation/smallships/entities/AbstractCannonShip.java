@@ -340,8 +340,8 @@ public abstract class AbstractCannonShip extends AbstractShipDamage{
         return -90F;
     }
 
-    protected float getRightCannonRotation() {
-        return getLeftCannonRotation() + 180F;
+    protected float getRightCannonRotation()  {
+        return 90F;
     }
 
     public void onInteractionWithCannon(PlayerEntity player, ItemStack itemStack) {

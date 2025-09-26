@@ -28,7 +28,7 @@ public class RenderEntityGalley extends AbstractShipRenderer<GalleyEntity> {
 
     @Override
     protected double getRenderYOffset(GalleyEntity entity) {
-        return -0.15D;
+        return 1D;
     }
 
     @Override

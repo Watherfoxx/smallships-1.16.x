@@ -32,14 +32,14 @@ public class GalleyEntity extends AbstractCannonShip {
             new Vector3d(0.4D, 0.0D, -1.3D)
     };
     private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(-1.4D, -0.55D, 0.6D),
-            new Vector3d(-1.4D, -0.55D, -0.4D),
-            new Vector3d(-1.4D, -0.55D, -1.4D)
+            new Vector3d(1.4D, 0D, -0.6D),
+            new Vector3d(1.4D, 0D, 0.4D),
+            new Vector3d(1.4D, 0D, 1.4D)
     };
     private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(1.4D, -0.55D, 0.6D),
-            new Vector3d(1.4D, -0.55D, -0.4D),
-            new Vector3d(1.4D, -0.55D, -1.4D)
+            new Vector3d(-1.4D, 0D, -0.6D),
+            new Vector3d(-1.4D, 0D, 0.4D),
+            new Vector3d(-1.4D, 0D, 1.4D)
     };
     private static final Vector3d[] PASSENGER_LAYOUT_FIVE = new Vector3d[]{
             PASSENGER_OFFSETS[0],

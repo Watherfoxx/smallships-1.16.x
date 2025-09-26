@@ -29,7 +29,7 @@ public class RenderEntityDhow extends AbstractShipRenderer<DhowEntity> {
 
     @Override
     protected double getRenderYOffset(DhowEntity entity) {
-        return 0.4D * getSizeRatio(entity);
+        return 0D;
     }
 
     @Override

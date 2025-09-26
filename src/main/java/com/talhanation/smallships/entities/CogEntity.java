@@ -20,12 +20,12 @@ import net.minecraft.world.World;
 public class CogEntity extends AbstractCannonShip{
 
     private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(-1.4D, 0.03D, 1.1D),
-            new Vector3d(-1.4D, 0.03D, -1.1D)
+        new Vector3d(-1.4D, 0.03D, -1.1D),
+        new Vector3d(1.4D, 0.03D, -1.1D)
     };
     private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
-        new Vector3d(1.4D, 0.03D, 1.1D),
-        new Vector3d(1.4D, 0.03D, -1.1D)
+        new Vector3d(-1.4D, 0.03D, 1.1D),
+        new Vector3d(1.4D, 0.03D, 1.1D)
     };
 
     public CogEntity(EntityType<? extends CogEntity> type, World world) {

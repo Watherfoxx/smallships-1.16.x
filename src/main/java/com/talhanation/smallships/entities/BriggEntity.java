@@ -20,14 +20,14 @@ import net.minecraft.world.World;
 public class BriggEntity extends AbstractCannonShip{
 
     private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(-1.8D, -0.55D, 1.4D),
-            new Vector3d(-1.8D, -0.55D, 0.0D),
-            new Vector3d(-1.8D, -0.55D, -1.4D)
+            new Vector3d(-1.8D, -0.5D, 1.4D),
+            new Vector3d(-1.8D, -0.5D, 0.0D),
+            new Vector3d(-1.8D, -0.5D, -1.4D)
     };
     private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(1.8D, -0.55D, 1.4D),
-            new Vector3d(1.8D, -0.55D, 0.0D),
-            new Vector3d(1.8D, -0.55D, -1.4D)
+            new Vector3d(1.8D, -0.5D, 1.4D),
+            new Vector3d(1.8D, -0.5D, 0.0D),
+            new Vector3d(1.8D, -0.5D, -1.4D)
     };
 
     public BriggEntity(EntityType<? extends BriggEntity> type, World world) {

@@ -28,16 +28,19 @@ public class WarGalleyEntity extends AbstractCannonShip {
             new Vector3d(-0.6D, 0.0D, -1.3D),
             new Vector3d(0.6D, 0.0D, -1.3D)
     };
+
     private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(-1.6D, -0.55D, 0.7D),
-            new Vector3d(-1.6D, -0.55D, -0.3D),
-            new Vector3d(-1.6D, -0.55D, -1.4D)
+            new Vector3d(1.6D, -0.3D, 0.7D),
+            new Vector3d(1.6D, -0.3D, -0.3D),
+            new Vector3d(1.6D, -0.3D, -1.4D)
     };
+
     private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(1.6D, -0.55D, 0.7D),
-            new Vector3d(1.6D, -0.55D, -0.3D),
-            new Vector3d(1.6D, -0.55D, -1.4D)
+            new Vector3d(-1.6D, -0.3D, -0.7D),
+            new Vector3d(-1.6D, -0.3D, 0.3D),
+            new Vector3d(-1.6D, -0.3D, 1.4D)
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_FIVE = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1],

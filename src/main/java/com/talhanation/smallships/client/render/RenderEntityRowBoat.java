@@ -26,7 +26,7 @@ public class RenderEntityRowBoat extends AbstractShipRenderer<RowBoatEntity> {
 
     @Override
     protected double getRenderYOffset(RowBoatEntity entity) {
-        return 0.4D;
+        return 0D;
     }
 
     @Override

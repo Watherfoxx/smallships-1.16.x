@@ -23,20 +23,23 @@ import java.util.List;
 
 public class DhowEntity extends AbstractCannonShip {
 
+    private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
+            new Vector3d(-1.2D, -0.5D, 0.85D),
+            new Vector3d(-1.2D, -0.5D, -0.85D)
+    };
+
+    private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
+            new Vector3d(1.2D, -0.5D, 0.85D),
+            new Vector3d(1.2D, -0.5D, -0.85D)
+    };
+
     private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
-            new Vector3d(-2.0D, 1.0D, 0.6D), // en bas à droite
-            new Vector3d(0D, 0.9D, 0.6D),  // en haut à droite
-            new Vector3d(-2.0D, 0.8D, -0.6D), // en bas à gauche
+            new Vector3d(-2.0D, 0.5D, 0.6D), // en bas à droite
+            new Vector3d(0D, 0.5D, 0.6D),  // en haut à droite
+            new Vector3d(-2.0D, 0.5D, -0.6D), // en bas à gauche
             new Vector3d(0D, 0.5D, -0.6D) // en haut à gauche
     };
-    private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(-1.2D, 0.03D, 0.85D),
-            new Vector3d(-1.2D, 0.03D, -0.85D)
-    };
-    private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(1.2D, 0.03D, 0.85D),
-            new Vector3d(1.2D, 0.03D, -0.85D)
-    };
+
     private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1],
@@ -49,14 +52,15 @@ public class DhowEntity extends AbstractCannonShip {
             PASSENGER_OFFSETS[1],
             PASSENGER_OFFSETS[2]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_TWO = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
             PASSENGER_OFFSETS[0]
     };
-    private static final int MIN_PASSENGERS = 2;
 
     public DhowEntity(EntityType<? extends DhowEntity> type, World world) {
         super(type, world);
@@ -153,7 +157,8 @@ public class DhowEntity extends AbstractCannonShip {
 
     @Override
     public int getPassengerSize() {
-        return 4; }
+        return 4;
+    }
 
     @Override
     public int getMaxCannons() {
@@ -328,11 +333,11 @@ public class DhowEntity extends AbstractCannonShip {
 
     @Override
     protected float getLeftCannonRotation() {
-        return 0F;
+        return 90F;
     }
 
     @Override
     protected float getRightCannonRotation() {
-        return 180F;
+        return -90F;
     }
 }
