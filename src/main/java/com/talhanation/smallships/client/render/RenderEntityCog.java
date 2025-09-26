@@ -86,7 +86,7 @@ public class RenderEntityCog extends AbstractShipRenderer<CogEntity> {
 
     @Override
     protected void renderAdditionalParts(CogEntity entity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight) {
-        entity.renderCannon(-0.65D, 0.03D, 0F, matrixStack, buffer, packedLight, partialTicks);
+        entity.renderCannons(matrixStack, buffer, packedLight, partialTicks);
     }
 
     @Override

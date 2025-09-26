@@ -19,6 +19,15 @@ import net.minecraft.world.World;
 
 public class CogEntity extends AbstractCannonShip{
 
+    private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
+            new Vector3d(-1.4D, 0.03D, 1.1D),
+            new Vector3d(-1.4D, 0.03D, -1.1D)
+    };
+    private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
+        new Vector3d(1.4D, 0.03D, 1.1D),
+        new Vector3d(1.4D, 0.03D, -1.1D)
+    };
+
     public CogEntity(EntityType<? extends CogEntity> type, World world) {
         super(type, world);
     }
@@ -77,6 +86,16 @@ public class CogEntity extends AbstractCannonShip{
     @Override
     public float getAcceleration() {
         return 0.015F; //sensible
+    }
+
+    @Override
+    protected float getLeftCannonRotation() {
+        return 0F;
+    }
+
+    @Override
+    protected float getRightCannonRotation() {
+        return 180F;
     }
 
     @Override
@@ -355,5 +374,15 @@ public class CogEntity extends AbstractCannonShip{
             applyYawToEntity(passenger);
         }
 
+    }
+
+    @Override
+    protected Vector3d[] getLeftCannonOffsets() {
+        return LEFT_CANNON_OFFSETS;
+    }
+
+    @Override
+    protected Vector3d[] getRightCannonOffsets() {
+        return RIGHT_CANNON_OFFSETS;
     }
 }

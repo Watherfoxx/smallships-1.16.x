@@ -29,6 +29,14 @@ public class DhowEntity extends AbstractCannonShip {
             new Vector3d(-2.0D, 0.8D, -0.6D), // en bas à gauche
             new Vector3d(0D, 0.5D, -0.6D) // en haut à gauche
     };
+    private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
+            new Vector3d(-1.2D, 0.03D, 0.85D),
+            new Vector3d(-1.2D, 0.03D, -0.85D)
+    };
+    private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
+            new Vector3d(1.2D, 0.03D, 0.85D),
+            new Vector3d(1.2D, 0.03D, -0.85D)
+    };
     private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1],
@@ -266,7 +274,7 @@ public class DhowEntity extends AbstractCannonShip {
         float ridingOffset = (float) ((this.removed ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
         Vector3d rotated = new Vector3d(offset.x, 0.0D, offset.z)
                 .yRot(-this.yRot * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
-        passenger.setPos(this.getX() + rotated.x, this.getY() + rotated.y + ridingOffset, this.getZ() + rotated.z);
+        passenger.setPos(this.getX() + rotated.x, this.getY() + offset.y + ridingOffset, this.getZ() + rotated.z);
         passenger.yRot += this.deltaRotation;
         passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
         applyYawToEntity(passenger);
@@ -306,5 +314,25 @@ public class DhowEntity extends AbstractCannonShip {
     @Override
     public boolean getHasBanner() {
         return false;
+    }
+
+    @Override
+    protected Vector3d[] getLeftCannonOffsets() {
+        return LEFT_CANNON_OFFSETS;
+    }
+
+    @Override
+    protected Vector3d[] getRightCannonOffsets() {
+        return RIGHT_CANNON_OFFSETS;
+    }
+
+    @Override
+    protected float getLeftCannonRotation() {
+        return 0F;
+    }
+
+    @Override
+    protected float getRightCannonRotation() {
+        return 180F;
     }
 }

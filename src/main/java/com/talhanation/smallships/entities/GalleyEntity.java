@@ -31,6 +31,16 @@ public class GalleyEntity extends AbstractCannonShip {
             new Vector3d(-0.4D, 0.0D, -1.3D),
             new Vector3d(0.4D, 0.0D, -1.3D)
     };
+    private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
+            new Vector3d(-1.4D, -0.55D, 0.6D),
+            new Vector3d(-1.4D, -0.55D, -0.4D),
+            new Vector3d(-1.4D, -0.55D, -1.4D)
+    };
+    private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
+            new Vector3d(1.4D, -0.55D, 0.6D),
+            new Vector3d(1.4D, -0.55D, -0.4D),
+            new Vector3d(1.4D, -0.55D, -1.4D)
+    };
     private static final Vector3d[] PASSENGER_LAYOUT_FIVE = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1],
@@ -276,7 +286,7 @@ public class GalleyEntity extends AbstractCannonShip {
         float ridingOffset = (float) ((this.removed ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
         Vector3d rotated = new Vector3d(offset.x, 0.0D, offset.z)
                 .yRot(-this.yRot * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
-        passenger.setPos(this.getX() + rotated.x, this.getY() + ridingOffset, this.getZ() + rotated.z);
+        passenger.setPos(this.getX() + rotated.x, this.getY() + offset.y + ridingOffset, this.getZ() + rotated.z);
         passenger.yRot += this.deltaRotation;
         passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
         applyYawToEntity(passenger);
@@ -322,5 +332,15 @@ public class GalleyEntity extends AbstractCannonShip {
     @Override
     public boolean getHasBanner() {
         return false;
+    }
+
+    @Override
+    protected Vector3d[] getLeftCannonOffsets() {
+        return LEFT_CANNON_OFFSETS;
+    }
+
+    @Override
+    protected Vector3d[] getRightCannonOffsets() {
+        return RIGHT_CANNON_OFFSETS;
     }
 }

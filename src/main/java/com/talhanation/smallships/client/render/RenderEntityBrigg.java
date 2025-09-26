@@ -81,7 +81,7 @@ public class RenderEntityBrigg extends AbstractShipRenderer<BriggEntity> {
 
     @Override
     protected void renderAdditionalParts(BriggEntity entity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight) {
-        entity.renderCannon(-0.75D, -0.55D, -90F, matrixStack, buffer, packedLight, partialTicks);
+        entity.renderCannons(matrixStack, buffer, packedLight, partialTicks);
     }
 
     @Override

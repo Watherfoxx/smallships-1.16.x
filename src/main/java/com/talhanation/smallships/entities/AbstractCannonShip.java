@@ -309,41 +309,39 @@ public abstract class AbstractCannonShip extends AbstractShipDamage{
         this.shrinkItemInInv(inventory, cannonballItem, 1);
     }
 
-    public void renderCannon(double Zoffset, double height, float angle, MatrixStack matrixStack, IRenderTypeBuffer buffer , int packedLight, float partialTicks) {
-        if (getLeftCannonCount() != 0) {
-            for (int i = 0; i < getLeftCannonCount(); i++) {
-                double offset = 0;
-                switch (i) {
-                    case 0:
-                        offset = 1;
-                        break;
-                    case 1:
-                        offset = -0.2;
-                        break;
-                    case 2:
-                        offset = -1.5;
-                        break;
-                }
-                RenderCannon.renderCannon(Zoffset, offset, height, angle,this, partialTicks, matrixStack, buffer, packedLight);
-            }
+    public void renderCannons(MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight, float partialTicks) {
+        renderCannonSide(this.getLeftCannonOffsets(), this.getLeftCannonCount(), this.getLeftCannonRotation(), matrixStack, buffer, packedLight, partialTicks);
+        renderCannonSide(this.getRightCannonOffsets(), this.getRightCannonCount(), this.getRightCannonRotation(), matrixStack, buffer, packedLight, partialTicks);
+    }
+
+    private void renderCannonSide(Vector3d[] offsets, int cannonCount, float angle, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight, float partialTicks) {
+        if (offsets == null || cannonCount <= 0) {
+            return;
         }
-        if (getRightCannonCount() != 0) {
-            for (int i = 0; i < getRightCannonCount(); i++) {
-                double offset = 0;
-                switch (i) {
-                    case 0:
-                        offset = -1;
-                        break;
-                    case 1:
-                        offset = 0.2;
-                        break;
-                    case 2:
-                        offset = 1.5;
-                        break;
-                }
-                RenderCannon.renderCannon(Zoffset, offset, height, angle + 180, this, partialTicks, matrixStack, buffer, packedLight);
-            }
+
+        int renderCount = Math.min(cannonCount, offsets.length);
+        float radians = (float) Math.toRadians(-angle);
+        for (int i = 0; i < renderCount; i++) {
+            Vector3d offset = offsets[i];
+            Vector3d local = offset.yRot(radians);
+            RenderCannon.renderCannon(local.z, local.x, local.y, angle, this, partialTicks, matrixStack, buffer, packedLight);
         }
+    }
+
+    protected Vector3d[] getLeftCannonOffsets() {
+        return new Vector3d[0];
+    }
+
+    protected Vector3d[] getRightCannonOffsets() {
+        return new Vector3d[0];
+    }
+
+    protected float getLeftCannonRotation() {
+        return -90F;
+    }
+
+    protected float getRightCannonRotation() {
+        return getLeftCannonRotation() + 180F;
     }
 
     public void onInteractionWithCannon(PlayerEntity player, ItemStack itemStack) {

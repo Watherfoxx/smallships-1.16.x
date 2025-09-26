@@ -19,6 +19,17 @@ import net.minecraft.world.World;
 
 public class BriggEntity extends AbstractCannonShip{
 
+    private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
+            new Vector3d(-1.8D, -0.55D, 1.4D),
+            new Vector3d(-1.8D, -0.55D, 0.0D),
+            new Vector3d(-1.8D, -0.55D, -1.4D)
+    };
+    private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
+            new Vector3d(1.8D, -0.55D, 1.4D),
+            new Vector3d(1.8D, -0.55D, 0.0D),
+            new Vector3d(1.8D, -0.55D, -1.4D)
+    };
+
     public BriggEntity(EntityType<? extends BriggEntity> type, World world) {
         super(type, world);
     }
@@ -491,5 +502,15 @@ public class BriggEntity extends AbstractCannonShip{
             //passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
             applyYawToEntity(passenger);
         }
+    }
+
+    @Override
+    protected Vector3d[] getLeftCannonOffsets() {
+        return LEFT_CANNON_OFFSETS;
+    }
+
+    @Override
+    protected Vector3d[] getRightCannonOffsets() {
+        return RIGHT_CANNON_OFFSETS;
     }
 }
