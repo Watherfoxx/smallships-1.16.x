@@ -23,17 +23,13 @@ import java.util.List;
 public class RowBoatEntity extends AbstractCannonShip {
 
     private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
-            new Vector3d(-0.5D, 0.0D, 0.0D),
-            new Vector3d(0.5D, 0.0D, -0.4D)
+        new Vector3d(-0.5D, 0.0D, 0.0D),
+        new Vector3d(0.5D, 0.0D, -0.4D)
     };
-    private static final Vector3d[] PASSENGER_LAYOUT_TWO = new Vector3d[]{
-            PASSENGER_OFFSETS[0],
-            PASSENGER_OFFSETS[1]
-    };
+
     private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
-            PASSENGER_OFFSETS[0]
+        PASSENGER_OFFSETS[0]
     };
-    private static final int MIN_PASSENGERS = 1;
 
     public RowBoatEntity(EntityType<? extends RowBoatEntity> type, World world) {
         super(type, world);
@@ -135,8 +131,7 @@ public class RowBoatEntity extends AbstractCannonShip {
 
     @Override
     public int getPassengerSize() {
-        int seatCount = PASSENGER_OFFSETS.length - (this.getTotalCannonCount() + 1) / 2;
-        return MathHelper.clamp(seatCount, MIN_PASSENGERS, PASSENGER_OFFSETS.length);
+        return PASSENGER_OFFSETS.length;
     }
 
     @Override
@@ -218,11 +213,11 @@ public class RowBoatEntity extends AbstractCannonShip {
     }
 
     private Vector3d[] getSeatLayout() {
-        int seatCount = MathHelper.clamp(this.getPassengerSize(), 1, PASSENGER_OFFSETS.length);
+        int seatCount = this.getPassengerSize();
         if (seatCount <= 1) {
             return PASSENGER_LAYOUT_ONE;
         }
-        return PASSENGER_LAYOUT_TWO;
+        return PASSENGER_OFFSETS;
     }
 
     @Override

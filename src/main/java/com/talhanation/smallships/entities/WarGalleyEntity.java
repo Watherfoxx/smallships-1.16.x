@@ -343,6 +343,11 @@ public class WarGalleyEntity extends AbstractCannonShip {
     }
 
     @Override
+    public boolean getHasBanner() {
+        return true;
+    }
+
+    @Override
     protected Vector3d[] getLeftCannonOffsets() {
         return LEFT_CANNON_OFFSETS;
     }

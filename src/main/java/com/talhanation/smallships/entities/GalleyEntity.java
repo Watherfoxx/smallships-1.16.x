@@ -331,7 +331,7 @@ public class GalleyEntity extends AbstractCannonShip {
 
     @Override
     public boolean getHasBanner() {
-        return false;
+        return true;
     }
 
     @Override

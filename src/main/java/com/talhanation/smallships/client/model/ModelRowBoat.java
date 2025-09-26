@@ -166,9 +166,9 @@ public class ModelRowBoat extends EntityModel<AbstractBannerUser> {
       modelRenderer.zRot = z;
    }
 
-   private void animatePaddles(RowBoatEntity galleyEntity, int side, float limbSwing, ModelRenderer[] paddles, boolean rightSide) {
-      float rowingTime = galleyEntity.getRowingTime(side, limbSwing);
-      float steer = -galleyEntity.getRotSpeed();
+   private void animatePaddles(RowBoatEntity rowBoatEntity, int side, float limbSwing, ModelRenderer[] paddles, boolean rightSide) {
+      float rowingTime = rowBoatEntity.getRowingTime(side, limbSwing);
+      float steer = -rowBoatEntity.getRotSpeed();
 
       for (ModelRenderer paddle : paddles) {
          setPaddleRotation(paddle, rowingTime, steer, rightSide);

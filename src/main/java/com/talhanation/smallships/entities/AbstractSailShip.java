@@ -490,7 +490,6 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
 
         if (state != 4){
             state++;
-
         }
 
         sendSailStateToServer(state);

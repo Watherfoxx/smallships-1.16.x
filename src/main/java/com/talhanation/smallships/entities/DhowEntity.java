@@ -287,14 +287,16 @@ public class DhowEntity extends AbstractCannonShip {
 
     private Vector3d[] getSeatLayout() {
         int seatCount = MathHelper.clamp(this.getPassengerSize(), 1, PASSENGER_OFFSETS.length);
-        if (seatCount <= 1) {
-            return PASSENGER_LAYOUT_ONE;
-        } else if (seatCount == 2) {
-            return PASSENGER_LAYOUT_TWO;
-        } else if (seatCount == 3) {
-            return PASSENGER_LAYOUT_THREE;
+        switch (seatCount) {
+            case 1:
+                return PASSENGER_LAYOUT_ONE;
+            case 2:
+                return PASSENGER_LAYOUT_TWO;
+            case 3:
+                return PASSENGER_LAYOUT_THREE;
+            default:
+                return PASSENGER_OFFSETS;
         }
-        return PASSENGER_LAYOUT_FOUR;
     }
 
     @Override
@@ -318,7 +320,7 @@ public class DhowEntity extends AbstractCannonShip {
 
     @Override
     public boolean getHasBanner() {
-        return false;
+        return true;
     }
 
     @Override
