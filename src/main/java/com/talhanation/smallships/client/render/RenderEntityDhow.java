@@ -49,7 +49,7 @@ public class RenderEntityDhow extends AbstractShipRenderer<DhowEntity> {
 
     @Override
     protected void renderAdditionalParts(DhowEntity entity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight) {
-        entity.renderCannon(-0.65D, 0.03D, 0F, matrixStack, buffer, packedLight, partialTicks);
+        entity.renderCannons(matrixStack, buffer, packedLight, partialTicks);
     }
 
     @Override

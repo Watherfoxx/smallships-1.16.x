@@ -211,7 +211,7 @@ public class RowBoatEntity extends AbstractCannonShip {
         float ridingOffset = (float) ((this.removed ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
         Vector3d rotated = new Vector3d(offset.x, 0.0D, offset.z)
                 .yRot(-this.yRot * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
-        passenger.setPos(this.getX() + rotated.x, this.getY() + ridingOffset, this.getZ() + rotated.z);
+        passenger.setPos(this.getX() + rotated.x, this.getY() + offset.y + ridingOffset, this.getZ() + rotated.z);
         passenger.yRot += this.deltaRotation;
         passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
         applyYawToEntity(passenger);
