@@ -43,7 +43,7 @@ public class RenderEntityWarGalley extends AbstractShipRenderer<WarGalleyEntity>
 
     @Override
     protected float getModelYawOffset(WarGalleyEntity entity) {
-        return -90F;
+        return 0F;
     }
 
     @Override

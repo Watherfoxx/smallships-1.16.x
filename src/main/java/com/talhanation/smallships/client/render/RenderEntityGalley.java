@@ -38,12 +38,12 @@ public class RenderEntityGalley extends AbstractShipRenderer<GalleyEntity> {
 
     @Override
     protected Vector3d getModelTranslation(GalleyEntity entity) {
-        return new Vector3d(0.0D, -1.7D, -0.95D);
+        return new Vector3d(0.0D, -1.2D, -0.95D);
     }
 
     @Override
     protected float getModelYawOffset(GalleyEntity entity) {
-        return -90F;
+        return 0F;
     }
 
     @Override

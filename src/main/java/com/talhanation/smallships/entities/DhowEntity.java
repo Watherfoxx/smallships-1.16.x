@@ -24,11 +24,18 @@ import java.util.List;
 public class DhowEntity extends AbstractCannonShip {
 
     private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
-            new Vector3d(-1.0D, 0.0D, 0.2D),
-            new Vector3d(1.0D, 0.0D, 0.2D),
-            new Vector3d(-0.6D, 0.0D, -0.6D),
-            new Vector3d(0.6D, 0.0D, -0.6D)
+            new Vector3d(-2.0D, 1.0D, 0.6D), // en bas à droite
+            new Vector3d(0D, 0.9D, 0.6D),  // en haut à droite
+            new Vector3d(-2.0D, 0.8D, -0.6D), // en bas à gauche
+            new Vector3d(0D, 0.5D, -0.6D) // en haut à gauche
     };
+    private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2],
+            PASSENGER_OFFSETS[3]
+    };
+
     private static final Vector3d[] PASSENGER_LAYOUT_THREE = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1],
@@ -138,9 +145,7 @@ public class DhowEntity extends AbstractCannonShip {
 
     @Override
     public int getPassengerSize() {
-        int seatCount = PASSENGER_OFFSETS.length - (this.getTotalCannonCount() + 1) / 2;
-        return MathHelper.clamp(seatCount, MIN_PASSENGERS, PASSENGER_OFFSETS.length);
-    }
+        return 4; }
 
     @Override
     public int getMaxCannons() {
@@ -261,7 +266,7 @@ public class DhowEntity extends AbstractCannonShip {
         float ridingOffset = (float) ((this.removed ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
         Vector3d rotated = new Vector3d(offset.x, 0.0D, offset.z)
                 .yRot(-this.yRot * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
-        passenger.setPos(this.getX() + rotated.x, this.getY() + ridingOffset, this.getZ() + rotated.z);
+        passenger.setPos(this.getX() + rotated.x, this.getY() + rotated.y + ridingOffset, this.getZ() + rotated.z);
         passenger.yRot += this.deltaRotation;
         passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
         applyYawToEntity(passenger);
@@ -276,7 +281,7 @@ public class DhowEntity extends AbstractCannonShip {
         } else if (seatCount == 3) {
             return PASSENGER_LAYOUT_THREE;
         }
-        return PASSENGER_OFFSETS;
+        return PASSENGER_LAYOUT_FOUR;
     }
 
     @Override

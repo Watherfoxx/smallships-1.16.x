@@ -39,13 +39,12 @@ public class RenderEntityDhow extends AbstractShipRenderer<DhowEntity> {
 
     @Override
     protected Vector3d getModelTranslation(DhowEntity entity) {
-        float ratio = getSizeRatio(entity);
-        return new Vector3d(0.0D, -1.8D * ratio, -1.0D * ratio);
+        return new Vector3d(0.0D, -1.8D, 1.0D);
     }
 
     @Override
     protected float getModelYawOffset(DhowEntity entity) {
-        return -90F;
+        return 0F;
     }
 
     @Override

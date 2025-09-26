@@ -37,7 +37,7 @@ public class RowBoatEntity extends AbstractCannonShip {
 
     public RowBoatEntity(EntityType<? extends RowBoatEntity> type, World world) {
         super(type, world);
-        this.setSailState(0);
+        this.setPaddleState(false, false);
     }
 
     public RowBoatEntity(World world, double x, double y, double z) {

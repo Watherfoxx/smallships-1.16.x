@@ -26,7 +26,7 @@ public class RenderEntityRowBoat extends AbstractShipRenderer<RowBoatEntity> {
 
     @Override
     protected double getRenderYOffset(RowBoatEntity entity) {
-        return 0.4D * getSizeRatio(entity);
+        return 0.4D;
     }
 
     @Override
@@ -36,13 +36,12 @@ public class RenderEntityRowBoat extends AbstractShipRenderer<RowBoatEntity> {
 
     @Override
     protected Vector3d getModelTranslation(RowBoatEntity entity) {
-        float ratio = getSizeRatio(entity);
-        return new Vector3d(0.0D, -1.8D * ratio, -1.0D * ratio);
+        return new Vector3d(0.0D, -1.8D, -1.0D);
     }
 
     @Override
     protected float getModelYawOffset(RowBoatEntity entity) {
-        return -90F;
+        return 0F;
     }
 
     @Override

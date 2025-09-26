@@ -43,7 +43,7 @@ public class RenderEntityDrakkar extends AbstractShipRenderer<DrakkarEntity> {
 
     @Override
     protected float getModelYawOffset(DrakkarEntity entity) {
-        return -90F;
+        return 0F;
     }
 
     @Override
