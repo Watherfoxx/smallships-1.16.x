@@ -7,10 +7,7 @@ import com.talhanation.smallships.init.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BannerItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -38,13 +35,6 @@ public class DhowEntity extends AbstractCannonShip {
             new Vector3d(0D, 0.5D, 0.6D),  // en haut à droite
             new Vector3d(-2.0D, 0.5D, -0.6D), // en bas à gauche
             new Vector3d(0D, 0.5D, -0.6D) // en haut à gauche
-    };
-
-    private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
-            PASSENGER_OFFSETS[0],
-            PASSENGER_OFFSETS[1],
-            PASSENGER_OFFSETS[2],
-            PASSENGER_OFFSETS[3]
     };
 
     private static final Vector3d[] PASSENGER_LAYOUT_THREE = new Vector3d[]{
@@ -106,28 +96,28 @@ public class DhowEntity extends AbstractCannonShip {
     }
 
     @Override
-    public float getMaxSpeed() {
-        return (float) (6.0F * SmallShipsConfig.DhowSpeedFactor.get());
+    public Double getMaxSpeed() {
+        return SmallShipsConfig.DhowSpeedFactor.get();
     }
 
     @Override
-    public float getMaxReverseSpeed() {
-        return 0.1F;
+    public Double getMaxReverseSpeed() {
+        return getMaxSpeed() / 5;
     }
 
     @Override
-    public float getAcceleration() {
-        return (float) (0.025F * SmallShipsConfig.DhowSpeedFactor.get());
+    public Double getAcceleration() {
+        return 0.025D;
     }
 
     @Override
-    public float getMaxRotationSpeed() {
-        return (float) (4.0F * SmallShipsConfig.DhowTurnFactor.get());
+    public Double getMaxRotationSpeed() {
+        return SmallShipsConfig.DhowTurnFactor.get();
     }
 
     @Override
-    public float getRotationAcceleration() {
-        return (float) (0.35F * SmallShipsConfig.DhowTurnFactor.get());
+    public Double getRotationAcceleration() {
+        return 0.35D * SmallShipsConfig.DhowTurnFactor.get();
     }
 
     @Override
@@ -157,7 +147,7 @@ public class DhowEntity extends AbstractCannonShip {
 
     @Override
     public int getPassengerSize() {
-        return 4;
+        return PASSENGER_OFFSETS.length;
     }
 
     @Override
@@ -240,26 +230,40 @@ public class DhowEntity extends AbstractCannonShip {
                 return ActionResultType.SUCCESS;
             }
 
+            if (itemInHand.getItem() instanceof DyeItem) {
+                this.onInteractionWithDye(player, ((DyeItem) itemInHand.getItem()).getDyeColor(), itemInHand);
+                return ActionResultType.SUCCESS;
+            }
+
             if (itemInHand.getItem() instanceof BannerItem) {
-                if (!this.getHasBanner()) {
-                    this.onInteractionWithBanner(itemInHand, player);
-                    return ActionResultType.sidedSuccess(this.level.isClientSide);
+                this.onInteractionWithBanner(itemInHand, player);
+                return ActionResultType.SUCCESS;
+            }
+
+            if (itemInHand.getItem() instanceof AxeItem) {
+                if (hasPlanks(player.inventory) && hasIronNugget(player.inventory) && getShipDamage() > 16.0D) {
+                    this.onInteractionWitAxe(player);
+                    return ActionResultType.SUCCESS;
+                } else return ActionResultType.FAIL;
+            } else if (itemInHand.getItem() instanceof ShearsItem) {
+                if (this.getHasBanner()) {
+                    this.onInteractionWithShears(player);
+                    return ActionResultType.SUCCESS;
+                }
+                return ActionResultType.PASS;
+            }
+            if (!player.isSecondaryUseActive()) {
+
+                if (!this.level.isClientSide) {
+                    return player.startRiding(this) ? ActionResultType.CONSUME : ActionResultType.PASS;
+
+                } else {
+                    return ActionResultType.SUCCESS;
                 }
             }
-
-            if (itemInHand.getItem() == Items.SHEARS && this.getHasBanner()) {
-                this.onInteractionWithShears(player);
-                itemInHand.hurtAndBreak(1, player, living -> living.broadcastBreakEvent(hand));
-                return ActionResultType.sidedSuccess(this.level.isClientSide);
-            }
-
-            if (!this.level.isClientSide) {
-                player.startRiding(this);
-            }
-            return ActionResultType.sidedSuccess(this.level.isClientSide);
         }
 
-        return ActionResultType.PASS;
+        return ActionResultType.FAIL;
     }
 
     @Override
@@ -320,7 +324,7 @@ public class DhowEntity extends AbstractCannonShip {
 
     @Override
     public boolean getHasBanner() {
-        return true;
+        return false;
     }
 
     @Override

@@ -102,7 +102,7 @@ public abstract class AbstractCannonBall extends DamagingProjectileEntity {
     protected void onHitBlock(BlockRayTraceResult rayTraceResult) {
         super.onHitBlock(rayTraceResult);
         if (!this.level.isClientSide) {
-            this.level.explode(this.getOwner(), getX(), getY(), getZ(), 1.25F, Explosion.Mode.BREAK);
+            this.level.explode(this.getOwner(), getX(), getY(), getZ(), 1.25F, Explosion.Mode.NONE);
             this.remove();
         }
     }
@@ -132,7 +132,7 @@ public abstract class AbstractCannonBall extends DamagingProjectileEntity {
 
     protected void onHitBlockParticles(){
         if (this.level.isClientSide) {
-                hitParticles();
+            hitParticles();
         }
     }
 

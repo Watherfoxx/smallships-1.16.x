@@ -2,7 +2,6 @@ package com.talhanation.smallships.entities;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.talhanation.smallships.DamageSourceShip;
 import com.talhanation.smallships.Main;
 import com.talhanation.smallships.client.model.ModelSail;
 import com.talhanation.smallships.client.render.RenderSailColor;
@@ -83,11 +82,11 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
         entityData.define(RIGHT_PADDLE, false);
     }
 
-    public abstract float getMaxSpeed();
-    public abstract float getMaxReverseSpeed();
-    public abstract float getAcceleration();
-    public abstract float getMaxRotationSpeed();
-    public abstract float getRotationAcceleration();
+    public abstract Double getMaxSpeed();
+    public abstract Double getMaxReverseSpeed();
+    public abstract Double getAcceleration();
+    public abstract Double getMaxRotationSpeed();
+    public abstract Double getRotationAcceleration();
     public abstract float getCargoModifier();
     public abstract float getCannonModifier();
     public abstract float getPassengerModifier();
@@ -393,12 +392,9 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
 
         float blockedmodf = 1;
 
-        //if (isBlocked() && this.getDirection() == this.getBlockedDirection())
-            //blockedmodf = 0.00001F;
-
-        float maxSp = (getMaxSpeed() / (12F * 1.15F)) * modifier;
-        float maxBackSp = getMaxReverseSpeed() * modifier;
-        float maxRotSp = ((getMaxRotationSpeed() * 0.1F) + 1.8F) * modifier;
+        float maxSp = (float) ((getMaxSpeed() / (12F * 1.15F)) * modifier);
+        float maxBackSp = (float) (getMaxReverseSpeed() * modifier);
+        float maxRotSp = (float) (((getMaxRotationSpeed() * 0.1F) + 1.8F) * modifier);
 
         float speed = MathUtils.subtractToZero(getSpeed(), getVelocityResistance());
 
@@ -407,23 +403,23 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
                 case 1:
                     maxSp *= 4/16F;
                     if (speed <= maxSp)
-                        speed = Math.min(speed + getAcceleration() * 9F / 16, maxSp);
+                        speed = (float) Math.min(speed + getAcceleration() * 9F / 16, maxSp);
                     break;
                 case 2:
                     maxSp *= 8/16F;
                     if (speed <= maxSp)
-                        speed = Math.min(speed + getAcceleration() * 11F / 16, maxSp);
+                        speed = (float) Math.min(speed + getAcceleration() * 11F / 16, maxSp);
                     break;
 
                 case 3:
                     maxSp *= 12/16F;
                     if (speed <= maxSp)
-                        speed = Math.min(speed + getAcceleration() * 13 / 16, maxSp);
+                        speed = (float) Math.min(speed + getAcceleration() * 13 / 16, maxSp);
                     break;
                 case 4:
                     maxSp *= 1F;
                     if (speed <= maxSp) {
-                        speed = Math.min(speed + getAcceleration(), maxSp);
+                        speed = (float) Math.min(speed + getAcceleration(), maxSp);
                     }
                     break;
             }
@@ -431,13 +427,13 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
 
         if (isForward()) {
             if (speed <= maxSp) {
-                speed = Math.min(speed + getAcceleration() * 1 / 8, maxSp);
+                speed = (float) Math.min(speed + getAcceleration() * 1 / 8, maxSp);
             }
         }
 
         if (isBackward()) {
             if (speed >= -maxBackSp) {
-                speed = Math.max(speed - getAcceleration() * 1 / 8, -maxBackSp);
+                speed = (float) Math.max(speed - getAcceleration() * 1 / 8, -maxBackSp);
             }
         }
 
@@ -451,13 +447,13 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
         float rotationSpeed = MathUtils.subtractToZero(getRotSpeed(), getVelocityResistance() * 3);
         if (isRight()) {
             if (rotationSpeed <= maxRotSp) {
-                rotationSpeed = Math.min(rotationSpeed + getRotationAcceleration() * 1 / 8, maxRotSp);
+                rotationSpeed = (float) Math.min(rotationSpeed + getRotationAcceleration() * 1 / 8, maxRotSp);
             }
         }
 
         if (isLeft()) {
             if (rotationSpeed >= -maxRotSp) {
-                rotationSpeed = Math.max(rotationSpeed - getRotationAcceleration() * 1 / 8, -maxRotSp);
+                rotationSpeed = (float) Math.max(rotationSpeed - getRotationAcceleration() * 1 / 8, -maxRotSp);
             }
         }
 

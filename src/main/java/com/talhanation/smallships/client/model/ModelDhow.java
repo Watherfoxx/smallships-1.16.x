@@ -21,7 +21,6 @@ public class ModelDhow extends EntityModel<AbstractBannerUser> {
    public ModelRenderer Cargo3;
    public ModelRenderer fornt;
    public ModelRenderer back;
-   public ModelRenderer BannerStick;
    public ModelRenderer mast_1;
    public ModelRenderer seil_0;
    public ModelRenderer part21;
@@ -629,9 +628,6 @@ public class ModelDhow extends EntityModel<AbstractBannerUser> {
       this.mast_1.texOffs(0, 19).addBox(0.0F, 0.0F, 54.0F, 3.0F, 3.0F, 27.0F, 0.0F, 0.0F, 0.0F);
       this.mast_1.texOffs(0, 19).addBox(0.0F, 0.0F, 81.0F, 3.0F, 3.0F, 27.0F, 0.0F, 0.0F, 0.0F);
       this.mast_1.addBox(0.0F, 0.0F, 108.0F, 3.0F, 3.0F, 16.0F, 0.0F, 0.0F, 0.0F);
-      this.BannerStick = new ModelRenderer(this);
-      this.BannerStick.setPos(0.0F, 0.0F, 0.0F);
-      this.BannerStick.texOffs(8, 0).addBox(-36.0F, -85.0F, -1.5F, 1.0F, 15.0F, 1.0F, 0.0F, false);
       this.fornt_1 = new ModelRenderer(this, 0, 0);
       this.fornt_1.setPos(-15.0F, 0.0F, -0.2F);
       this.fornt_1.texOffs(2, 3).addBox(-20.4F, -2.8F, -1.2F, 20.0F, 5.6F, 5.9F, 0.0F, 0.0F, 0.0F);
@@ -2059,7 +2055,6 @@ public class ModelDhow extends EntityModel<AbstractBannerUser> {
       this.segel_1_222.addChild(this.segel_1_223);
       this.segel_2_34.addChild(this.segel_2_35);
       this.Dhow.addChild(this.mast_1);
-      this.Dhow.addChild(this.BannerStick);
       this.fornt.addChild(this.fornt_1);
       this.segel_1_247.addChild(this.segel_1_248);
       this.segel_1_241.addChild(this.segel_1_250);
@@ -2517,7 +2512,6 @@ public class ModelDhow extends EntityModel<AbstractBannerUser> {
       this.Cargo1.visible = cargo >= 2;
       this.Cargo2.visible = cargo >= 3;
       this.Cargo3.visible = cargo >= 4;
-      this.BannerStick.visible = entityIn.getHasBanner();
    }
 
    private static boolean[] captureVisibility(ModelRenderer[] sails) {

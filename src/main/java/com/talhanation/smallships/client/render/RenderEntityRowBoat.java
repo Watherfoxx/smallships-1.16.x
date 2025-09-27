@@ -11,12 +11,12 @@ import net.minecraft.util.math.vector.Vector3d;
 public class RenderEntityRowBoat extends AbstractShipRenderer<RowBoatEntity> {
 
     private static final ResourceLocation[] ROWBOAT_TEXTURES = new ResourceLocation[]{
-            new ResourceLocation(Main.MOD_ID, "textures/entity/cog/oak_cog.png"),
-            new ResourceLocation(Main.MOD_ID, "textures/entity/cog/spruce_cog.png"),
-            new ResourceLocation(Main.MOD_ID, "textures/entity/cog/birch_cog.png"),
-            new ResourceLocation(Main.MOD_ID, "textures/entity/cog/jungle_cog.png"),
-            new ResourceLocation(Main.MOD_ID, "textures/entity/cog/acacia_cog.png"),
-            new ResourceLocation(Main.MOD_ID, "textures/entity/cog/dark_oak_cog.png")
+            new ResourceLocation(Main.MOD_ID, "textures/entity/galley/oak_galley.png"),
+            new ResourceLocation(Main.MOD_ID, "textures/entity/galley/spruce_galley.png"),
+            new ResourceLocation(Main.MOD_ID, "textures/entity/galley/birch_galley.png"),
+            new ResourceLocation(Main.MOD_ID, "textures/entity/galley/jungle_galley.png"),
+            new ResourceLocation(Main.MOD_ID, "textures/entity/galley/acacia_galley.png"),
+            new ResourceLocation(Main.MOD_ID, "textures/entity/galley/dark_oak_galley.png")
     };
 
     public RenderEntityRowBoat(EntityRendererManager manager) {

@@ -25,51 +25,42 @@ public class CogEntity extends AbstractCannonShip{
         new Vector3d(-1.4D, 0.03D, -1.1D),
         new Vector3d(1.4D, 0.03D, -1.1D)
     };
+
     private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
         new Vector3d(-1.4D, 0.03D, 1.1D),
         new Vector3d(1.4D, 0.03D, 1.1D)
     };
-    private static final Vector3d DRIVER_SEAT = new Vector3d(-1.75D, 0.0D, 0.0D);
-    private static final Vector3d STARBOARD_MID = new Vector3d(1.25D, 0.0D, -0.90D);
-    private static final Vector3d PORT_MID = new Vector3d(1.25D, 0.0D, 0.90D);
-    private static final Vector3d CENTER_MID = new Vector3d(1.25D, 0.0D, 0.0D);
-    private static final Vector3d STARBOARD_FRONT = new Vector3d(0.45D, 0.0D, -0.90D);
-    private static final Vector3d PORT_FRONT = new Vector3d(0.45D, 0.0D, 0.90D);
-    private static final Vector3d CENTER_FRONT = new Vector3d(0.45D, 0.0D, 0.0D);
+
     private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
-            DRIVER_SEAT,
-            CENTER_MID,
-            STARBOARD_MID,
-            PORT_MID,
-            CENTER_FRONT,
-            STARBOARD_FRONT,
-            PORT_FRONT
+        new Vector3d(-1.75D, 0.0D, 0.0D),
+        new Vector3d(1.25D, 0.0D, -0.90D),
+        new Vector3d(1.25D, 0.0D, 0.90D),
+        new Vector3d(1.25D, 0.0D, 0.0D),
+        new Vector3d(0.45D, 0.0D, -0.90D)
     };
-    private static final Vector3d[] PASSENGER_LAYOUT_FIVE = new Vector3d[]{
-            DRIVER_SEAT,
-            STARBOARD_MID,
-            PORT_MID,
-            PORT_FRONT,
-            STARBOARD_FRONT
-    };
+
     private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
-            DRIVER_SEAT,
-            STARBOARD_MID,
-            PORT_MID,
-            CENTER_FRONT
+        PASSENGER_OFFSETS[0],
+        PASSENGER_OFFSETS[1],
+        PASSENGER_OFFSETS[2],
+        PASSENGER_OFFSETS[3]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_THREE = new Vector3d[]{
-            DRIVER_SEAT,
-            PORT_MID,
-            STARBOARD_MID
+        PASSENGER_OFFSETS[0],
+        PASSENGER_OFFSETS[1],
+        PASSENGER_OFFSETS[2]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_TWO = new Vector3d[]{
-            DRIVER_SEAT,
-            CENTER_MID
+        PASSENGER_OFFSETS[0],
+        PASSENGER_OFFSETS[1]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
-            DRIVER_SEAT
+        PASSENGER_OFFSETS[0]
     };
+
 
     public CogEntity(EntityType<? extends CogEntity> type, World world) {
         super(type, world);
@@ -116,38 +107,28 @@ public class CogEntity extends AbstractCannonShip{
     }
 
     @Override
-    public float getMaxSpeed() {
-        return 6F;
+    public Double getMaxSpeed() {
+        return SmallShipsConfig.CogSpeedFactor.get();
     }
 
     @Override
-    public float getMaxReverseSpeed() {
-        return 0.1F;
+    public Double getMaxReverseSpeed() {
+        return getMaxSpeed() / 5;
     }
 
     @Override
-    public float getAcceleration() {
-        return 0.015F; //sensible
+    public Double getAcceleration() {
+        return 0.015D; //sensible
     }
 
     @Override
-    protected float getLeftCannonRotation() {
-        return 0F;
+    public Double getMaxRotationSpeed() {
+        return SmallShipsConfig.CogTurnFactor.get();
     }
 
     @Override
-    protected float getRightCannonRotation() {
-        return 180F;
-    }
-
-    @Override
-    public float getMaxRotationSpeed() {
-        return 2F;
-    }
-
-    @Override
-    public float getRotationAcceleration() {
-        return 0.3F;
+    public Double getRotationAcceleration() {
+        return 0.3D;
     }
 
     @Override
@@ -165,6 +146,16 @@ public class CogEntity extends AbstractCannonShip{
     }
 
     @Override
+    protected float getLeftCannonRotation() {
+        return 0F;
+    }
+
+    @Override
+    protected float getRightCannonRotation() {
+        return 180F;
+    }
+
+    @Override
     public float getPassengerModifier() {
         return this.getPassengerSize() * 0.01F;
     }
@@ -176,16 +167,7 @@ public class CogEntity extends AbstractCannonShip{
 
     @Override
     public int getPassengerSize() {
-        switch (getTotalCannonCount()){
-            default:
-            case 0: return 5;
-
-            case 1:
-            case 2: return 4;
-
-            case 3:
-            case 4: return 3;
-        }
+        return PASSENGER_OFFSETS.length;
     }
 
     @Override
@@ -344,7 +326,6 @@ public class CogEntity extends AbstractCannonShip{
         }
     }
 
-
     @Override
     public void positionRider(Entity passenger) {
         if (!hasPassenger(passenger)) {
@@ -370,16 +351,18 @@ public class CogEntity extends AbstractCannonShip{
 
     private Vector3d[] getSeatLayout() {
         int seatCount = MathHelper.clamp(this.getPassengerSize(), 1, PASSENGER_OFFSETS.length);
-        if (seatCount >= PASSENGER_LAYOUT_FIVE.length) {
-            return PASSENGER_LAYOUT_FIVE;
-        } else if (seatCount == 4) {
-            return PASSENGER_LAYOUT_FOUR;
-        } else if (seatCount == 3) {
-            return PASSENGER_LAYOUT_THREE;
-        } else if (seatCount == 2) {
-            return PASSENGER_LAYOUT_TWO;
+        switch (seatCount) {
+            case 1:
+                return PASSENGER_LAYOUT_ONE;
+            case 2:
+                return PASSENGER_LAYOUT_TWO;
+            case 3:
+                return PASSENGER_LAYOUT_THREE;
+            case 4:
+                return PASSENGER_LAYOUT_FOUR;
+            default:
+                return PASSENGER_OFFSETS;
         }
-        return PASSENGER_LAYOUT_ONE;
     }
 
     @Override

@@ -86,7 +86,6 @@ public class ModelGalley extends EntityModel<AbstractBannerUser> {
    public ModelRenderer Segel_z3;
    public ModelRenderer Segel_z2;
    public ModelRenderer Segel_z1;
-   public ModelRenderer BannerStick;
    public ModelRenderer Segel_1_2;
    public ModelRenderer Segel_1_3;
    public ModelRenderer Segel_1_4;
@@ -750,9 +749,6 @@ public class ModelGalley extends EntityModel<AbstractBannerUser> {
       this.Mast_unten.addBox(0.0F, 0.0F, -51.0F, 2.0F, 2.0F, 6.0F, 0.0F, 0.0F, 0.0F);
       this.Mast_unten.addBox(0.0F, 0.0F, 27.0F, 2.0F, 2.0F, 12.0F, 0.0F, 0.0F, 0.0F);
       this.setRotateAngle(this.Mast_unten, 0.0F, -1.0471976F, 0.0F);
-      this.BannerStick = new ModelRenderer(this);
-      this.BannerStick.setPos(0.0F, 0.0F, 0.0F);
-      this.BannerStick.texOffs(8, 0).addBox(18.0F, -90.0F, -3.0F, 1.0F, 15.0F, 1.0F, 0.0F, false);
       this.Cargo_0_2 = new ModelRenderer(this, 30, 55);
       this.Cargo_0_2.setPos(8.0F, 3.0F, 0.0F);
       this.Cargo_0_2.addBox(0.0F, 0.0F, 0.0F, 4.0F, 5.0F, 4.0F, 0.0F, 0.0F, 0.0F);
@@ -1096,7 +1092,6 @@ public class ModelGalley extends EntityModel<AbstractBannerUser> {
       this.botom_1.addChild(this.side_13);
       this.Mast_oben.addChild(this.Segel_z2);
       this.botom_1.addChild(this.Mast_unten);
-      this.botom_1.addChild(this.BannerStick);
       this.Cargo0.addChild(this.Cargo_0_2);
       this.Segel_1_9.addChild(this.Segel_1_10);
       this.seil_1_1.addChild(this.seil_1_2);
@@ -1165,7 +1160,6 @@ public class ModelGalley extends EntityModel<AbstractBannerUser> {
       this.Cargo1.visible = cargo >= 2;
       animatePaddles(galley, 0, limbSwing, this.leftPaddles, false);
       animatePaddles(galley, 1, limbSwing, this.rightPaddles, true);
-      this.BannerStick.visible = entityIn.getHasBanner();
    }
 
    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {

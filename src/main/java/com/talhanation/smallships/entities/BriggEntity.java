@@ -21,114 +21,101 @@ import java.util.List;
 
 public class BriggEntity extends AbstractCannonShip{
 
-    private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(-1.8D, -0.5D, 1.4D),
-            new Vector3d(-1.8D, -0.5D, 0.0D),
-            new Vector3d(-1.8D, -0.5D, -1.4D)
-    };
-    private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
-            new Vector3d(1.8D, -0.5D, 1.4D),
-            new Vector3d(1.8D, -0.5D, 0.0D),
-            new Vector3d(1.8D, -0.5D, -1.4D)
-    };
-    private static final Vector3d DRIVER_PORT = new Vector3d(-2.0D, 0.0D, 0.75D);
-    private static final Vector3d DRIVER_STARBOARD = new Vector3d(-2.0D, 0.0D, -0.75D);
-    private static final Vector3d MID_STARBOARD = new Vector3d(-1.0D, 0.0D, -0.75D);
-    private static final Vector3d MID_PORT = new Vector3d(-1.0D, 0.0D, 0.75D);
-    private static final Vector3d CENTER_STARBOARD = new Vector3d(0.0D, 0.0D, -0.75D);
-    private static final Vector3d CENTER_PORT = new Vector3d(0.0D, 0.0D, 0.75D);
-    private static final Vector3d AFT_STARBOARD = new Vector3d(1.0D, 0.0D, -0.75D);
-    private static final Vector3d AFT_PORT = new Vector3d(1.0D, 0.0D, 0.75D);
-    private static final Vector3d BOW_PORT = new Vector3d(2.25D, 0.0D, 0.5D);
-    private static final Vector3d BOW_STARBOARD = new Vector3d(2.25D, 0.0D, -0.5D);
-    private static final Vector3d BOW_CENTER = new Vector3d(2.25D, 0.0D, 0.0D);
     private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
-            DRIVER_PORT,
-            DRIVER_STARBOARD,
-            MID_STARBOARD,
-            MID_PORT,
-            CENTER_STARBOARD,
-            CENTER_PORT,
-            AFT_STARBOARD,
-            AFT_PORT,
-            BOW_PORT,
-            BOW_STARBOARD,
-            BOW_CENTER
+        new Vector3d(-1.5D, 0.0D, 0.75D), //-2.0D, 0.0D, 0.75D),
+        new Vector3d(-1.5D, 0.0D, -0.75D), //-2.0D, 0.0D, -0.75D),
+        new Vector3d(-0.5D, 0.0D, -0.75D), //-1.0D, 0.0D, -0.75D),
+        new Vector3d(-0.5D, 0.0D, 0.75D), //-1.0D, 0.0D, 0.75D),
+        new Vector3d(0.5D, 0.0D, -0.75D), //0.0D, 0.0D, -0.75D),
+        new Vector3d(0.5D, 0.0D, 0.75D), //0.0D, 0.0D, 0.75D),
+        new Vector3d(1.5D, 0.0D, -0.75D), //1.0D, 0.0D, -0.75D),
+        new Vector3d(1.5D, 0.0D, 0.75D), //1.0D, 0.0D, 0.75D),
+        new Vector3d(2.75D, 0.0D, 0.5D), //2.25D, 0.0D, 0.5D),
+        new Vector3d(2.75D, 0.0D, -0.5D), //2.25D, 0.0D, -0.5D)
     };
-    private static final Vector3d[] PASSENGER_LAYOUT_TEN = new Vector3d[]{
-            DRIVER_PORT,
-            DRIVER_STARBOARD,
-            MID_STARBOARD,
-            MID_PORT,
-            CENTER_STARBOARD,
-            CENTER_PORT,
-            AFT_STARBOARD,
-            AFT_PORT,
-            BOW_PORT,
-            BOW_STARBOARD
+
+    private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
+        new Vector3d(-1.8D, -0.5D, 1.4D),
+        new Vector3d(-1.8D, -0.5D, 0.0D),
+        new Vector3d(-1.8D, -0.5D, -1.4D)
     };
+
+    private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
+        new Vector3d(1.8D, -0.5D, 1.4D),
+        new Vector3d(1.8D, -0.5D, 0.0D),
+        new Vector3d(1.8D, -0.5D, -1.4D)
+    };
+
     private static final Vector3d[] PASSENGER_LAYOUT_NINE = new Vector3d[]{
-            DRIVER_PORT,
-            DRIVER_STARBOARD,
-            MID_STARBOARD,
-            MID_PORT,
-            CENTER_STARBOARD,
-            CENTER_PORT,
-            AFT_STARBOARD,
-            AFT_PORT,
-            BOW_CENTER
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2],
+            PASSENGER_OFFSETS[3],
+            PASSENGER_OFFSETS[4],
+            PASSENGER_OFFSETS[5],
+            PASSENGER_OFFSETS[6],
+            PASSENGER_OFFSETS[7],
+            PASSENGER_OFFSETS[8]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_EIGHT = new Vector3d[]{
-            DRIVER_PORT,
-            DRIVER_STARBOARD,
-            MID_STARBOARD,
-            MID_PORT,
-            CENTER_STARBOARD,
-            CENTER_PORT,
-            AFT_STARBOARD,
-            AFT_PORT
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2],
+            PASSENGER_OFFSETS[3],
+            PASSENGER_OFFSETS[4],
+            PASSENGER_OFFSETS[5],
+            PASSENGER_OFFSETS[6],
+            PASSENGER_OFFSETS[7]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_SEVEN = new Vector3d[]{
-            DRIVER_PORT,
-            DRIVER_STARBOARD,
-            MID_STARBOARD,
-            MID_PORT,
-            CENTER_STARBOARD,
-            CENTER_PORT,
-            AFT_STARBOARD
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2],
+            PASSENGER_OFFSETS[3],
+            PASSENGER_OFFSETS[4],
+            PASSENGER_OFFSETS[5],
+            PASSENGER_OFFSETS[6]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_SIX = new Vector3d[]{
-            DRIVER_PORT,
-            DRIVER_STARBOARD,
-            MID_STARBOARD,
-            MID_PORT,
-            CENTER_STARBOARD,
-            CENTER_PORT
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2],
+            PASSENGER_OFFSETS[3],
+            PASSENGER_OFFSETS[4],
+            PASSENGER_OFFSETS[5]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_FIVE = new Vector3d[]{
-            DRIVER_PORT,
-            DRIVER_STARBOARD,
-            MID_STARBOARD,
-            MID_PORT,
-            CENTER_STARBOARD
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2],
+            PASSENGER_OFFSETS[3],
+            PASSENGER_OFFSETS[4]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
-            DRIVER_PORT,
-            DRIVER_STARBOARD,
-            MID_STARBOARD,
-            MID_PORT
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2],
+            PASSENGER_OFFSETS[3]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_THREE = new Vector3d[]{
-            DRIVER_PORT,
-            DRIVER_STARBOARD,
-            MID_STARBOARD
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1],
+            PASSENGER_OFFSETS[2]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_TWO = new Vector3d[]{
-            DRIVER_PORT,
-            DRIVER_STARBOARD
+            PASSENGER_OFFSETS[0],
+            PASSENGER_OFFSETS[1]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
-            DRIVER_PORT
+            PASSENGER_OFFSETS[0]
     };
 
     public BriggEntity(EntityType<? extends BriggEntity> type, World world) {
@@ -177,29 +164,29 @@ public class BriggEntity extends AbstractCannonShip{
     }
 
     @Override
-    public float getMaxSpeed() {
-        return 7F;
+    public Double getMaxSpeed() {
+        return SmallShipsConfig.BriggSpeedFactor.get();
     }
 
     @Override
-    public float getMaxReverseSpeed() {
-        return 0.1F;
+    public Double getMaxReverseSpeed() {
+        return getMaxSpeed() / 5;
     }
 
     @Override
-    public float getAcceleration() {
-        return 0.0135F; //sensible;
+    public Double getAcceleration() {
+        return 0.0135D; //sensible;
     }
 
     @Override
-    public float getMaxRotationSpeed() {
-        return 4F;
+    public Double getMaxRotationSpeed() {
+        return SmallShipsConfig.BriggTurnFactor.get();
     }
 
     @Override
-    public float getRotationAcceleration() {
-        return 0.3F;
-    }//not to change
+    public Double getRotationAcceleration() {
+        return 0.3D;
+    }
 
     @Override
     public float getVelocityResistance() {
@@ -228,20 +215,7 @@ public class BriggEntity extends AbstractCannonShip{
 
     @Override
     public int getPassengerSize() {
-        switch (getTotalCannonCount()) {
-            default:
-            case 0:
-                return 10;
-            case 1:
-            case 2:
-                return 9;
-            case 3:
-            case 4:
-                return 8;
-            case 5:
-            case 6:
-                return 7;
-        }
+        return PASSENGER_OFFSETS.length;
     }
 
     @Override
@@ -426,26 +400,28 @@ public class BriggEntity extends AbstractCannonShip{
 
     private Vector3d[] getSeatLayout() {
         int seatCount = MathHelper.clamp(this.getPassengerSize(), 1, PASSENGER_OFFSETS.length);
-        if (seatCount >= PASSENGER_LAYOUT_TEN.length) {
-            return PASSENGER_LAYOUT_TEN;
-        } else if (seatCount == 9) {
-            return PASSENGER_LAYOUT_NINE;
-        } else if (seatCount == 8) {
-            return PASSENGER_LAYOUT_EIGHT;
-        } else if (seatCount == 7) {
-            return PASSENGER_LAYOUT_SEVEN;
-        } else if (seatCount == 6) {
-            return PASSENGER_LAYOUT_SIX;
-        } else if (seatCount == 5) {
-            return PASSENGER_LAYOUT_FIVE;
-        } else if (seatCount == 4) {
-            return PASSENGER_LAYOUT_FOUR;
-        } else if (seatCount == 3) {
-            return PASSENGER_LAYOUT_THREE;
-        } else if (seatCount == 2) {
-            return PASSENGER_LAYOUT_TWO;
+        switch (seatCount) {
+            case 1:
+                return PASSENGER_LAYOUT_ONE;
+            case 2:
+                return PASSENGER_LAYOUT_TWO;
+            case 3:
+                return PASSENGER_LAYOUT_THREE;
+            case 4:
+                return PASSENGER_LAYOUT_FOUR;
+            case 5:
+                return PASSENGER_LAYOUT_FIVE;
+            case 6:
+                return PASSENGER_LAYOUT_SIX;
+            case 7:
+                return PASSENGER_LAYOUT_SEVEN;
+            case 8:
+                return PASSENGER_LAYOUT_EIGHT;
+            case 9:
+                return PASSENGER_LAYOUT_NINE;
+            default:
+                return PASSENGER_OFFSETS;
         }
-        return PASSENGER_LAYOUT_ONE;
     }
 
     @Override

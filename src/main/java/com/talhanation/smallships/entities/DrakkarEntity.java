@@ -7,9 +7,7 @@ import com.talhanation.smallships.init.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -54,6 +52,7 @@ public class DrakkarEntity extends AbstractCannonShip {
     private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
             PASSENGER_OFFSETS[0]
     };
+
     private static final int MIN_PASSENGERS = 2;
 
     public DrakkarEntity(EntityType<? extends DrakkarEntity> type, World world) {
@@ -105,28 +104,32 @@ public class DrakkarEntity extends AbstractCannonShip {
     }
 
     @Override
-    public float getMaxSpeed() {
-        return (float) (5.5F * SmallShipsConfig.DrakkarSpeedFactor.get());
+    public Double getMaxSpeed() {
+        //return (float) (5.5F * SmallShipsConfig.DrakkarSpeedFactor.get());
+        return SmallShipsConfig.DrakkarSpeedFactor.get();
     }
 
     @Override
-    public float getMaxReverseSpeed() {
-        return 0.1F;
+    public Double getMaxReverseSpeed() {
+        return getMaxSpeed() / 5;
     }
 
     @Override
-    public float getAcceleration() {
-        return (float) (0.022F * SmallShipsConfig.DrakkarSpeedFactor.get());
+    public Double getAcceleration() {
+        //return (float) (0.022F * SmallShipsConfig.DrakkarSpeedFactor.get());
+        return 0.022D;
     }
 
     @Override
-    public float getMaxRotationSpeed() {
-        return (float) (4.5F * SmallShipsConfig.DrakkarTurnFactor.get());
+    public Double getMaxRotationSpeed() {
+        //return (float) (4.5F * SmallShipsConfig.DrakkarTurnFactor.get());
+        return SmallShipsConfig.DrakkarTurnFactor.get();
     }
 
     @Override
-    public float getRotationAcceleration() {
-        return (float) (0.32F * SmallShipsConfig.DrakkarTurnFactor.get());
+    public Double getRotationAcceleration() {
+        //return (float) (0.32F * SmallShipsConfig.DrakkarTurnFactor.get());
+        return 0.32D;
     }
 
     @Override
@@ -206,13 +209,40 @@ public class DrakkarEntity extends AbstractCannonShip {
                 return ActionResultType.SUCCESS;
             }
 
-            if (!this.level.isClientSide) {
-                player.startRiding(this);
+            if (itemInHand.getItem() instanceof DyeItem) {
+                this.onInteractionWithDye(player, ((DyeItem) itemInHand.getItem()).getDyeColor(), itemInHand);
+                return ActionResultType.SUCCESS;
             }
-            return ActionResultType.sidedSuccess(this.level.isClientSide);
+
+            if (itemInHand.getItem() instanceof BannerItem) {
+                this.onInteractionWithBanner(itemInHand, player);
+                return ActionResultType.SUCCESS;
+            }
+
+            if (itemInHand.getItem() instanceof AxeItem) {
+                if (hasPlanks(player.inventory) && hasIronNugget(player.inventory) && getShipDamage() > 16.0D) {
+                    this.onInteractionWitAxe(player);
+                    return ActionResultType.SUCCESS;
+                } else return ActionResultType.FAIL;
+            } else if (itemInHand.getItem() instanceof ShearsItem) {
+                if (this.getHasBanner()) {
+                    this.onInteractionWithShears(player);
+                    return ActionResultType.SUCCESS;
+                }
+                return ActionResultType.PASS;
+            }
+            if (!player.isSecondaryUseActive()) {
+
+                if (!this.level.isClientSide) {
+                    return player.startRiding(this) ? ActionResultType.CONSUME : ActionResultType.PASS;
+
+                } else {
+                    return ActionResultType.SUCCESS;
+                }
+            }
         }
 
-        return ActionResultType.PASS;
+        return ActionResultType.FAIL;
     }
 
     @Override

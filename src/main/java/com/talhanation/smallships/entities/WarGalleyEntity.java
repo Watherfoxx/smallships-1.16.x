@@ -48,25 +48,28 @@ public class WarGalleyEntity extends AbstractCannonShip {
             PASSENGER_OFFSETS[3],
             PASSENGER_OFFSETS[4]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1],
             PASSENGER_OFFSETS[2],
             PASSENGER_OFFSETS[3]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_THREE = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1],
             PASSENGER_OFFSETS[2]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_TWO = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
             PASSENGER_OFFSETS[0]
     };
-    private static final int MIN_PASSENGERS = 3;
 
     public WarGalleyEntity(EntityType<? extends WarGalleyEntity> type, World world) {
         super(type, world);
@@ -112,28 +115,28 @@ public class WarGalleyEntity extends AbstractCannonShip {
     }
 
     @Override
-    public float getMaxSpeed() {
-        return (float) (6.0F * SmallShipsConfig.WarGalleySpeedFactor.get());
+    public Double getMaxSpeed() {
+        return SmallShipsConfig.WarGalleySpeedFactor.get();
     }
 
     @Override
-    public float getMaxReverseSpeed() {
-        return 0.12F;
+    public Double getMaxReverseSpeed() {
+        return getMaxSpeed() / 5;
     }
 
     @Override
-    public float getAcceleration() {
-        return (float) (0.022F * SmallShipsConfig.WarGalleySpeedFactor.get());
+    public Double getAcceleration() {
+        return 0.022D;
     }
 
     @Override
-    public float getMaxRotationSpeed() {
-        return (float) (3.5F * SmallShipsConfig.WarGalleyTurnFactor.get());
+    public Double getMaxRotationSpeed() {
+        return SmallShipsConfig.WarGalleyTurnFactor.get();
     }
 
     @Override
-    public float getRotationAcceleration() {
-        return (float) (0.28F * SmallShipsConfig.WarGalleyTurnFactor.get());
+    public Double getRotationAcceleration() {
+        return 0.28D;
     }
 
     @Override
@@ -163,8 +166,7 @@ public class WarGalleyEntity extends AbstractCannonShip {
 
     @Override
     public int getPassengerSize() {
-        int seatCount = PASSENGER_OFFSETS.length - (this.getTotalCannonCount() + 1) / 2;
-        return MathHelper.clamp(seatCount, MIN_PASSENGERS, PASSENGER_OFFSETS.length);
+        return PASSENGER_OFFSETS.length;
     }
 
     @Override
@@ -263,23 +265,26 @@ public class WarGalleyEntity extends AbstractCannonShip {
                 if (hasPlanks(player.inventory) && hasIronNugget(player.inventory) && getShipDamage() > 16.0D) {
                     this.onInteractionWitAxe(player);
                     return ActionResultType.SUCCESS;
-                } else {
-                    return ActionResultType.FAIL;
-                }
+                } else return ActionResultType.FAIL;
             } else if (itemInHand.getItem() instanceof ShearsItem) {
                 if (this.getHasBanner()) {
                     this.onInteractionWithShears(player);
                     return ActionResultType.SUCCESS;
                 }
+                return ActionResultType.PASS;
             }
+            if (!player.isSecondaryUseActive()) {
 
-            if (!this.level.isClientSide) {
-                player.startRiding(this);
+                if (!this.level.isClientSide) {
+                    return player.startRiding(this) ? ActionResultType.CONSUME : ActionResultType.PASS;
+
+                } else {
+                    return ActionResultType.SUCCESS;
+                }
             }
-            return ActionResultType.sidedSuccess(this.level.isClientSide);
         }
 
-        return ActionResultType.PASS;
+        return ActionResultType.FAIL;
     }
 
     @Override
@@ -344,7 +349,7 @@ public class WarGalleyEntity extends AbstractCannonShip {
 
     @Override
     public boolean getHasBanner() {
-        return true;
+        return false;
     }
 
     @Override

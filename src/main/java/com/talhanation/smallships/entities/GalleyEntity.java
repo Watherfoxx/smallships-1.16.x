@@ -7,10 +7,7 @@ import com.talhanation.smallships.init.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BannerItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -31,16 +28,19 @@ public class GalleyEntity extends AbstractCannonShip {
             new Vector3d(-0.4D, 0.0D, -1.3D),
             new Vector3d(0.4D, 0.0D, -1.3D)
     };
+
     private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
             new Vector3d(1.4D, 0D, -0.6D),
             new Vector3d(1.4D, 0D, 0.4D),
             new Vector3d(1.4D, 0D, 1.4D)
     };
+
     private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
             new Vector3d(-1.4D, 0D, -0.6D),
             new Vector3d(-1.4D, 0D, 0.4D),
             new Vector3d(-1.4D, 0D, 1.4D)
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_FIVE = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1],
@@ -48,25 +48,28 @@ public class GalleyEntity extends AbstractCannonShip {
             PASSENGER_OFFSETS[3],
             PASSENGER_OFFSETS[4]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1],
             PASSENGER_OFFSETS[2],
             PASSENGER_OFFSETS[3]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_THREE = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1],
             PASSENGER_OFFSETS[2]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_TWO = new Vector3d[]{
             PASSENGER_OFFSETS[0],
             PASSENGER_OFFSETS[1]
     };
+
     private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
             PASSENGER_OFFSETS[0]
     };
-    private static final int MIN_PASSENGERS = 3;
 
     public GalleyEntity(EntityType<? extends GalleyEntity> type, World world) {
         super(type, world);
@@ -112,28 +115,28 @@ public class GalleyEntity extends AbstractCannonShip {
     }
 
     @Override
-    public float getMaxSpeed() {
-        return (float) (6.5F * SmallShipsConfig.GalleySpeedFactor.get());
+    public Double getMaxSpeed() {
+        return SmallShipsConfig.GalleySpeedFactor.get();
     }
 
     @Override
-    public float getMaxReverseSpeed() {
-        return 0.12F;
+    public Double getMaxReverseSpeed() {
+        return getMaxSpeed() / 5;
     }
 
     @Override
-    public float getAcceleration() {
-        return (float) (0.024F * SmallShipsConfig.GalleySpeedFactor.get());
+    public Double getAcceleration() {
+        return 0.024D;
     }
 
     @Override
-    public float getMaxRotationSpeed() {
-        return (float) (4.0F * SmallShipsConfig.GalleyTurnFactor.get());
+    public Double getMaxRotationSpeed() {
+        return SmallShipsConfig.GalleyTurnFactor.get();
     }
 
     @Override
-    public float getRotationAcceleration() {
-        return (float) (0.3F * SmallShipsConfig.GalleyTurnFactor.get());
+    public Double getRotationAcceleration() {
+        return 0.3D;
     }
 
     @Override
@@ -163,8 +166,7 @@ public class GalleyEntity extends AbstractCannonShip {
 
     @Override
     public int getPassengerSize() {
-        int seatCount = PASSENGER_OFFSETS.length - (this.getTotalCannonCount() + 1) / 2;
-        return MathHelper.clamp(seatCount, MIN_PASSENGERS, PASSENGER_OFFSETS.length);
+        return PASSENGER_OFFSETS.length;
     }
 
     @Override
@@ -247,26 +249,40 @@ public class GalleyEntity extends AbstractCannonShip {
                 return ActionResultType.SUCCESS;
             }
 
+            if (itemInHand.getItem() instanceof DyeItem) {
+                this.onInteractionWithDye(player, ((DyeItem) itemInHand.getItem()).getDyeColor(), itemInHand);
+                return ActionResultType.SUCCESS;
+            }
+
             if (itemInHand.getItem() instanceof BannerItem) {
-                if (!this.getHasBanner()) {
-                    this.onInteractionWithBanner(itemInHand, player);
-                    return ActionResultType.sidedSuccess(this.level.isClientSide);
+                this.onInteractionWithBanner(itemInHand, player);
+                return ActionResultType.SUCCESS;
+            }
+
+            if (itemInHand.getItem() instanceof AxeItem) {
+                if (hasPlanks(player.inventory) && hasIronNugget(player.inventory) && getShipDamage() > 16.0D) {
+                    this.onInteractionWitAxe(player);
+                    return ActionResultType.SUCCESS;
+                } else return ActionResultType.FAIL;
+            } else if (itemInHand.getItem() instanceof ShearsItem) {
+                if (this.getHasBanner()) {
+                    this.onInteractionWithShears(player);
+                    return ActionResultType.SUCCESS;
+                }
+                return ActionResultType.PASS;
+            }
+            if (!player.isSecondaryUseActive()) {
+
+                if (!this.level.isClientSide) {
+                    return player.startRiding(this) ? ActionResultType.CONSUME : ActionResultType.PASS;
+
+                } else {
+                    return ActionResultType.SUCCESS;
                 }
             }
-
-            if (itemInHand.getItem() == Items.SHEARS && this.getHasBanner()) {
-                this.onInteractionWithShears(player);
-                itemInHand.hurtAndBreak(1, player, living -> living.broadcastBreakEvent(hand));
-                return ActionResultType.sidedSuccess(this.level.isClientSide);
-            }
-
-            if (!this.level.isClientSide) {
-                player.startRiding(this);
-            }
-            return ActionResultType.sidedSuccess(this.level.isClientSide);
         }
 
-        return ActionResultType.PASS;
+        return ActionResultType.FAIL;
     }
 
     @Override
@@ -331,7 +347,7 @@ public class GalleyEntity extends AbstractCannonShip {
 
     @Override
     public boolean getHasBanner() {
-        return true;
+        return false;
     }
 
     @Override

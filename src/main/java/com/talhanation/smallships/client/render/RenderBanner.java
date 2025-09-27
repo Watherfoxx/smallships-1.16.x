@@ -33,14 +33,24 @@ public class RenderBanner {
             if (ModEntityTypes.COG.get().equals(entityType)) {
                 matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-180.0F));
                 matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
-                //                                hight - = +    vorne
                 matrixStackIn.translate(-4.0D, 0.75D, 0.05D);
-
             } else if (ModEntityTypes.BRIGG.get().equals(entityType)) {
                 matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F));
                 matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90F));
                 matrixStackIn.translate(-6.65D, 1.65D, 0.05D);
             } else if (ModEntityTypes.WAR_GALLEY.get().equals(entityType)) {
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+                matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90F));
+                matrixStackIn.translate(-6.65D, 1.75D, 0.05D);
+            } else if (ModEntityTypes.GALLEY.get().equals(entityType)) {
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+                matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90F));
+                matrixStackIn.translate(-6.65D, 1.75D, 0.05D);
+            } else if (ModEntityTypes.DHOW.get().equals(entityType)) {
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+                matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90F));
+                matrixStackIn.translate(-4.0D, 1.75D, 0.05D);
+            } else if (ModEntityTypes.DRAKKAR.get().equals(entityType)) {
                 matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90.0F));
                 matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(90F));
                 matrixStackIn.translate(-6.65D, 1.75D, 0.05D);

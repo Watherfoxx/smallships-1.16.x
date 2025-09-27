@@ -26,7 +26,6 @@ public class ModelWarGalley extends EntityModel<AbstractBannerUser> {
    public ModelRenderer side_8;
    public ModelRenderer side_9;
    public ModelRenderer side_10;
-   public ModelRenderer BannerStick;
    public ModelRenderer side_2;
    public ModelRenderer botom_1_1;
    public ModelRenderer botom_5;
@@ -1637,9 +1636,6 @@ public class ModelWarGalley extends EntityModel<AbstractBannerUser> {
       this.Mast_1.addBox(0.0F, -66.0F, 0.0F, 3.0F, 20.0F, 4.0F, 0.0F, 0.0F, 0.0F);
       this.Mast_1.addBox(0.0F, -86.0F, 0.0F, 3.0F, 20.0F, 4.0F, 0.0F, 0.0F, 0.0F);
       this.Mast_1.addBox(0.0F, -96.0F, 0.0F, 3.0F, 10.0F, 4.0F, 0.0F, 0.0F, 0.0F);
-      this.BannerStick = new ModelRenderer(this);
-      this.BannerStick.setPos(0.0F, 0.0F, 0.0F);
-      this.BannerStick.texOffs(8, 0).addBox(6.0F, -110.0F, -2.0F, 1.0F, 15.0F, 1.0F, 0.0F, false);
       this.botom_4 = new ModelRenderer(this, 0, 0);
       this.botom_4.setPos(46.0F, 3.0F, 23.0F);
       this.botom_4.addBox(-14.0F, -9.0F, -3.0F, 28.0F, 16.0F, 3.0F, 0.0F, 0.0F, 0.0F);
@@ -1925,7 +1921,6 @@ public class ModelWarGalley extends EntityModel<AbstractBannerUser> {
       this.Segel_1_7_1.addChild(this.Segel_1_8_1);
       this.Segel_1_8_2.addChild(this.Segel_1_13_2);
       this.botom_1.addChild(this.Mast_1);
-      this.botom_1.addChild(this.BannerStick);
       this.botom_1.addChild(this.botom_4);
       this.Mast_2_oben_1.addChild(this.Segel_1_z3);
       this.botom_1.addChild(this.side_3);
@@ -1984,7 +1979,6 @@ public class ModelWarGalley extends EntityModel<AbstractBannerUser> {
       this.Cargo1.visible = cargo >= 2;
       animatePaddles(warGalley, 0, limbSwing, this.leftPaddles, false);
       animatePaddles(warGalley, 1, limbSwing, this.rightPaddles, true);
-      this.BannerStick.visible = entityIn.getHasBanner();
    }
 
    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {

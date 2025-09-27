@@ -4,6 +4,7 @@ import com.talhanation.smallships.InventoryEvents;
 import com.talhanation.smallships.Main;
 import com.talhanation.smallships.entities.AbstractInventoryEntity;
 import com.talhanation.smallships.entities.AbstractSailShip;
+import com.talhanation.smallships.entities.RowBoatEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
@@ -30,46 +31,38 @@ public class KeyEvents {
         }
         AbstractSailShip boat = (AbstractSailShip) vehicle;
         if (clientPlayerEntity.equals(boat.getDriver())) {
-
             boat.updateControls(Main.FORWARD_KEY.isDown(), Main.BACK_KEY.isDown(), Main.LEFT_KEY.isDown(), Main.RIGHT_KEY.isDown(), clientPlayerEntity);
+            if (!(boat instanceof RowBoatEntity)) {
+                if (Main.SAIL_KEY.isDown()) {
+                    boat.onKeyPressed();
+                    this.wasSailPressed = true;
+                } else {
+                    this.wasSailPressed = false;
+                }
 
-            if (Main.SAIL_KEY.isDown()) {
-                boat.onKeyPressed();
-                this.wasSailPressed = true;
-            }
-            else {
-                this.wasSailPressed = false;
+                if (Main.SAIL_L_KEY.isDown()) {
+                    boat.onKeyLowerPressed();
+                    this.wasSailPressed = true;
+                } else {
+                    this.wasSailPressed = false;
+                }
+
+                if (Main.SAIL_H_KEY.isDown()) {
+                    boat.onKeyHigherPressed();
+                    this.wasSailPressed = true;
+                } else {
+                    this.wasSailPressed = false;
+                }
+
+                if (Main.CANNON_KEY.isDown()) {
+                    boat.onCannonKeyPressed();
+                    this.wasCannonPressed = true;
+                } else {
+                    this.wasCannonPressed = false;
+                }
             }
         }
 
-        if (clientPlayerEntity.equals(boat.getDriver())) {
-            if (Main.SAIL_L_KEY.isDown()) {
-                boat.onKeyLowerPressed();
-                this.wasSailPressed = true;
-            }
-            else {
-                this.wasSailPressed = false;
-            }
-        }
-        if (clientPlayerEntity.equals(boat.getDriver())) {
-            if (Main.SAIL_H_KEY.isDown()) {
-                boat.onKeyHigherPressed();
-                this.wasSailPressed = true;
-            }
-            else {
-                this.wasSailPressed = false;
-            }
-        }
-
-        if (clientPlayerEntity.equals(boat.getDriver())) {
-            if (Main.CANNON_KEY.isDown()) {
-                boat.onCannonKeyPressed();
-                this.wasCannonPressed = true;
-            }
-            else {
-                this.wasCannonPressed = false;
-            }
-        }
 
         /*
         if (clientPlayerEntity.equals(boat.getDriver())) {

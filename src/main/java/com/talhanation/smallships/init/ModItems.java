@@ -1,14 +1,7 @@
 package com.talhanation.smallships.init;
 
 import com.talhanation.smallships.Main;
-import com.talhanation.smallships.entities.AbstractSailShip;
-import com.talhanation.smallships.entities.DhowEntity;
-import com.talhanation.smallships.entities.DrakkarEntity;
-import com.talhanation.smallships.entities.GalleyEntity;
-import com.talhanation.smallships.entities.RowBoatEntity;
-import com.talhanation.smallships.entities.WarGalleyEntity;
-import com.talhanation.smallships.items.BriggItem;
-import com.talhanation.smallships.items.CogItem;
+import com.talhanation.smallships.entities.*;
 import com.talhanation.smallships.items.ShipItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -22,25 +15,25 @@ public class ModItems {
 
     public static final RegistryObject<Item> SAIL_ITEM = ITEMS.register("sail_item", () -> new Item(new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
     public static final RegistryObject<Item> CANNON_ITEM = ITEMS.register("cannon_item", () -> new Item(new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
-    public static final RegistryObject<Item> CANNONBALL = ITEMS.register("cannonball_item", () -> new Item(new Item.Properties().stacksTo(16).tab(ItemGroup.TAB_TRANSPORTATION)));
+    public static final RegistryObject<Item> CANNONBALL = ITEMS.register("cannonball_item", () -> new Item(new Item.Properties().stacksTo(64).tab(ItemGroup.TAB_TRANSPORTATION)));
     public static final RegistryObject<Item> BROKEN_COG_HULL = ITEMS.register("broken_cog_hull", () -> new Item(new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
     public static final RegistryObject<Item> BROKEN_BRIGG_HULL = ITEMS.register("broken_brigg_hull", () -> new Item(new Item.Properties().stacksTo(1).tab(ItemGroup.TAB_TRANSPORTATION)));
 
     // Cogs
-    public static final RegistryObject<Item> OAK_COG_ITEM = ITEMS.register("oak_cog", () -> new CogItem(AbstractSailShip.Type.OAK, defaultShipProperties()));
-    public static final RegistryObject<Item> SPRUCE_COG_ITEM = ITEMS.register("spruce_cog", () -> new CogItem(AbstractSailShip.Type.SPRUCE, defaultShipProperties()));
-    public static final RegistryObject<Item> BIRCH_COG_ITEM = ITEMS.register("birch_cog", () -> new CogItem(AbstractSailShip.Type.BIRCH, defaultShipProperties()));
-    public static final RegistryObject<Item> JUNGLE_COG_ITEM = ITEMS.register("jungle_cog", () -> new CogItem(AbstractSailShip.Type.JUNGLE, defaultShipProperties()));
-    public static final RegistryObject<Item> ACACIA_COG_ITEM = ITEMS.register("acacia_cog", () -> new CogItem(AbstractSailShip.Type.ACACIA, defaultShipProperties()));
-    public static final RegistryObject<Item> DARK_OAK_COG_ITEM = ITEMS.register("dark_oak_cog", () -> new CogItem(AbstractSailShip.Type.DARK_OAK, defaultShipProperties()));
+    public static final RegistryObject<Item> OAK_COG_ITEM = registerShip("oak_cog", AbstractSailShip.Type.OAK, CogEntity::new);
+    public static final RegistryObject<Item> SPRUCE_COG_ITEM = registerShip("spruce_cog", AbstractSailShip.Type.SPRUCE, CogEntity::new);
+    public static final RegistryObject<Item> BIRCH_COG_ITEM = registerShip("birch_cog", AbstractSailShip.Type.BIRCH, CogEntity::new);
+    public static final RegistryObject<Item> JUNGLE_COG_ITEM = registerShip("jungle_cog", AbstractSailShip.Type.JUNGLE, CogEntity::new);
+    public static final RegistryObject<Item> ACACIA_COG_ITEM = registerShip("acacia_cog", AbstractSailShip.Type.ACACIA, CogEntity::new);
+    public static final RegistryObject<Item> DARK_OAK_COG_ITEM = registerShip("dark_oak_cog", AbstractSailShip.Type.DARK_OAK, CogEntity::new);
 
     // Brigg
-    public static final RegistryObject<Item> OAK_BRIGG_ITEM = ITEMS.register("oak_brigg", () -> new BriggItem(AbstractSailShip.Type.OAK, defaultShipProperties()));
-    public static final RegistryObject<Item> SPRUCE_BRIGG_ITEM = ITEMS.register("spruce_brigg", () -> new BriggItem(AbstractSailShip.Type.SPRUCE, defaultShipProperties()));
-    public static final RegistryObject<Item> BIRCH_BRIGG_ITEM = ITEMS.register("birch_brigg", () -> new BriggItem(AbstractSailShip.Type.BIRCH, defaultShipProperties()));
-    public static final RegistryObject<Item> JUNGLE_BRIGG_ITEM = ITEMS.register("jungle_brigg", () -> new BriggItem(AbstractSailShip.Type.JUNGLE, defaultShipProperties()));
-    public static final RegistryObject<Item> ACACIA_BRIGG_ITEM = ITEMS.register("acacia_brigg", () -> new BriggItem(AbstractSailShip.Type.ACACIA, defaultShipProperties()));
-    public static final RegistryObject<Item> DARK_OAK_BRIGG_ITEM = ITEMS.register("dark_oak_brigg", () -> new BriggItem(AbstractSailShip.Type.DARK_OAK, defaultShipProperties()));
+    public static final RegistryObject<Item> OAK_BRIGG_ITEM = registerShip("oak_brigg", AbstractSailShip.Type.OAK, BriggEntity::new);
+    public static final RegistryObject<Item> SPRUCE_BRIGG_ITEM = registerShip("spruce_brigg", AbstractSailShip.Type.SPRUCE, BriggEntity::new);
+    public static final RegistryObject<Item> BIRCH_BRIGG_ITEM = registerShip("birch_brigg", AbstractSailShip.Type.BIRCH, BriggEntity::new);
+    public static final RegistryObject<Item> JUNGLE_BRIGG_ITEM = registerShip("jungle_brigg", AbstractSailShip.Type.JUNGLE, BriggEntity::new);
+    public static final RegistryObject<Item> ACACIA_BRIGG_ITEM = registerShip("acacia_brigg", AbstractSailShip.Type.ACACIA, BriggEntity::new);
+    public static final RegistryObject<Item> DARK_OAK_BRIGG_ITEM = registerShip("dark_oak_brigg", AbstractSailShip.Type.DARK_OAK, BriggEntity::new);
 
     // Rowboats
     public static final RegistryObject<Item> OAK_ROWBOAT_ITEM = registerShip("oak_rowboat", AbstractSailShip.Type.OAK, RowBoatEntity::new);

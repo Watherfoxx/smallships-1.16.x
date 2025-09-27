@@ -24,7 +24,7 @@ public class RowBoatEntity extends AbstractCannonShip {
 
     private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
         new Vector3d(-0.5D, 0.0D, 0.0D),
-        new Vector3d(0.5D, 0.0D, -0.4D)
+        new Vector3d(0.5D, 0.0D, 0.0D)
     };
 
     private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
@@ -34,7 +34,6 @@ public class RowBoatEntity extends AbstractCannonShip {
     public RowBoatEntity(EntityType<? extends RowBoatEntity> type, World world) {
         super(type, world);
         this.setPaddleState(false, false);
-        this.setSailState(4);
     }
 
     public RowBoatEntity(World world, double x, double y, double z) {
@@ -77,32 +76,32 @@ public class RowBoatEntity extends AbstractCannonShip {
 
     @Override
     public int getMaxCannons() {
-        return SmallShipsConfig.RowBoatMaxCannons.get();
+        return 0;
     }
 
     @Override
-    public float getMaxSpeed() {
-        return (float) (4.0F * SmallShipsConfig.RowBoatSpeedFactor.get());
+    public Double getMaxSpeed() {
+        return SmallShipsConfig.RowBoatSpeedFactor.get();
     }
 
     @Override
-    public float getMaxReverseSpeed() {
-        return 0.05F;
+    public Double getMaxReverseSpeed() {
+        return getMaxSpeed() / 5;
     }
 
     @Override
-    public float getAcceleration() {
-        return (float) (0.03F * SmallShipsConfig.RowBoatSpeedFactor.get());
+    public Double getAcceleration() {
+        return 0.06D;
     }
 
     @Override
-    public float getMaxRotationSpeed() {
-        return (float) (6.0F * SmallShipsConfig.RowBoatTurnFactor.get());
+    public Double getMaxRotationSpeed() {
+        return SmallShipsConfig.RowBoatTurnFactor.get();
     }
 
     @Override
-    public float getRotationAcceleration() {
-        return (float) (0.6F * SmallShipsConfig.RowBoatTurnFactor.get());
+    public Double getRotationAcceleration() {
+        return 0.6D;
     }
 
     @Override
@@ -176,10 +175,6 @@ public class RowBoatEntity extends AbstractCannonShip {
         }
 
         if (!this.getSunken()) {
-            if (itemInHand.getItem() == ModItems.CANNON_ITEM.get()) {
-                this.onInteractionWithCannon(player, itemInHand);
-                return ActionResultType.SUCCESS;
-            }
 
             if (!this.level.isClientSide) {
                 player.startRiding(this);
@@ -188,14 +183,6 @@ public class RowBoatEntity extends AbstractCannonShip {
         }
 
         return ActionResultType.PASS;
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        if (!this.level.isClientSide && this.getSailState() != 4) {
-            this.setSailState(4);
-        }
     }
 
     @Override
@@ -219,21 +206,6 @@ public class RowBoatEntity extends AbstractCannonShip {
         passenger.yRot += this.deltaRotation;
         passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
         applyYawToEntity(passenger);
-    }
-
-    @Override
-    public void onKeyPressed() {
-        // Rowboats are controlled exclusively via directional input.
-    }
-
-    @Override
-    public void onKeyLowerPressed() {
-        // Rowboats do not support sail state adjustments.
-    }
-
-    @Override
-    public void onKeyHigherPressed() {
-        // Rowboats do not support sail state adjustments.
     }
 
     private Vector3d[] getSeatLayout() {

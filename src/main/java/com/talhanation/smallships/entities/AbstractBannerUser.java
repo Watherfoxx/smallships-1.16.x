@@ -116,18 +116,17 @@ public abstract class AbstractBannerUser extends AbstractInventoryEntity {
     ////////////////////////////////////ON FUNCTIONS////////////////////////////////////
 
     public boolean onInteractionWithBanner(ItemStack banner, PlayerEntity player) {
-            if (getHasBanner())
-                dropBanner();
-
+        //if (getHasBanner())
+        //    dropBanner();
         setBanner(player,banner);
         return true;
     }
 
     public void onInteractionWithShears(PlayerEntity playerEntity) {
-            if (getHasBanner()) {
-                dropBanner();
-                setHasBanner(false);
-            }
+        if (getHasBanner()) {
+            dropBanner();
+            setHasBanner(false);
+        }
     }
 
     ////////////////////////////////////OTHER FUNCTIONS////////////////////////////////////

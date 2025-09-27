@@ -30,7 +30,6 @@ public class SmallShipsConfig {
     public static ForgeConfigSpec.DoubleValue RowBoatTurnFactor;
     public static ForgeConfigSpec.IntValue RowBoatInventorySize;
     public static ForgeConfigSpec.IntValue RowBoatInventoryPages;
-    public static ForgeConfigSpec.IntValue RowBoatMaxCannons;
 
     public static ForgeConfigSpec.DoubleValue DrakkarHealth;
     public static ForgeConfigSpec.DoubleValue DrakkarSpeedFactor;
@@ -83,6 +82,71 @@ public class SmallShipsConfig {
 
         BUILDER.comment("Small Ships Config:").push("Ships");
 
+        PlaySwimmSound = BUILDER.comment("\n" + "----Should Ships Make Swimming sounds?----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: true")
+                .define("PlaySwimmSound", true);
+
+        WaterMobFlee = BUILDER.comment("\n" + "----Should Ships Make WaterMobs flee?----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: true")
+                .define("WaterMobFlee", true);
+
+        ShipZoom = BUILDER.comment("\n" +"----Ship Zoom.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: 0.2")
+                .worldRestart()
+                .defineInRange("ShipZoom", 6D, 1D, 20D);
+
+        EnterThirdPerson = BUILDER.comment("\n" +"----Should the player enter ships in third person?----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: true")
+                .worldRestart()
+                .define("EnterThirdPerson", true);
+
+        MakeWaveAnimation = BUILDER.comment("\n" +"----Should the Ships make waving animation?----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: true")
+                .worldRestart()
+                .define("MakeWaveAnimation", true);
+
+        PassengerBlackList = BUILDER.comment("\n" + "----Passenger Blacklist----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "Entities in this list won't be able to get on the boat, for example: [\"minecraft:creeper\", \"minecraft:sheep\"]")
+                .worldRestart()
+                .define("Passenger BlackList", new ArrayList<>());
+
+        RowBoatHealth = BUILDER.comment("\n" +"----Row Boat Health.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "(vanilla boat value = 60)" + "\n" +
+                        "\t" + "default: 100")
+                .worldRestart()
+                .defineInRange("RowBoatHealth", 100.0, 0.0, 10000.0);
+
+        RowBoatSpeedFactor = BUILDER.comment("\n" +"----Row Boat Speed Factor.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: 2.0")
+                .worldRestart()
+                .defineInRange("RowBoatSpeedFactor", 2.0, 0.0, 20.0);
+
+        RowBoatTurnFactor = BUILDER.comment("\n" +"----Row Boat Turn Factor.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: 0.8")
+                .worldRestart()
+                .defineInRange("RowBoatTurnFactor", 0.8, 0.0, 1.0);
+
+        RowBoatInventorySize = BUILDER.comment("\n" +"----Row Boat Inventory Size.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: 9")
+                .worldRestart()
+                .defineInRange("RowBoatInventorySize", 9, 0, 108);
+
+        RowBoatInventoryPages = BUILDER.comment("\n" +"----Row Boat Inventory Pages.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: 1")
+                .worldRestart()
+                .defineInRange("RowBoatInventoryPages", 1, 1, 2);
+
         GalleyHealth = BUILDER.comment("\n" +"----Galley Health.----" + "\n" +
                         "\t" + "(takes effect after restart)" + "\n" +
                         "\t" + "(vanilla boat value = 60)" + "\n" +
@@ -92,9 +156,9 @@ public class SmallShipsConfig {
 
         GalleySpeedFactor = BUILDER.comment("\n" +"----Galley Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 1.3")
+                "\t" + "default: 2.3")
                 .worldRestart()
-                .defineInRange("GalleySpeedFactor", 1.3, 0.0, 2.0);
+                .defineInRange("GalleySpeedFactor", 2.3, 0.0, 20.0);
 
         GalleyTurnFactor = BUILDER.comment("\n" +"----Galley Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -129,9 +193,9 @@ public class SmallShipsConfig {
 
         CogSpeedFactor = BUILDER.comment("\n" +"----Cog Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 1.25" )
+                "\t" + "default: 2.25" )
                 .worldRestart()
-                .defineInRange("CogSpeedFactor", 1.25, 0.0, 2.0);
+                .defineInRange("CogSpeedFactor", 2.25, 0.0, 20.0);
 
         CogTurnFactor = BUILDER.comment("\n" +"----Cog Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -166,9 +230,9 @@ public class SmallShipsConfig {
 
         WarGalleySpeedFactor = BUILDER.comment("\n" +"----War Galley Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 1.15")
+                "\t" + "default: 2.15")
                 .worldRestart()
-                .defineInRange("WarGalleySpeedFactor", 1.15, 0.0, 2.0);
+                .defineInRange("WarGalleySpeedFactor", 2.15, 0.0, 20.0);
 
         WarGalleyTurnFactor = BUILDER.comment("\n" +"----War Galley Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -203,9 +267,9 @@ public class SmallShipsConfig {
 
         DrakkarSpeedFactor = BUILDER.comment("\n" +"----Drakkar Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 1.25")
+                "\t" + "default: 2.25")
                 .worldRestart()
-                .defineInRange("DrakkarSpeedFactor", 1.25, 0.0, 2.0);
+                .defineInRange("DrakkarSpeedFactor", 2.25, 0.0, 20.0);
 
         DrakkarTurnFactor = BUILDER.comment("\n" +"----Drakkar Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -238,43 +302,6 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("DrakkarMaxCannons", 0, 0, 6);
 
-        RowBoatHealth = BUILDER.comment("\n" +"----Row Boat Health.----" + "\n" +
-                        "\t" + "(takes effect after restart)" + "\n" +
-                        "\t" + "(vanilla boat value = 60)" + "\n" +
-                        "\t" + "default: 100")
-                .worldRestart()
-                .defineInRange("RowBoatHealth", 100.0, 0.0, 10000.0);
-
-        RowBoatSpeedFactor = BUILDER.comment("\n" +"----Row Boat Speed Factor.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 1.0")
-                .worldRestart()
-                .defineInRange("RowBoatSpeedFactor", 1.0, 0.0, 2.0);
-
-        RowBoatTurnFactor = BUILDER.comment("\n" +"----Row Boat Turn Factor.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 0.8")
-                .worldRestart()
-                .defineInRange("RowBoatTurnFactor", 0.8, 0.0, 1.0);
-
-        RowBoatInventorySize = BUILDER.comment("\n" +"----Row Boat Inventory Size.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 9")
-                .worldRestart()
-                .defineInRange("RowBoatInventorySize", 9, 0, 108);
-
-        RowBoatInventoryPages = BUILDER.comment("\n" +"----Row Boat Inventory Pages.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 1")
-                .worldRestart()
-                .defineInRange("RowBoatInventoryPages", 1, 1, 2);
-
-        RowBoatMaxCannons = BUILDER.comment("\n" +"----Row Boat Max Cannons.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 0")
-                .worldRestart()
-                .defineInRange("RowBoatMaxCannons", 0, 0, 4);
-
         BriggHealth = BUILDER.comment("\n" +"----Brigg Health.----" + "\n" +
                         "\t" + "(takes effect after restart)" + "\n" +
                         "\t" + "(vanilla boat value = 60)" + "\n" +
@@ -284,9 +311,9 @@ public class SmallShipsConfig {
 
         BriggSpeedFactor = BUILDER.comment("\n" +"----Brigg Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 1.28" )
+                "\t" + "default: 2.28" )
                 .worldRestart()
-                .defineInRange("BriggSpeedFactor", 1.28, 0.0, 2.0);
+                .defineInRange("BriggSpeedFactor", 2.28, 0.0, 20.0);
 
         BriggTurnFactor = BUILDER.comment("\n" +"----Brigg Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -321,9 +348,9 @@ public class SmallShipsConfig {
 
         DhowSpeedFactor = BUILDER.comment("\n" +"----Dhow Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 1.35" )
+                "\t" + "default: 2.35" )
                 .worldRestart()
-                .defineInRange("DhowSpeedFactor", 1.35, 0.0, 2.0);
+                .defineInRange("DhowSpeedFactor", 2.35, 0.0, 20.0);
 
         DhowTurnFactor = BUILDER.comment("\n" +"----Dhow Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -348,40 +375,6 @@ public class SmallShipsConfig {
                 "\t" + "default: 4")
                 .worldRestart()
                 .defineInRange("DhowMaxCannons", 4, 0, 6);
-
-        PlaySwimmSound = BUILDER.comment("\n" + "----Should Ships Make Swimming sounds?----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: true")
-                .define("PlaySwimmSound", true);
-
-        WaterMobFlee = BUILDER.comment("\n" + "----Should Ships Make WaterMobs flee?----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: true")
-                .define("WaterMobFlee", true);
-
-        ShipZoom = BUILDER.comment("\n" +"----Ship Zoom.----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 0.2")
-                .worldRestart()
-                .defineInRange("ShipZoom", 6D, 1D, 20D);
-
-        EnterThirdPerson = BUILDER.comment("\n" +"----Should the player enter ships in third person?----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: true")
-                .worldRestart()
-                .define("EnterThirdPerson", true);
-
-        MakeWaveAnimation = BUILDER.comment("\n" +"----Should the Ships make waving animation?----" + "\n" +
-                "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: true")
-                .worldRestart()
-                .define("MakeWaveAnimation", true);
-
-        PassengerBlackList = BUILDER.comment("\n" + "----Passenger Blacklist----" + "\n" +
-                        "\t" + "(takes effect after restart)" + "\n" +
-                        "\t" + "Entities in this list won't be able to get on the boat, for example: [\"minecraft:creeper\", \"minecraft:sheep\"]")
-                .worldRestart()
-                .define("Passenger BlackList", new ArrayList<>());
 
         CONFIG = BUILDER.build();
     }
