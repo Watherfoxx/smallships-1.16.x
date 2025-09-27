@@ -34,6 +34,7 @@ public class RowBoatEntity extends AbstractCannonShip {
     public RowBoatEntity(EntityType<? extends RowBoatEntity> type, World world) {
         super(type, world);
         this.setPaddleState(false, false);
+        this.setSailState(4);
     }
 
     public RowBoatEntity(World world, double x, double y, double z) {
@@ -190,6 +191,14 @@ public class RowBoatEntity extends AbstractCannonShip {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if (!this.level.isClientSide && this.getSailState() != 4) {
+            this.setSailState(4);
+        }
+    }
+
+    @Override
     public void positionRider(Entity passenger) {
         if (!hasPassenger(passenger)) {
             return;
@@ -210,6 +219,21 @@ public class RowBoatEntity extends AbstractCannonShip {
         passenger.yRot += this.deltaRotation;
         passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
         applyYawToEntity(passenger);
+    }
+
+    @Override
+    public void onKeyPressed() {
+        // Rowboats are controlled exclusively via directional input.
+    }
+
+    @Override
+    public void onKeyLowerPressed() {
+        // Rowboats do not support sail state adjustments.
+    }
+
+    @Override
+    public void onKeyHigherPressed() {
+        // Rowboats do not support sail state adjustments.
     }
 
     private Vector3d[] getSeatLayout() {
