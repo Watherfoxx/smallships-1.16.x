@@ -14,11 +14,11 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class ModelGalleySail extends ModelSail {
 
-    private final ModelGalley model;
+    private final ModelGalleyLegacy model;
     private final List<ModelRenderer> sailStates;
 
     public ModelGalleySail() {
-        this.model = new ModelGalley();
+        this.model = new ModelGalleyLegacy();
         this.sailStates = ImmutableList.of(
                 model.Segel_z0,
                 model.Segel_z1,
