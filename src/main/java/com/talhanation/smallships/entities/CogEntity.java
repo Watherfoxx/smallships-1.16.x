@@ -22,13 +22,13 @@ import java.util.List;
 public class CogEntity extends AbstractCannonShip{
 
     private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
-        new Vector3d(-1.4D, 0.03D, -1.1D),
-        new Vector3d(1.4D, 0.03D, -1.1D)
+        new Vector3d(-1.4D, 0.01D, -0.5D), // front
+        new Vector3d(1.4D, 0.01D, -0.7D) // back
     };
 
     private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
-        new Vector3d(-1.4D, 0.03D, 1.1D),
-        new Vector3d(1.4D, 0.03D, 1.1D)
+        new Vector3d(-1.4D, 0.01D, 0.5D), // front
+        new Vector3d(1.4D, 0.01D, 0.7D) // back
     };
 
     private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
@@ -89,7 +89,7 @@ public class CogEntity extends AbstractCannonShip{
 
     @Override
     public double getHeight() {
-        return 1.7D;
+        return 1.0D;
     }
 
     public double getShipDefense() { //in %

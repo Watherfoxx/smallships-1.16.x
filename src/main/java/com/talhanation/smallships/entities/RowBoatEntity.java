@@ -23,8 +23,8 @@ import java.util.List;
 public class RowBoatEntity extends AbstractCannonShip {
 
     private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
-        new Vector3d(-0.5D, 0.0D, 0.0D),
-        new Vector3d(0.5D, 0.0D, 0.0D)
+        new Vector3d(-0.5D, -0.2D, 0.0D),
+        new Vector3d(0.5D, -0.2D, 0.0D)
     };
 
     private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
@@ -56,7 +56,7 @@ public class RowBoatEntity extends AbstractCannonShip {
 
     @Override
     public double getHeight() {
-        return 0.7D;
+        return 0.5D;
     }
 
     @Override

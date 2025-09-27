@@ -91,12 +91,12 @@ public class WarGalleyEntity extends AbstractCannonShip {
 
     @Override
     public double getWidth() {
-        return 3.2D;
+        return 3.8D;
     }
 
     @Override
     public double getHeight() {
-        return 1.25D;
+        return 0.9D;
     }
 
     @Override

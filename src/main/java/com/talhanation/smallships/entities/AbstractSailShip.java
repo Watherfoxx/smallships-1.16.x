@@ -556,9 +556,14 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
             Vector3d vector3d = this.getDeltaMovement();
             this.setDeltaMovement(vector3d.x * (double) momentum, vector3d.y + d1, vector3d.z * (double) momentum);
             this.deltaRotation *= momentum;
+
+            double multFactor = 0.75D;
+            if (this instanceof RowBoatEntity)
+                multFactor = 0.5D;
+
             if (d2 > 0.0D) {
                 Vector3d vector3d1 = this.getDeltaMovement();
-                this.setDeltaMovement(vector3d1.x, (vector3d1.y + d2 * 0.06153846016296973D) * 0.75D, vector3d1.z);
+                this.setDeltaMovement(vector3d1.x, (vector3d1.y + d2 * 0.06153846016296973D) * multFactor, vector3d1.z);
             }
         }
 

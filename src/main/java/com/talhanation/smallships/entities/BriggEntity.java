@@ -22,28 +22,28 @@ import java.util.List;
 public class BriggEntity extends AbstractCannonShip{
 
     private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
-        new Vector3d(-1.5D, 0.0D, 0.75D), //-2.0D, 0.0D, 0.75D),
-        new Vector3d(-1.5D, 0.0D, -0.75D), //-2.0D, 0.0D, -0.75D),
-        new Vector3d(-0.5D, 0.0D, -0.75D), //-1.0D, 0.0D, -0.75D),
-        new Vector3d(-0.5D, 0.0D, 0.75D), //-1.0D, 0.0D, 0.75D),
-        new Vector3d(0.5D, 0.0D, -0.75D), //0.0D, 0.0D, -0.75D),
-        new Vector3d(0.5D, 0.0D, 0.75D), //0.0D, 0.0D, 0.75D),
-        new Vector3d(1.5D, 0.0D, -0.75D), //1.0D, 0.0D, -0.75D),
-        new Vector3d(1.5D, 0.0D, 0.75D), //1.0D, 0.0D, 0.75D),
-        new Vector3d(2.75D, 0.0D, 0.5D), //2.25D, 0.0D, 0.5D),
-        new Vector3d(2.75D, 0.0D, -0.5D), //2.25D, 0.0D, -0.5D)
+        new Vector3d(-1.5D, 0.0D, 0.75D),
+        new Vector3d(-1.5D, 0.0D, -0.75D),
+        new Vector3d(-0.5D, 0.0D, -0.75D),
+        new Vector3d(-0.5D, 0.0D, 0.75D),
+        new Vector3d(0.5D, 0.0D, -0.75D),
+        new Vector3d(0.5D, 0.0D, 0.75D),
+        new Vector3d(1.5D, 0.0D, -0.75D),
+        new Vector3d(1.5D, 0.0D, 0.75D),
+        new Vector3d(2.75D, 0.0D, 0.5D),
+        new Vector3d(2.75D, 0.0D, -0.5D)
     };
 
     private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
-        new Vector3d(-1.8D, -0.5D, 1.4D),
-        new Vector3d(-1.8D, -0.5D, 0.0D),
-        new Vector3d(-1.8D, -0.5D, -1.4D)
+        new Vector3d(0.9D, -0.56D, 1.4D), // back
+        new Vector3d(1.07D, -0.56D, 0.0D), // center
+        new Vector3d(0.9D, -0.56D, -1.4D) // front
     };
 
     private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
-        new Vector3d(1.8D, -0.5D, 1.4D),
-        new Vector3d(1.8D, -0.5D, 0.0D),
-        new Vector3d(1.8D, -0.5D, -1.4D)
+        new Vector3d(-0.9D, -0.56D, 1.4D), // back
+        new Vector3d(-1.07D, -0.56D, 0.0D), // center
+        new Vector3d(-0.9D, -0.56D, -1.4D) // front
     };
 
     private static final Vector3d[] PASSENGER_LAYOUT_NINE = new Vector3d[]{
@@ -140,12 +140,12 @@ public class BriggEntity extends AbstractCannonShip{
 
     @Override
     public double getWidth() {
-        return 4.6D;
+        return 3.1D;
     }
 
     @Override
     public double getHeight() {
-        return 1.9D;
+        return 1.0D;
     }
 
     @Override

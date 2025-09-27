@@ -96,7 +96,7 @@ public class GalleyEntity extends AbstractCannonShip {
 
     @Override
     public double getHeight() {
-        return 1.2D;
+        return 0.9D;
     }
 
     @Override
