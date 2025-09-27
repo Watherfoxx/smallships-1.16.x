@@ -17,6 +17,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class CogEntity extends AbstractCannonShip{
 
     private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
@@ -26,6 +28,47 @@ public class CogEntity extends AbstractCannonShip{
     private static final Vector3d[] RIGHT_CANNON_OFFSETS = new Vector3d[]{
         new Vector3d(-1.4D, 0.03D, 1.1D),
         new Vector3d(1.4D, 0.03D, 1.1D)
+    };
+    private static final Vector3d DRIVER_SEAT = new Vector3d(-1.75D, 0.0D, 0.0D);
+    private static final Vector3d STARBOARD_MID = new Vector3d(1.25D, 0.0D, -0.90D);
+    private static final Vector3d PORT_MID = new Vector3d(1.25D, 0.0D, 0.90D);
+    private static final Vector3d CENTER_MID = new Vector3d(1.25D, 0.0D, 0.0D);
+    private static final Vector3d STARBOARD_FRONT = new Vector3d(0.45D, 0.0D, -0.90D);
+    private static final Vector3d PORT_FRONT = new Vector3d(0.45D, 0.0D, 0.90D);
+    private static final Vector3d CENTER_FRONT = new Vector3d(0.45D, 0.0D, 0.0D);
+    private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
+            DRIVER_SEAT,
+            CENTER_MID,
+            STARBOARD_MID,
+            PORT_MID,
+            CENTER_FRONT,
+            STARBOARD_FRONT,
+            PORT_FRONT
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_FIVE = new Vector3d[]{
+            DRIVER_SEAT,
+            STARBOARD_MID,
+            PORT_MID,
+            PORT_FRONT,
+            STARBOARD_FRONT
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
+            DRIVER_SEAT,
+            STARBOARD_MID,
+            PORT_MID,
+            CENTER_FRONT
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_THREE = new Vector3d[]{
+            DRIVER_SEAT,
+            PORT_MID,
+            STARBOARD_MID
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_TWO = new Vector3d[]{
+            DRIVER_SEAT,
+            CENTER_MID
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
+            DRIVER_SEAT
     };
 
     public CogEntity(EntityType<? extends CogEntity> type, World world) {
@@ -48,15 +91,14 @@ public class CogEntity extends AbstractCannonShip{
         return 0;// 0 = cold; 1 = neutral; 2 = warm; 3 = extreme cold; 4 = extreme warm;
     }
 
-    // hight and width for now as mast
     @Override
     public double getWidth() {
-        return 3D;
+        return 3.4D;
     }
 
     @Override
     public double getHeight() {
-        return 1.5D;
+        return 1.7D;
     }
 
     public double getShipDefense() { //in %
@@ -305,75 +347,39 @@ public class CogEntity extends AbstractCannonShip{
 
     @Override
     public void positionRider(Entity passenger) {
-        if (hasPassenger(passenger)) {
-            float f = -1.75F; //driver x pos
-            float d = 0.0F;   //driver z pos
-            float x = 0;//global offset
-            float f1 = (float) ((this.removed ? 0.02D : getPassengersRidingOffset()) + passenger.getMyRidingOffset());
-            if (getPassengers().size() == 2) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-
-                    f = -1.75F;
-                    d = 0.0F;
-                } else {
-                    f = 1.25F;
-                    d = 0.0F;
-                }
-            } else if (getPassengers().size() == 3) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.75F;
-                    d = 0.0F;
-                } else if (i == 1) {
-                    f = 1.25F;
-                    d = 0.9F;
-                } else {
-                    f = 1.25F;
-                    d = -0.90F;
-                }
-            }else if (getPassengers().size() == 4) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.75F;
-                    d = 0.0F;
-                } else if (i == 1) {
-                    f =  1.25F;
-                    d = -0.90F;
-                } else if (i == 2) {
-                    f = 1.25F;
-                    d = 0.90F;
-                } else {
-                    f = 0.45F;
-                    d = 0F;
-                }
-            } else if (getPassengers().size() == 5) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.75F;
-                    d = 0.0F;
-                } else if (i == 1) {
-                    f =  1.25F;
-                    d = -0.90F;
-                } else if (i == 2) {
-                    f = 1.25F;
-                    d = 0.90F;
-                } else if (i == 3){
-                    f =  0.45F;
-                    d = 0.90F;
-                } else {
-                    f =  0.45F;
-                    d = -0.90F;
-                }
-            }
-            f = f + x;
-            Vector3d vector3d = (new Vector3d((double)f, 0.0D, 0.0D + d)).yRot(-this.yRot * ((float)Math.PI / 180F) - ((float)Math.PI / 2F));
-            passenger.setPos(this.getX() + vector3d.x, this.getY() + (double)f1, + this.getZ() + vector3d.z);
-            passenger.yRot += this.deltaRotation;
-            //passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
-            applyYawToEntity(passenger);
+        if (!hasPassenger(passenger)) {
+            return;
         }
 
+        List<Entity> passengers = this.getPassengers();
+        int index = passengers.indexOf(passenger);
+        Vector3d[] layout = getSeatLayout();
+        if (layout.length == 0) {
+            return;
+        }
+        int seatIndex = MathHelper.clamp(index, 0, layout.length - 1);
+        Vector3d offset = layout[seatIndex];
+        float ridingOffset = (float) ((this.removed ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
+        Vector3d rotated = new Vector3d(offset.x, 0.0D, offset.z)
+                .yRot(-this.yRot * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
+        passenger.setPos(this.getX() + rotated.x, this.getY() + offset.y + ridingOffset, this.getZ() + rotated.z);
+        passenger.yRot += this.deltaRotation;
+        passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
+        applyYawToEntity(passenger);
+    }
+
+    private Vector3d[] getSeatLayout() {
+        int seatCount = MathHelper.clamp(this.getPassengerSize(), 1, PASSENGER_OFFSETS.length);
+        if (seatCount >= PASSENGER_LAYOUT_FIVE.length) {
+            return PASSENGER_LAYOUT_FIVE;
+        } else if (seatCount == 4) {
+            return PASSENGER_LAYOUT_FOUR;
+        } else if (seatCount == 3) {
+            return PASSENGER_LAYOUT_THREE;
+        } else if (seatCount == 2) {
+            return PASSENGER_LAYOUT_TWO;
+        }
+        return PASSENGER_LAYOUT_ONE;
     }
 
     @Override

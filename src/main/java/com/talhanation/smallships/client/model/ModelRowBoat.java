@@ -176,8 +176,10 @@ public class ModelRowBoat extends EntityModel<AbstractBannerUser> {
    }
 
    private static void setPaddleRotation(ModelRenderer paddle, float rowingTime, float steer, boolean rightSide) {
-      float xRot = (float)MathHelper.clamp(PADDLE_MIN_X_ROT, PADDLE_MAX_X_ROT, (double)((MathHelper.sin(-rowingTime) + 1.0F) / 2.0F));
-      float yawOffset = (float)MathHelper.clamp(PADDLE_MIN_Y_ROT, PADDLE_MAX_Y_ROT, (double)((MathHelper.sin(-rowingTime + 1.0F) + 1.0F) / 2.0F));
+      float progress = MathHelper.clamp((MathHelper.sin(-rowingTime) + 1.0F) / 2.0F, 0.0F, 1.0F);
+      float yawProgress = MathHelper.clamp((MathHelper.sin(-rowingTime + 1.0F) + 1.0F) / 2.0F, 0.0F, 1.0F);
+      float xRot = MathHelper.lerp(progress, PADDLE_MIN_X_ROT, PADDLE_MAX_X_ROT);
+      float yawOffset = MathHelper.lerp(yawProgress, PADDLE_MIN_Y_ROT, PADDLE_MAX_Y_ROT);
       if (rightSide) {
          paddle.xRot = xRot;
          paddle.yRot = (float)Math.PI - yawOffset + steer;

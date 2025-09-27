@@ -17,6 +17,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class BriggEntity extends AbstractCannonShip{
 
     private static final Vector3d[] LEFT_CANNON_OFFSETS = new Vector3d[]{
@@ -28,6 +30,105 @@ public class BriggEntity extends AbstractCannonShip{
             new Vector3d(1.8D, -0.5D, 1.4D),
             new Vector3d(1.8D, -0.5D, 0.0D),
             new Vector3d(1.8D, -0.5D, -1.4D)
+    };
+    private static final Vector3d DRIVER_PORT = new Vector3d(-2.0D, 0.0D, 0.75D);
+    private static final Vector3d DRIVER_STARBOARD = new Vector3d(-2.0D, 0.0D, -0.75D);
+    private static final Vector3d MID_STARBOARD = new Vector3d(-1.0D, 0.0D, -0.75D);
+    private static final Vector3d MID_PORT = new Vector3d(-1.0D, 0.0D, 0.75D);
+    private static final Vector3d CENTER_STARBOARD = new Vector3d(0.0D, 0.0D, -0.75D);
+    private static final Vector3d CENTER_PORT = new Vector3d(0.0D, 0.0D, 0.75D);
+    private static final Vector3d AFT_STARBOARD = new Vector3d(1.0D, 0.0D, -0.75D);
+    private static final Vector3d AFT_PORT = new Vector3d(1.0D, 0.0D, 0.75D);
+    private static final Vector3d BOW_PORT = new Vector3d(2.25D, 0.0D, 0.5D);
+    private static final Vector3d BOW_STARBOARD = new Vector3d(2.25D, 0.0D, -0.5D);
+    private static final Vector3d BOW_CENTER = new Vector3d(2.25D, 0.0D, 0.0D);
+    private static final Vector3d[] PASSENGER_OFFSETS = new Vector3d[]{
+            DRIVER_PORT,
+            DRIVER_STARBOARD,
+            MID_STARBOARD,
+            MID_PORT,
+            CENTER_STARBOARD,
+            CENTER_PORT,
+            AFT_STARBOARD,
+            AFT_PORT,
+            BOW_PORT,
+            BOW_STARBOARD,
+            BOW_CENTER
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_TEN = new Vector3d[]{
+            DRIVER_PORT,
+            DRIVER_STARBOARD,
+            MID_STARBOARD,
+            MID_PORT,
+            CENTER_STARBOARD,
+            CENTER_PORT,
+            AFT_STARBOARD,
+            AFT_PORT,
+            BOW_PORT,
+            BOW_STARBOARD
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_NINE = new Vector3d[]{
+            DRIVER_PORT,
+            DRIVER_STARBOARD,
+            MID_STARBOARD,
+            MID_PORT,
+            CENTER_STARBOARD,
+            CENTER_PORT,
+            AFT_STARBOARD,
+            AFT_PORT,
+            BOW_CENTER
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_EIGHT = new Vector3d[]{
+            DRIVER_PORT,
+            DRIVER_STARBOARD,
+            MID_STARBOARD,
+            MID_PORT,
+            CENTER_STARBOARD,
+            CENTER_PORT,
+            AFT_STARBOARD,
+            AFT_PORT
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_SEVEN = new Vector3d[]{
+            DRIVER_PORT,
+            DRIVER_STARBOARD,
+            MID_STARBOARD,
+            MID_PORT,
+            CENTER_STARBOARD,
+            CENTER_PORT,
+            AFT_STARBOARD
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_SIX = new Vector3d[]{
+            DRIVER_PORT,
+            DRIVER_STARBOARD,
+            MID_STARBOARD,
+            MID_PORT,
+            CENTER_STARBOARD,
+            CENTER_PORT
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_FIVE = new Vector3d[]{
+            DRIVER_PORT,
+            DRIVER_STARBOARD,
+            MID_STARBOARD,
+            MID_PORT,
+            CENTER_STARBOARD
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_FOUR = new Vector3d[]{
+            DRIVER_PORT,
+            DRIVER_STARBOARD,
+            MID_STARBOARD,
+            MID_PORT
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_THREE = new Vector3d[]{
+            DRIVER_PORT,
+            DRIVER_STARBOARD,
+            MID_STARBOARD
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_TWO = new Vector3d[]{
+            DRIVER_PORT,
+            DRIVER_STARBOARD
+    };
+    private static final Vector3d[] PASSENGER_LAYOUT_ONE = new Vector3d[]{
+            DRIVER_PORT
     };
 
     public BriggEntity(EntityType<? extends BriggEntity> type, World world) {
@@ -52,12 +153,12 @@ public class BriggEntity extends AbstractCannonShip{
 
     @Override
     public double getWidth() {
-        return 4D;
+        return 4.6D;
     }
 
     @Override
     public double getHeight() {
-        return 1.5D;
+        return 1.9D;
     }
 
     @Override
@@ -301,207 +402,50 @@ public class BriggEntity extends AbstractCannonShip{
 
     @Override
     public void positionRider(Entity passenger) {
-        if (hasPassenger(passenger)) {
-            double f = -1.5F;
-            double d = 0.75F;
-            float f1 = (float) ((this.removed ? 0.02D : getPassengersRidingOffset()) + passenger.getMyRidingOffset());
-            if (getPassengers().size() == 2) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.5F;
-                    d = 0.75F;
-                } else {
-                    f = -1.5F;
-                    d = -0.75F;
-                }
-            } else if (getPassengers().size() == 3) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.5F;
-                    d = 0.75F;
-                } else if (i == 1) {
-                    f = -1.5F;
-                    d = -0.75F;
-                } else {
-                    f = -0.5F;
-                    d = -0.75F;
-                }
-            }else if (getPassengers().size() == 4) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.5F;
-                    d = 0.75F;
-                } else if (i == 1) {
-                    f = -1.5F;
-                    d = -0.75F;
-                } else if (i == 2) {
-                    f = -0.5F;
-                    d = -0.75F;
-                } else {
-                    f = -0.5F;
-                    d = 0.75F;
-                }
-            }else if (getPassengers().size() == 5) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.5F;
-                    d = 0.75F;
-                } else if (i == 1) {
-                    f = -1.5F;
-                    d = -0.75F;
-                } else if (i == 2) {
-                    f = -0.5F;
-                    d = -0.75F;
-                } else if (i == 3) {
-                    f = -0.5F;
-                    d = 0.75F;
-                } else {
-                    f = 0.5F;
-                    d = -0.75F;
-                }
-            }else if (getPassengers().size() == 6) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.5F;
-                    d = 0.75F;
-                } else if (i == 1) {
-                    f = -1.5F;
-                    d = -0.75F;
-                } else if (i == 2) {
-                    f = -0.5F;
-                    d = -0.75F;
-                } else if (i == 3) {
-                    f = -0.5F;
-                    d = 0.75F;
-                } else if(i == 4){
-                    f = 0.5F;
-                    d = -0.75F;
-                } else {
-                    f = 0.5F;
-                    d = 0.75F;
-                }
-            }else if (getPassengers().size() == 7) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.5F;
-                    d = 0.75F;
-                } else if (i == 1) {
-                    f = -1.5F;
-                    d = -0.75F;
-                } else if (i == 2) {
-                    f = -0.5F;
-                    d = -0.75F;
-                } else if (i == 3) {
-                    f = -0.5F;
-                    d = 0.75F;
-                } else if (i == 4) {
-                    f = 0.5F;
-                    d = -0.75F;
-                } else if (i == 5) {
-                    f = 0.5F;
-                    d = 0.75F;
-                } else {
-                    f = 1.5F;
-                    d = 0.75F;
-                }
-            }else if (getPassengers().size() == 8) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.5F;
-                    d = 0.75F;
-                } else if (i == 1) {
-                    f = -1.5F;
-                    d = -0.75F;
-                } else if (i == 2) {
-                    f = -0.5F;
-                    d = -0.75F;
-                } else if (i == 3) {
-                    f = -0.5F;
-                    d = 0.75F;
-                } else if (i == 4) {
-                    f = 0.5F;
-                    d = -0.75F;
-                } else if (i == 5) {
-                    f = 0.5F;
-                    d = 0.75F;
-                } else if (i == 6){
-                    f = 1.5F;
-                    d = -0.75F;
-                }else {
-                    f = 1.5F;
-                    d = 0.75F;
-                }
-            }else if (getPassengers().size() == 9) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.5F;
-                    d = 0.75F;
-                } else if (i == 1) {
-                    f = -1.5F;
-                    d = -0.75F;
-                } else if (i == 2) {
-                    f = -0.5F;
-                    d = -0.75F;
-                } else if (i == 3) {
-                    f = -0.5F;
-                    d = 0.75F;
-                } else if (i == 4) {
-                    f = 0.5F;
-                    d = -0.75F;
-                } else if (i == 5) {
-                    f = 0.5F;
-                    d = 0.75F;
-                } else if (i == 6){
-                    f = 1.5F;
-                    d = -0.75F;
-                }else if (i == 7){
-                    f = 1.5F;
-                    d = 0.75F;
-                }else {
-                    f = 2.75F;
-                    d = 0.0F;
-                }
-            }else if (getPassengers().size() == 10) {
-                int i = getPassengers().indexOf(passenger);
-                if (i == 0) {
-                    f = -1.5F;
-                    d = 0.75F;
-                } else if (i == 1) {
-                    f = -1.5F;
-                    d = -0.75F;
-                } else if (i == 2) {
-                    f = -0.5F;
-                    d = -0.75F;
-                } else if (i == 3) {
-                    f = -0.5F;
-                    d = 0.75F;
-                } else if (i == 4) {
-                    f = 0.5F;
-                    d = -0.75F;
-                } else if (i == 5) {
-                    f = 0.5F;
-                    d = 0.75F;
-                } else if (i == 6){
-                    f = 1.5F;
-                    d = -0.75F;
-                }else if (i == 7){
-                    f = 1.5F;
-                    d = 0.75F;
-                }else if (i == 8){
-                    f = 2.75F;
-                    d = 0.5F;
-                }else {
-                    f = 2.75F;
-                    d = -0.5F;
-                }
-            }
-            f = f - 0.5;
-            Vector3d vector3d = (new Vector3d((double)f, 0.0D, 0.0D + d)).yRot(-this.yRot * ((float)Math.PI / 180F) - ((float)Math.PI / 2F));
-            passenger.setPos(this.getX() + vector3d.x, this.getY() + (double)f1, + this.getZ() + vector3d.z);
-            passenger.yRot += this.deltaRotation;
-            //passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
-            applyYawToEntity(passenger);
+        if (!hasPassenger(passenger)) {
+            return;
         }
+
+        List<Entity> passengers = this.getPassengers();
+        int index = passengers.indexOf(passenger);
+        Vector3d[] layout = getSeatLayout();
+        if (layout.length == 0) {
+            return;
+        }
+
+        int seatIndex = MathHelper.clamp(index, 0, layout.length - 1);
+        Vector3d offset = layout[seatIndex];
+        float ridingOffset = (float) ((this.removed ? 0.02D : this.getPassengersRidingOffset()) + passenger.getMyRidingOffset());
+        Vector3d rotated = new Vector3d(offset.x, 0.0D, offset.z)
+                .yRot(-this.yRot * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
+        passenger.setPos(this.getX() + rotated.x, this.getY() + offset.y + ridingOffset, this.getZ() + rotated.z);
+        passenger.yRot += this.deltaRotation;
+        passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
+        applyYawToEntity(passenger);
+    }
+
+    private Vector3d[] getSeatLayout() {
+        int seatCount = MathHelper.clamp(this.getPassengerSize(), 1, PASSENGER_OFFSETS.length);
+        if (seatCount >= PASSENGER_LAYOUT_TEN.length) {
+            return PASSENGER_LAYOUT_TEN;
+        } else if (seatCount == 9) {
+            return PASSENGER_LAYOUT_NINE;
+        } else if (seatCount == 8) {
+            return PASSENGER_LAYOUT_EIGHT;
+        } else if (seatCount == 7) {
+            return PASSENGER_LAYOUT_SEVEN;
+        } else if (seatCount == 6) {
+            return PASSENGER_LAYOUT_SIX;
+        } else if (seatCount == 5) {
+            return PASSENGER_LAYOUT_FIVE;
+        } else if (seatCount == 4) {
+            return PASSENGER_LAYOUT_FOUR;
+        } else if (seatCount == 3) {
+            return PASSENGER_LAYOUT_THREE;
+        } else if (seatCount == 2) {
+            return PASSENGER_LAYOUT_TWO;
+        }
+        return PASSENGER_LAYOUT_ONE;
     }
 
     @Override

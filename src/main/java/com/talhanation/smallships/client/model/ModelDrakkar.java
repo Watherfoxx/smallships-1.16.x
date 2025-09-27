@@ -93,6 +93,7 @@ public class ModelDrakkar extends EntityModel<AbstractBannerUser> {
    public ModelRenderer part1_3;
    public ModelRenderer part1_4;
    public ModelRenderer part25_1;
+   public ModelRenderer BannerStick;
 
    private static final float HULL_Y_ROT = ((float)Math.PI / 2F);
    private static final float PADDLE_MIN_X_ROT = -1.0471975803375244F;
@@ -367,6 +368,9 @@ public class ModelDrakkar extends EntityModel<AbstractBannerUser> {
       this.Mast_1.addBox(0.0F, -26.0F, 0.0F, 3.0F, 20.0F, 4.0F, 0.0F, 0.0F, 0.0F);
       this.Mast_1.addBox(0.0F, -46.0F, 0.0F, 3.0F, 20.0F, 4.0F, 0.0F, 0.0F, 0.0F);
       this.Mast_1.addBox(0.0F, -66.0F, 0.0F, 3.0F, 20.0F, 4.0F, 0.0F, 0.0F, 0.0F);
+      this.BannerStick = new ModelRenderer(this);
+      this.BannerStick.setPos(0.0F, 0.0F, 0.0F);
+      this.BannerStick.texOffs(8, 0).addBox(14.0F, -85.0F, -2.0F, 1.0F, 15.0F, 1.0F, 0.0F, false);
       this.Sail_1_2_1 = new ModelRenderer(this, 96, 0);
       this.Sail_1_2_1.setPos(0.0F, 4.7F, 0.0F);
       this.Sail_1_2_1.addBox(0.0F, 0.0F, 10.0F, 1.0F, 5.0F, 10.0F, 0.0F, 0.0F, 0.0F);
@@ -679,6 +683,7 @@ public class ModelDrakkar extends EntityModel<AbstractBannerUser> {
       this.part2.addChild(this.part1_4);
       this.Sail_1_2_1.addChild(this.Sail_1_2_2);
       this.botom_1.addChild(this.Mast_1);
+      this.botom_1.addChild(this.BannerStick);
       this.Sail_1_2.addChild(this.Sail_1_2_1);
       this.Mast_1.addChild(this.Sail_z4);
       this.botom_1.addChild(this.side_19_2);
@@ -759,6 +764,7 @@ public class ModelDrakkar extends EntityModel<AbstractBannerUser> {
       this.Cargo1.visible = cargo >= 2;
       animatePaddles(drakkar, 0, limbSwing, this.leftPaddles, false);
       animatePaddles(drakkar, 1, limbSwing, this.rightPaddles, true);
+      this.BannerStick.visible = entityIn.getHasBanner();
    }
 
    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
