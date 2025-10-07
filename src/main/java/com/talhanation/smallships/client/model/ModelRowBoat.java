@@ -176,16 +176,11 @@ public class ModelRowBoat extends EntityModel<AbstractBannerUser> {
    }
 
    private static void setPaddleRotation(ModelRenderer paddle, float rowingTime, float steer, boolean rightSide) {
-      float progress = MathHelper.clamp((MathHelper.sin(-rowingTime) + 1.0F) / 2.0F, 0.0F, 1.0F);
-      float yawProgress = MathHelper.clamp((MathHelper.sin(-rowingTime + 1.0F) + 1.0F) / 2.0F, 0.0F, 1.0F);
-      float xRot = MathHelper.lerp(progress, PADDLE_MIN_X_ROT, PADDLE_MAX_X_ROT);
-      float yawOffset = MathHelper.lerp(yawProgress, PADDLE_MIN_Y_ROT, PADDLE_MAX_Y_ROT);
+      paddle.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-rowingTime) + 1.0F) / 2.0F));
+      paddle.yRot = 3.1415927F - (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-rowingTime + 1.0F) + 1.0F) / 2.0F));
       if (rightSide) {
-         paddle.xRot = xRot;
-         paddle.yRot = (float)Math.PI - yawOffset + steer;
-      } else {
-         paddle.xRot = xRot;
-         paddle.yRot = yawOffset - steer;
+         paddle.xRot = (float)MathHelper.clamp(-1.0471975803375244D, -0.2617993950843811D, (double)((MathHelper.sin(-rowingTime) + 1.0F) / 2.0F));
+         paddle.yRot = (float)MathHelper.clamp(-0.7853981852531433D, 0.7853981852531433D, (double)((MathHelper.sin(-rowingTime + 1.0F) + 1.0F) / 2.0F));
       }
    }
 }

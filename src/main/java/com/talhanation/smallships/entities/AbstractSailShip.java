@@ -393,7 +393,7 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
         float blockedmodf = 1;
 
         float maxSp = (float) ((getMaxSpeed() / (12F * 1.15F)) * modifier);
-        float maxBackSp = (float) (getMaxReverseSpeed() * modifier);
+        float maxBackSp = (float) ((getMaxReverseSpeed() / (12F * 1.15F)) * modifier);
         float maxRotSp = (float) (((getMaxRotationSpeed() * 0.1F) + 1.8F) * modifier);
 
         float speed = MathUtils.subtractToZero(getSpeed(), getVelocityResistance());

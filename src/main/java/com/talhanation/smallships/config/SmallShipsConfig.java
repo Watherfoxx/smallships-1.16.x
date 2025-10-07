@@ -94,9 +94,9 @@ public class SmallShipsConfig {
 
         ShipZoom = BUILDER.comment("\n" +"----Ship Zoom.----" + "\n" +
                         "\t" + "(takes effect after restart)" + "\n" +
-                        "\t" + "default: 0.2")
+                        "\t" + "default: 16")
                 .worldRestart()
-                .defineInRange("ShipZoom", 6D, 1D, 20D);
+                .defineInRange("ShipZoom", 16D, 1D, 20D);
 
         EnterThirdPerson = BUILDER.comment("\n" +"----Should the player enter ships in third person?----" + "\n" +
                         "\t" + "(takes effect after restart)" + "\n" +
@@ -156,9 +156,9 @@ public class SmallShipsConfig {
 
         GalleySpeedFactor = BUILDER.comment("\n" +"----Galley Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 2.3")
+                "\t" + "default: 5.0")
                 .worldRestart()
-                .defineInRange("GalleySpeedFactor", 2.3, 0.0, 20.0);
+                .defineInRange("GalleySpeedFactor", 5.0, 0.0, 20.0);
 
         GalleyTurnFactor = BUILDER.comment("\n" +"----Galley Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -193,9 +193,9 @@ public class SmallShipsConfig {
 
         CogSpeedFactor = BUILDER.comment("\n" +"----Cog Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 2.25" )
+                "\t" + "default: 5.5" )
                 .worldRestart()
-                .defineInRange("CogSpeedFactor", 2.25, 0.0, 20.0);
+                .defineInRange("CogSpeedFactor", 5.5, 0.0, 20.0);
 
         CogTurnFactor = BUILDER.comment("\n" +"----Cog Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -230,9 +230,9 @@ public class SmallShipsConfig {
 
         WarGalleySpeedFactor = BUILDER.comment("\n" +"----War Galley Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 2.15")
+                "\t" + "default: 5.5")
                 .worldRestart()
-                .defineInRange("WarGalleySpeedFactor", 2.15, 0.0, 20.0);
+                .defineInRange("WarGalleySpeedFactor", 5.5, 0.0, 20.0);
 
         WarGalleyTurnFactor = BUILDER.comment("\n" +"----War Galley Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -267,9 +267,9 @@ public class SmallShipsConfig {
 
         DrakkarSpeedFactor = BUILDER.comment("\n" +"----Drakkar Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 2.25")
+                "\t" + "default: 5.5")
                 .worldRestart()
-                .defineInRange("DrakkarSpeedFactor", 2.25, 0.0, 20.0);
+                .defineInRange("DrakkarSpeedFactor", 5.5, 0.0, 20.0);
 
         DrakkarTurnFactor = BUILDER.comment("\n" +"----Drakkar Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -311,9 +311,9 @@ public class SmallShipsConfig {
 
         BriggSpeedFactor = BUILDER.comment("\n" +"----Brigg Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 2.28" )
+                "\t" + "default: 6.0" )
                 .worldRestart()
-                .defineInRange("BriggSpeedFactor", 2.28, 0.0, 20.0);
+                .defineInRange("BriggSpeedFactor", 6.0, 0.0, 20.0);
 
         BriggTurnFactor = BUILDER.comment("\n" +"----Brigg Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -348,9 +348,9 @@ public class SmallShipsConfig {
 
         DhowSpeedFactor = BUILDER.comment("\n" +"----Dhow Speed Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
-                "\t" + "default: 2.35" )
+                "\t" + "default: 4.0" )
                 .worldRestart()
-                .defineInRange("DhowSpeedFactor", 2.35, 0.0, 20.0);
+                .defineInRange("DhowSpeedFactor", 4.0, 0.0, 20.0);
 
         DhowTurnFactor = BUILDER.comment("\n" +"----Dhow Turn Factor.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +

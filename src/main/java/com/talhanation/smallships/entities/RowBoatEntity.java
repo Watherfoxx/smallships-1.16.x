@@ -86,12 +86,12 @@ public class RowBoatEntity extends AbstractCannonShip {
 
     @Override
     public Double getMaxReverseSpeed() {
-        return getMaxSpeed() / 5;
+        return getMaxSpeed() / 4;
     }
 
     @Override
     public Double getAcceleration() {
-        return 0.06D;
+        return 0.3D;
     }
 
     @Override
