@@ -121,12 +121,12 @@ public class GalleyEntity extends AbstractCannonShip {
 
     @Override
     public Double getMaxReverseSpeed() {
-        return getMaxSpeed() / 5;
+        return SmallShipsConfig.GalleyMaxReverseSpeed.get();
     }
 
     @Override
     public Double getAcceleration() {
-        return 0.024D;
+        return SmallShipsConfig.GalleyAcceleration.get();
     }
 
     @Override
@@ -136,12 +136,12 @@ public class GalleyEntity extends AbstractCannonShip {
 
     @Override
     public Double getRotationAcceleration() {
-        return 0.3D;
+        return SmallShipsConfig.GalleyRotationAcceleration.get();
     }
 
     @Override
     public float getVelocityResistance() {
-        return 0.008F;
+        return SmallShipsConfig.GalleyVelocityResistance.get().floatValue();
     }
 
     @Override

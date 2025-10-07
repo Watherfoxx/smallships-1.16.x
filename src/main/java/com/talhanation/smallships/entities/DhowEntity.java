@@ -102,12 +102,12 @@ public class DhowEntity extends AbstractCannonShip {
 
     @Override
     public Double getMaxReverseSpeed() {
-        return getMaxSpeed() / 5;
+        return SmallShipsConfig.DhowMaxReverseSpeed.get();
     }
 
     @Override
     public Double getAcceleration() {
-        return 0.025D;
+        return SmallShipsConfig.DhowAcceleration.get();
     }
 
     @Override
@@ -117,12 +117,12 @@ public class DhowEntity extends AbstractCannonShip {
 
     @Override
     public Double getRotationAcceleration() {
-        return 0.35D * SmallShipsConfig.DhowTurnFactor.get();
+        return SmallShipsConfig.DhowRotationAcceleration.get();
     }
 
     @Override
     public float getVelocityResistance() {
-        return 0.0085F;
+        return SmallShipsConfig.DhowVelocityResistance.get().floatValue();
     }
 
     @Override

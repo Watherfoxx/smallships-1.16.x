@@ -131,6 +131,7 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
         if (this.getStatus() == Status.IN_WATER) updateWaveAngle();
         updateGravity();
         controlShip();
+        updatePaddles();
         checkPush();
         move(MoverType.SELF, getDeltaMovement());
         //updateWheelRotation();
@@ -593,6 +594,32 @@ public abstract class AbstractSailShip extends AbstractWaterVehicle {
         }
         if (this.level.isClientSide && needsUpdate) {
             Main.SIMPLE_CHANNEL.sendToServer(new MessageControlShip(forward, backward, left, right, player));
+        }
+    }
+
+    protected void updatePaddles() {
+        boolean hasDriver = this.getControllingPassenger() instanceof PlayerEntity;
+        if (!hasDriver) {
+            setPaddleState(false, false);
+        } else {
+            boolean forward = isForward();
+            boolean backward = isBackward();
+            boolean left = isLeft();
+            boolean right = isRight();
+            boolean leftPaddleActive = forward || backward || left;
+            boolean rightPaddleActive = forward || backward || right;
+            setPaddleState(leftPaddleActive, rightPaddleActive);
+        }
+
+        for (int i = 0; i < this.paddlePositions.length; ++i) {
+            if (this.getPaddleState(i)) {
+                this.paddlePositions[i] = (float) ((double) this.paddlePositions[i] + 0.39269908169872414D);
+                if (this.paddlePositions[i] > (float) (Math.PI * 2D)) {
+                    this.paddlePositions[i] -= (float) (Math.PI * 2D);
+                }
+            } else {
+                this.paddlePositions[i] = 0.0F;
+            }
         }
     }
 

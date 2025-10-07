@@ -111,13 +111,13 @@ public class DrakkarEntity extends AbstractCannonShip {
 
     @Override
     public Double getMaxReverseSpeed() {
-        return getMaxSpeed() / 5;
+        return SmallShipsConfig.DrakkarMaxReverseSpeed.get();
     }
 
     @Override
     public Double getAcceleration() {
         //return (float) (0.022F * SmallShipsConfig.DrakkarSpeedFactor.get());
-        return 0.022D;
+        return SmallShipsConfig.DrakkarAcceleration.get();
     }
 
     @Override
@@ -129,12 +129,12 @@ public class DrakkarEntity extends AbstractCannonShip {
     @Override
     public Double getRotationAcceleration() {
         //return (float) (0.32F * SmallShipsConfig.DrakkarTurnFactor.get());
-        return 0.32D;
+        return SmallShipsConfig.DrakkarRotationAcceleration.get();
     }
 
     @Override
     public float getVelocityResistance() {
-        return 0.0085F;
+        return SmallShipsConfig.DrakkarVelocityResistance.get().floatValue();
     }
 
     @Override

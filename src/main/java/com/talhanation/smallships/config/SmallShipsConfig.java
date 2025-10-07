@@ -16,7 +16,7 @@ public class SmallShipsConfig {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static ForgeConfigSpec CONFIG;
     public static ForgeConfigSpec.IntValue VERSION;
-    public static final int NEW_VERSION = 11;
+    public static final int NEW_VERSION = 12;
 
     public static ForgeConfigSpec.BooleanValue PlaySwimmSound;
     public static ForgeConfigSpec.BooleanValue WaterMobFlee;
@@ -28,12 +28,20 @@ public class SmallShipsConfig {
     public static ForgeConfigSpec.DoubleValue RowBoatHealth;
     public static ForgeConfigSpec.DoubleValue RowBoatSpeedFactor;
     public static ForgeConfigSpec.DoubleValue RowBoatTurnFactor;
+    public static ForgeConfigSpec.DoubleValue RowBoatMaxReverseSpeed;
+    public static ForgeConfigSpec.DoubleValue RowBoatAcceleration;
+    public static ForgeConfigSpec.DoubleValue RowBoatRotationAcceleration;
+    public static ForgeConfigSpec.DoubleValue RowBoatVelocityResistance;
     public static ForgeConfigSpec.IntValue RowBoatInventorySize;
     public static ForgeConfigSpec.IntValue RowBoatInventoryPages;
 
     public static ForgeConfigSpec.DoubleValue DrakkarHealth;
     public static ForgeConfigSpec.DoubleValue DrakkarSpeedFactor;
     public static ForgeConfigSpec.DoubleValue DrakkarTurnFactor;
+    public static ForgeConfigSpec.DoubleValue DrakkarMaxReverseSpeed;
+    public static ForgeConfigSpec.DoubleValue DrakkarAcceleration;
+    public static ForgeConfigSpec.DoubleValue DrakkarRotationAcceleration;
+    public static ForgeConfigSpec.DoubleValue DrakkarVelocityResistance;
     public static ForgeConfigSpec.DoubleValue DrakkarIceBreakSpeed;
     public static ForgeConfigSpec.IntValue DrakkarInventorySize;
     public static ForgeConfigSpec.IntValue DrakkarInventoryPages;
@@ -42,6 +50,10 @@ public class SmallShipsConfig {
     public static ForgeConfigSpec.DoubleValue GalleyHealth;
     public static ForgeConfigSpec.DoubleValue GalleySpeedFactor;
     public static ForgeConfigSpec.DoubleValue GalleyTurnFactor;
+    public static ForgeConfigSpec.DoubleValue GalleyMaxReverseSpeed;
+    public static ForgeConfigSpec.DoubleValue GalleyAcceleration;
+    public static ForgeConfigSpec.DoubleValue GalleyRotationAcceleration;
+    public static ForgeConfigSpec.DoubleValue GalleyVelocityResistance;
     public static ForgeConfigSpec.IntValue GalleyInventorySize;
     public static ForgeConfigSpec.IntValue GalleyInventoryPages;
     public static ForgeConfigSpec.IntValue GalleyMaxCannons;
@@ -49,6 +61,10 @@ public class SmallShipsConfig {
     public static ForgeConfigSpec.DoubleValue WarGalleyHealth;
     public static ForgeConfigSpec.DoubleValue WarGalleySpeedFactor;
     public static ForgeConfigSpec.DoubleValue WarGalleyTurnFactor;
+    public static ForgeConfigSpec.DoubleValue WarGalleyMaxReverseSpeed;
+    public static ForgeConfigSpec.DoubleValue WarGalleyAcceleration;
+    public static ForgeConfigSpec.DoubleValue WarGalleyRotationAcceleration;
+    public static ForgeConfigSpec.DoubleValue WarGalleyVelocityResistance;
     public static ForgeConfigSpec.IntValue WarGalleyInventorySize;
     public static ForgeConfigSpec.IntValue WarGalleyInventoryPages;
     public static ForgeConfigSpec.IntValue WarGalleyMaxCannons;
@@ -56,6 +72,10 @@ public class SmallShipsConfig {
     public static ForgeConfigSpec.DoubleValue DhowHealth;
     public static ForgeConfigSpec.DoubleValue DhowSpeedFactor;
     public static ForgeConfigSpec.DoubleValue DhowTurnFactor;
+    public static ForgeConfigSpec.DoubleValue DhowMaxReverseSpeed;
+    public static ForgeConfigSpec.DoubleValue DhowAcceleration;
+    public static ForgeConfigSpec.DoubleValue DhowRotationAcceleration;
+    public static ForgeConfigSpec.DoubleValue DhowVelocityResistance;
     public static ForgeConfigSpec.IntValue DhowInventorySize;
     public static ForgeConfigSpec.IntValue DhowInventoryPages;
     public static ForgeConfigSpec.IntValue DhowMaxCannons;
@@ -63,6 +83,10 @@ public class SmallShipsConfig {
     public static ForgeConfigSpec.DoubleValue CogHealth;
     public static ForgeConfigSpec.DoubleValue CogSpeedFactor;
     public static ForgeConfigSpec.DoubleValue CogTurnFactor;
+    public static ForgeConfigSpec.DoubleValue CogMaxReverseSpeed;
+    public static ForgeConfigSpec.DoubleValue CogAcceleration;
+    public static ForgeConfigSpec.DoubleValue CogRotationAcceleration;
+    public static ForgeConfigSpec.DoubleValue CogVelocityResistance;
     public static ForgeConfigSpec.IntValue CogInventorySize;
     public static ForgeConfigSpec.IntValue CogInventoryPages;
     public static ForgeConfigSpec.IntValue CogMaxCannons;
@@ -70,6 +94,10 @@ public class SmallShipsConfig {
     public static ForgeConfigSpec.DoubleValue BriggHealth;
     public static ForgeConfigSpec.DoubleValue BriggSpeedFactor;
     public static ForgeConfigSpec.DoubleValue BriggTurnFactor;
+    public static ForgeConfigSpec.DoubleValue BriggMaxReverseSpeed;
+    public static ForgeConfigSpec.DoubleValue BriggAcceleration;
+    public static ForgeConfigSpec.DoubleValue BriggRotationAcceleration;
+    public static ForgeConfigSpec.DoubleValue BriggVelocityResistance;
     public static ForgeConfigSpec.IntValue BriggInventorySize;
     public static ForgeConfigSpec.IntValue BriggInventoryPages;
     public static ForgeConfigSpec.IntValue BriggMaxCannons;
@@ -135,6 +163,30 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("RowBoatTurnFactor", 0.8, 0.0, 1.0);
 
+        RowBoatMaxReverseSpeed = BUILDER.comment("\n" +"----Row Boat Max Reverse Speed.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: 0.5")
+                .worldRestart()
+                .defineInRange("RowBoatMaxReverseSpeed", 0.5, 0.0, 20.0);
+
+        RowBoatAcceleration = BUILDER.comment("\n" +"----Row Boat Acceleration.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: 0.3")
+                .worldRestart()
+                .defineInRange("RowBoatAcceleration", 0.3, 0.0, 5.0);
+
+        RowBoatRotationAcceleration = BUILDER.comment("\n" +"----Row Boat Rotation Acceleration.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: 0.6")
+                .worldRestart()
+                .defineInRange("RowBoatRotationAcceleration", 0.6, 0.0, 5.0);
+
+        RowBoatVelocityResistance = BUILDER.comment("\n" +"----Row Boat Velocity Resistance.----" + "\n" +
+                        "\t" + "(takes effect after restart)" + "\n" +
+                        "\t" + "default: 0.009")
+                .worldRestart()
+                .defineInRange("RowBoatVelocityResistance", 0.009, 0.0, 1.0);
+
         RowBoatInventorySize = BUILDER.comment("\n" +"----Row Boat Inventory Size.----" + "\n" +
                         "\t" + "(takes effect after restart)" + "\n" +
                         "\t" + "default: 9")
@@ -165,6 +217,30 @@ public class SmallShipsConfig {
                 "\t" + "default: 0.5")
                 .worldRestart()
                 .defineInRange("GalleyTurnFactor", 0.5, 0.0, 1.0);
+
+        GalleyMaxReverseSpeed = BUILDER.comment("\n" +"----Galley Max Reverse Speed.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1.0")
+                .worldRestart()
+                .defineInRange("GalleyMaxReverseSpeed", 1.0, 0.0, 20.0);
+
+        GalleyAcceleration = BUILDER.comment("\n" +"----Galley Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.024")
+                .worldRestart()
+                .defineInRange("GalleyAcceleration", 0.024, 0.0, 5.0);
+
+        GalleyRotationAcceleration = BUILDER.comment("\n" +"----Galley Rotation Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.3")
+                .worldRestart()
+                .defineInRange("GalleyRotationAcceleration", 0.3, 0.0, 5.0);
+
+        GalleyVelocityResistance = BUILDER.comment("\n" +"----Galley Velocity Resistance.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.008")
+                .worldRestart()
+                .defineInRange("GalleyVelocityResistance", 0.008, 0.0, 1.0);
 
         GalleyInventorySize = BUILDER.comment("\n" +"----Galley Inventory Size.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -203,6 +279,30 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("CogTurnFactor", 0.1, 0.0, 1.0);
 
+        CogMaxReverseSpeed = BUILDER.comment("\n" +"----Cog Max Reverse Speed.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1.1")
+                .worldRestart()
+                .defineInRange("CogMaxReverseSpeed", 1.1, 0.0, 20.0);
+
+        CogAcceleration = BUILDER.comment("\n" +"----Cog Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.015")
+                .worldRestart()
+                .defineInRange("CogAcceleration", 0.015, 0.0, 5.0);
+
+        CogRotationAcceleration = BUILDER.comment("\n" +"----Cog Rotation Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.3")
+                .worldRestart()
+                .defineInRange("CogRotationAcceleration", 0.3, 0.0, 5.0);
+
+        CogVelocityResistance = BUILDER.comment("\n" +"----Cog Velocity Resistance.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.009")
+                .worldRestart()
+                .defineInRange("CogVelocityResistance", 0.009, 0.0, 1.0);
+
         CogInventorySize = BUILDER.comment("\n" +"----Cog Inventory Size.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 54")
@@ -240,6 +340,30 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("WarGalleyTurnFactor", 0.4, 0.0, 1.0);
 
+        WarGalleyMaxReverseSpeed = BUILDER.comment("\n" +"----War Galley Max Reverse Speed.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1.1")
+                .worldRestart()
+                .defineInRange("WarGalleyMaxReverseSpeed", 1.1, 0.0, 20.0);
+
+        WarGalleyAcceleration = BUILDER.comment("\n" +"----War Galley Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.022")
+                .worldRestart()
+                .defineInRange("WarGalleyAcceleration", 0.022, 0.0, 5.0);
+
+        WarGalleyRotationAcceleration = BUILDER.comment("\n" +"----War Galley Rotation Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.28")
+                .worldRestart()
+                .defineInRange("WarGalleyRotationAcceleration", 0.28, 0.0, 5.0);
+
+        WarGalleyVelocityResistance = BUILDER.comment("\n" +"----War Galley Velocity Resistance.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.0085")
+                .worldRestart()
+                .defineInRange("WarGalleyVelocityResistance", 0.0085, 0.0, 1.0);
+
         WarGalleyInventorySize = BUILDER.comment("\n" +"----War Galley Inventory Size.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 36")
@@ -276,6 +400,30 @@ public class SmallShipsConfig {
                 "\t" + "default: 0.3")
                 .worldRestart()
                 .defineInRange("DrakkarTurnFactor", 0.3, 0.0, 1.0);
+
+        DrakkarMaxReverseSpeed = BUILDER.comment("\n" +"----Drakkar Max Reverse Speed.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1.1")
+                .worldRestart()
+                .defineInRange("DrakkarMaxReverseSpeed", 1.1, 0.0, 20.0);
+
+        DrakkarAcceleration = BUILDER.comment("\n" +"----Drakkar Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.022")
+                .worldRestart()
+                .defineInRange("DrakkarAcceleration", 0.022, 0.0, 5.0);
+
+        DrakkarRotationAcceleration = BUILDER.comment("\n" +"----Drakkar Rotation Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.32")
+                .worldRestart()
+                .defineInRange("DrakkarRotationAcceleration", 0.32, 0.0, 5.0);
+
+        DrakkarVelocityResistance = BUILDER.comment("\n" +"----Drakkar Velocity Resistance.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.0085")
+                .worldRestart()
+                .defineInRange("DrakkarVelocityResistance", 0.0085, 0.0, 1.0);
 
         DrakkarIceBreakSpeed = BUILDER.comment("\n" +"----Drakkar Ice Break Speed.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
@@ -321,6 +469,30 @@ public class SmallShipsConfig {
                 .worldRestart()
                 .defineInRange("BriggTurnFactor", 0.2, 0.0, 1.0);
 
+        BriggMaxReverseSpeed = BUILDER.comment("\n" +"----Brigg Max Reverse Speed.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 1.2")
+                .worldRestart()
+                .defineInRange("BriggMaxReverseSpeed", 1.2, 0.0, 20.0);
+
+        BriggAcceleration = BUILDER.comment("\n" +"----Brigg Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.0135")
+                .worldRestart()
+                .defineInRange("BriggAcceleration", 0.0135, 0.0, 5.0);
+
+        BriggRotationAcceleration = BUILDER.comment("\n" +"----Brigg Rotation Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.3")
+                .worldRestart()
+                .defineInRange("BriggRotationAcceleration", 0.3, 0.0, 5.0);
+
+        BriggVelocityResistance = BUILDER.comment("\n" +"----Brigg Velocity Resistance.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.009")
+                .worldRestart()
+                .defineInRange("BriggVelocityResistance", 0.009, 0.0, 1.0);
+
         BriggInventorySize = BUILDER.comment("\n" +"----Brigg Inventory Size.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +
                 "\t" + "default: 108")
@@ -357,6 +529,30 @@ public class SmallShipsConfig {
                 "\t" + "default: 0.3")
                 .worldRestart()
                 .defineInRange("DhowTurnFactor", 0.3, 0.0, 1.0);
+
+        DhowMaxReverseSpeed = BUILDER.comment("\n" +"----Dhow Max Reverse Speed.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.8")
+                .worldRestart()
+                .defineInRange("DhowMaxReverseSpeed", 0.8, 0.0, 20.0);
+
+        DhowAcceleration = BUILDER.comment("\n" +"----Dhow Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.025")
+                .worldRestart()
+                .defineInRange("DhowAcceleration", 0.025, 0.0, 5.0);
+
+        DhowRotationAcceleration = BUILDER.comment("\n" +"----Dhow Rotation Acceleration.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.105")
+                .worldRestart()
+                .defineInRange("DhowRotationAcceleration", 0.105, 0.0, 5.0);
+
+        DhowVelocityResistance = BUILDER.comment("\n" +"----Dhow Velocity Resistance.----" + "\n" +
+                "\t" + "(takes effect after restart)" + "\n" +
+                "\t" + "default: 0.0085")
+                .worldRestart()
+                .defineInRange("DhowVelocityResistance", 0.0085, 0.0, 1.0);
 
         DhowInventorySize = BUILDER.comment("\n" +"----Dhow Inventory Size.----" + "\n" +
                 "\t" + "(takes effect after restart)" + "\n" +

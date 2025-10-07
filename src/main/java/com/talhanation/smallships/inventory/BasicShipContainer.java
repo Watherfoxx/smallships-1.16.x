@@ -14,6 +14,7 @@ public class BasicShipContainer extends ContainerBase {
     private final IInventory shipInventory;
     private final AbstractInventoryEntity ship;
     private final int startSlot;
+    private final int pageSlotCount;
 
     public BasicShipContainer(int id, AbstractInventoryEntity ship, PlayerInventory playerInventory, int startSlot) {
         super(Main.BASIC_SHIP_CONTAINER_TYPE, id, playerInventory, ship.getInventory());
@@ -21,7 +22,7 @@ public class BasicShipContainer extends ContainerBase {
         this.shipInventory = ship.getInventory();
         this.startSlot = startSlot;
 
-        addShipInventorySlots();
+        this.pageSlotCount = addShipInventorySlots();
         addPlayerInventorySlots();
     }
 
@@ -30,12 +31,27 @@ public class BasicShipContainer extends ContainerBase {
         return 56;
     }
 
-    public void addShipInventorySlots() {
-        for (int k = 0; k < 6; ++k) {
-            for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(shipInventory, l + k * 9 + startSlot, 8 + l * 18,  18 + k * 18));
+    public int addShipInventorySlots() {
+        int columns = Math.max(1, ship.getInventoryPageColumns());
+        int pageSize = Math.max(1, ship.getInventoryPageSize());
+        int totalSlots = shipInventory.getContainerSize();
+        int available = Math.max(0, totalSlots - startSlot);
+        int visibleSlots = Math.min(pageSize, available);
+        int rows = Math.max(1, (int) Math.ceil((double) pageSize / (double) columns));
+        int added = 0;
+
+        for (int row = 0; row < rows && added < visibleSlots; ++row) {
+            for (int col = 0; col < columns && added < visibleSlots; ++col) {
+                int slotIndex = startSlot + col + row * columns;
+                if (slotIndex >= totalSlots) {
+                    continue;
+                }
+                this.addSlot(new Slot(shipInventory, slotIndex, 8 + col * 18, 18 + row * 18));
+                added++;
             }
         }
+
+        return added;
     }
 
     public AbstractInventoryEntity getShip() {
@@ -60,16 +76,17 @@ public class BasicShipContainer extends ContainerBase {
             ItemStack stack = slot.getItem();
             itemstack = stack.copy();
 
-            int invSize = this.shipInventory.getContainerSize();
-            if (invSize > 54) {
-                invSize -= 54;
-            }
+            int invSize = this.pageSlotCount;
 
             if (index < invSize) {
                 if (!this.moveItemStackTo(stack, invSize, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(stack, 0, invSize, false)) {
+            } else if (invSize > 0) {
+                if (!this.moveItemStackTo(stack, 0, invSize, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else {
                 return ItemStack.EMPTY;
             }
 

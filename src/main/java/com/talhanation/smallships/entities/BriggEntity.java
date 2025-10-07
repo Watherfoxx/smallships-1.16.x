@@ -170,12 +170,12 @@ public class BriggEntity extends AbstractCannonShip{
 
     @Override
     public Double getMaxReverseSpeed() {
-        return getMaxSpeed() / 5;
+        return SmallShipsConfig.BriggMaxReverseSpeed.get();
     }
 
     @Override
     public Double getAcceleration() {
-        return 0.0135D; //sensible;
+        return SmallShipsConfig.BriggAcceleration.get(); //sensible;
     }
 
     @Override
@@ -185,12 +185,12 @@ public class BriggEntity extends AbstractCannonShip{
 
     @Override
     public Double getRotationAcceleration() {
-        return 0.3D;
+        return SmallShipsConfig.BriggRotationAcceleration.get();
     }
 
     @Override
     public float getVelocityResistance() {
-        return 0.009F;
+        return SmallShipsConfig.BriggVelocityResistance.get().floatValue();
     }
 
     @Override
