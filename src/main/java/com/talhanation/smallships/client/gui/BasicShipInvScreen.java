@@ -38,12 +38,13 @@ public class BasicShipInvScreen extends ScreenBase<BasicShipContainer> {
         super.init();
         int zeroLeftPos = leftPos + 160;
         int zeroTopPos = topPos + 15;
+        int pageSize = Math.max(1, ship.getInventoryPageSize());
 
         if (ship.getMaxInvPage() > 1 && ship.getInvPage() > 1){
             addButton(new Button(zeroLeftPos - 205, zeroTopPos, 40, 20, new StringTextComponent("<-"), button -> {
                 int targetPage = MathHelper.clamp(ship.getInvPage() - 1, 1, ship.getMaxInvPage());
                 ship.setInvPage(targetPage);
-                int startSlot = (targetPage - 1) * 54;
+                int startSlot = (targetPage - 1) * pageSize;
                 Main.SIMPLE_CHANNEL.sendToServer(new MessageOpenGui(playerInventory.player, ship, startSlot));
             }));
         }
@@ -52,7 +53,7 @@ public class BasicShipInvScreen extends ScreenBase<BasicShipContainer> {
             addButton(new Button(zeroLeftPos + 20, zeroTopPos, 40, 20, new StringTextComponent("->"), button -> {
                     int targetPage = MathHelper.clamp(ship.getInvPage() + 1, 1, ship.getMaxInvPage());
                     ship.setInvPage(targetPage);
-                    int startSlot = (targetPage - 1) * 54;
+                    int startSlot = (targetPage - 1) * pageSize;
                     Main.SIMPLE_CHANNEL.sendToServer(new MessageOpenGui(playerInventory.player, ship, startSlot));
             }));
         }

@@ -86,12 +86,12 @@ public class RowBoatEntity extends AbstractCannonShip {
 
     @Override
     public Double getMaxReverseSpeed() {
-        return getMaxSpeed() / 4;
+        return SmallShipsConfig.RowBoatMaxReverseSpeed.get();
     }
 
     @Override
     public Double getAcceleration() {
-        return 0.3D;
+        return SmallShipsConfig.RowBoatAcceleration.get();
     }
 
     @Override
@@ -101,12 +101,12 @@ public class RowBoatEntity extends AbstractCannonShip {
 
     @Override
     public Double getRotationAcceleration() {
-        return 0.6D;
+        return SmallShipsConfig.RowBoatRotationAcceleration.get();
     }
 
     @Override
     public float getVelocityResistance() {
-        return 0.009F;
+        return SmallShipsConfig.RowBoatVelocityResistance.get().floatValue();
     }
 
     @Override

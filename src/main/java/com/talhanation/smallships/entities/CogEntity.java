@@ -113,12 +113,12 @@ public class CogEntity extends AbstractCannonShip{
 
     @Override
     public Double getMaxReverseSpeed() {
-        return getMaxSpeed() / 5;
+        return SmallShipsConfig.CogMaxReverseSpeed.get();
     }
 
     @Override
     public Double getAcceleration() {
-        return 0.015D; //sensible
+        return SmallShipsConfig.CogAcceleration.get(); //sensible
     }
 
     @Override
@@ -128,12 +128,12 @@ public class CogEntity extends AbstractCannonShip{
 
     @Override
     public Double getRotationAcceleration() {
-        return 0.3D;
+        return SmallShipsConfig.CogRotationAcceleration.get();
     }
 
     @Override
     public float getVelocityResistance() {
-        return 0.009F;
+        return SmallShipsConfig.CogVelocityResistance.get().floatValue();
     }
 
     public float getCargoModifier() {

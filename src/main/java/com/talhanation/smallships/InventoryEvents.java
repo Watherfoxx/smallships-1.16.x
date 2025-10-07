@@ -15,10 +15,18 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class InventoryEvents {
 
     public static void openShipGUI(PlayerEntity player, AbstractInventoryEntity invEntity, int startSlot) {
+        int pageSize = Math.max(1, invEntity.getInventoryPageSize());
         int maxPage = Math.max(1, invEntity.getMaxInvPage());
-        int requestedPage = startSlot / 54 + 1;
+        int requestedPage = startSlot / pageSize + 1;
         int clampedPage = MathHelper.clamp(requestedPage, 1, maxPage);
-        int slotOffset = (clampedPage - 1) * 54;
+        int slotOffset = (clampedPage - 1) * pageSize;
+        int totalSize = Math.max(0, invEntity.getInventorySize());
+        if (totalSize > 0) {
+            slotOffset = Math.min(slotOffset, Math.max(0, totalSize - 1));
+            slotOffset = (slotOffset / pageSize) * pageSize;
+        } else {
+            slotOffset = 0;
+        }
         invEntity.setInvPage(clampedPage);
 
         if (player instanceof ServerPlayerEntity) {

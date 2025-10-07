@@ -87,14 +87,23 @@ public abstract class AbstractInventoryEntity extends AbstractSailShip {
     }
 
     public int getMaxInvPage(){
+        int pageSize = Math.max(1, getInventoryPageSize());
         int configured = Math.max(1, getConfiguredInventoryPages());
         int size = Math.max(0, this.getInventorySize());
-        int required = Math.max(1, (size + 53) / 54);
+        int required = Math.max(1, (size + pageSize - 1) / pageSize);
         return Math.max(configured, required);
     }
 
     public int getConfiguredInventoryPages() {
         return 1;
+    }
+
+    public int getInventoryPageSize() {
+        return 54;
+    }
+
+    public int getInventoryPageColumns() {
+        return 9;
     }
 
     public int getInvPage(){
@@ -145,13 +154,17 @@ public abstract class AbstractInventoryEntity extends AbstractSailShip {
         int average = (slotCount + oldSlots) / 2;
 
 
-        if (average > 27 * getMaxInvPage()) {
+        int pageSize = Math.max(1, getInventoryPageSize());
+        int capacity = Math.max(1, pageSize * Math.max(1, getMaxInvPage()));
+        double ratio = capacity > 0 ? (double) average / (double) capacity : 0D;
+
+        if (ratio > 0.5D) {
             x = 4;
-        } else if (average > 16 * getMaxInvPage()) {
+        } else if (ratio > 16D / 54D) {
             x = 3;
-        } else if (average > 8 * getMaxInvPage()) {
+        } else if (ratio > 8D / 54D) {
             x = 2;
-        } else if (average > 2 * getMaxInvPage()) {
+        } else if (ratio > 2D / 54D) {
             x = 1;
         } else {
             x = 0;
